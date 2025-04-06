@@ -3,9 +3,9 @@ title: "Organize a package"
 date: today
 ---
 
-In order to follow the steps below, you’ll need to have both [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both are command-line tools, meaning you’ll use your terminal to run commands that perform various actions.
+In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both are command-line tools, meaning you'll use your terminal to run commands that perform various actions.
 
-Let’s assume we’re naming our Python package *"sunflower"*.
+Let's assume we're naming our Python package *"sunflower"*.
 
 ## Initialize the directory
 
@@ -82,7 +82,7 @@ SOFTWARE.
 
 ### `.git/`
 
-This is a directory used internally by the Git software to track all changes in the project. Assuming that the first *"sunflower ’* directory is in your `Desktop/` directory, you should create this directory by running the `git init` command when you are in the `Desktop/sunflower/` directory.
+This is a directory used internally by the Git software to track all changes in the project. Assuming that the first *"sunflower"* directory is in your `Desktop/` directory, you should create this directory by running the `git init` command when you are in the `Desktop/sunflower/` directory.
 
 It's very likely that you won't see it, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with `.`, but it doesn't matter.
 
@@ -151,7 +151,7 @@ A file that we will use to test and use our package. It's optional but very prac
 
 <br>
 
-As you can see, we haven't written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this :
+As you can see, we haven't written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this:
 
 ```markdown
 sunflower/
@@ -167,7 +167,7 @@ sunflower/
 
 ## Add Python code
 
-When creating a Python package, we want to write **a reusable piece of code**, not just put in a few scripts that do things. To illustrate :
+When creating a Python package, we want to write **a reusable piece of code**, not just put in a few scripts that do things. To illustrate:
 
 ::: {.panel-tabset}
 
@@ -189,7 +189,7 @@ def say_hello(name):
    print(message)
 ```
 
-The code above does ‘nothing’. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:
+The code above does 'nothing'. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:
 
 ```{python}
 say_hello("Joseph")
@@ -199,7 +199,7 @@ say_hello("Joseph")
 
 Here, we'll keep things simple and assume that we only want to provide functions and classes in our package.
 
-Now, let's create our first Python module (which is just a file ending in `.py`). We'll call it `module1.py`, but it can be anything. The only thing we want to stick to when naming files is :
+Now, let's create our first Python module (which is just a file ending in `.py`). We'll call it `module1.py`, but it can be anything. The only thing we want to stick to when naming files is:
 
 - use lowercase only
 - avoid spaces and odd characters
@@ -243,14 +243,14 @@ sunflower/
 └── pyproject.toml
 ```
 
-In `module1.py`, we're going to add our very first function to our package. For example, we'll create a `count_sunflower()` function. This function will count how many times the word ‘sunflower’ occurs in a given string.
+In `module1.py`, we're going to add our very first function to our package. For example, we'll create a `count_sunflower()` function. This function will count how many times the word 'sunflower' occurs in a given string.
 
 ```py
 import re
 
 def count_sunflowers(s):
    s = re.sub(r"[^a-zA-Z\s]", "", s)  # Remove non-text characters
-   s = s.lower()  # Convert to lowercase
+   s = s.lower()                      # Convert to lowercase
    n_sunflower = s.split().count("sunflower")
    n_sunflowers = s.split().count("sunflowers")
    return n_sunflower + n_sunflowers
@@ -379,7 +379,7 @@ def _clean_string(s):
    return s
 ```
 
-Our code in `module1.py` should now become :
+Our code in `module1.py` should now become:
 
 ```py
 from .module2 import _clean_string
@@ -394,7 +394,7 @@ def count_sunflowers(s):
 We now have 2 functions:
 
 - `count_sunflowers()` a **public** function that users of the package will use.
-- `_clean_string()` a **private** function used internally. The underscore (‘`_`’) at the beginning of the function name tells other people that it should not be used outside the package from which it came.
+- `_clean_string()` a **private** function used internally. The underscore ('`_`') at the beginning of the function name tells other people that it should not be used outside the package from which it came.
 
 Note that `_clean_string()` is still usable by users if they run it:
 
