@@ -1,14 +1,15 @@
 ---
 title: "Organize a package"
+date: today
 ---
 
-In order to follow the following steps, you need to have both [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both of them are CLI. This means that using your terminal, you'll be able to run commands that do things.
+In order to follow the steps below, you’ll need to have both [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both are command-line tools, meaning you’ll use your terminal to run commands that perform various actions.
 
-Let's assume we name our Python package *"sunflower"*.
+Let’s assume we’re naming our Python package *"sunflower"*.
 
 ## Initialize the directory
 
-The very first step, it to create a new directory named *"sunflower"*. In this directory, we create another directory, also named *"sunflower"*. This will looks like this:
+The very first step is to create a new directory named *"sunflower"*. Inside this directory, create another directory with the same name. The structure should look like this:
 
 ```markdown
 sunflower/
@@ -17,13 +18,15 @@ sunflower/
 
 ## Add main Python project files
 
-We need to create a few new files, that will be at the root of the project.
+Next, we need to create a few essential files at the root of the project.
 
 ::: {.panel-tabset}
 
 ### `pyproject.toml`
 
-All the metadata of the package. It will contain many info useful when we'll want to distribute this package PyPI so that everyone can install it easily. Here is a simple version of this file.
+All the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily.
+
+Here is a simple version of this file:
 
 ```toml
 [project]
@@ -49,7 +52,11 @@ Issues = "https://github.com/user_name/sunflower/issues"
 
 ### `LICENSE`
 
-A basic text file that contains the license of your package. This is important because it tells other people what they are allowed to do with your package. This is specific to every project, but you can learn more at [choosealicence.com](https://choosealicense.com/). Here is a example of the most common license: the MIT license.
+A basic text file containing the licence for your package. This licence is important because it tells other people what they are allowed to do with your package.
+
+It is specific to each project, but you can find out more at [choosealicence.com] (https://choosealicense.com/).
+
+Here is an example of the most common licence: the MIT licence.
 
 ```txt
 Copyright (c) 2025 Your Name
@@ -75,11 +82,15 @@ SOFTWARE.
 
 ### `.git/`
 
-This is a directory used internally by the Git software to track every changes in the project. Assuming the first *"sunflower"* directory is in your `Desktop/` directory, you need to create this directory by running the `git init` command when you are in the `Desktop/sunflower/` directory. It's very likely that will **not see it**, as most operating systems (Windows, MacOS, etc) hide files/directories that start with a "`.`", but it does not matter.
+This is a directory used internally by the Git software to track all changes in the project. Assuming that the first *"sunflower ’* directory is in your `Desktop/` directory, you should create this directory by running the `git init` command when you are in the `Desktop/sunflower/` directory.
+
+It's very likely that you won't see it, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with `.`, but it doesn't matter.
 
 ### `.gitignore`
 
-A file where each line describes one or multiple files/directories that are not explicitely part of the project or not relevant in general. Don't worry too much about it, you can just start with the example content below. It's very likely that will **not see it**, as most operating systems (Windows, MacOS, etc) hide files/directories that start with a "`.`", but it does not matter.
+A file in which each line describes one or more files/directories that are not explicitly part of the project or are not relevant in general. Don't worry too much about this, you can just start with the example content below.
+
+It is very likely that you will **not** see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with `.`, but that doesn't matter.
 
 ```txt
 # Python-generated files
@@ -112,11 +123,17 @@ sandbox.ipynb
 
 ### `.venv/`
 
-A directory that contains all the things we need to properly work in our Python environment. It contains a Python interpreter, all the packages used in the project (e.g `numpy`, `requests`, etc), and a few other things. The best way to create one is to run `uv venv`. It's very likely that will **not see it**, as most operating systems (Windows, MacOS, etc) hide files/directories that start with a "`.`", but it does not matter.
+A directory containing all the things we need to work properly in our Python environment. It contains a Python interpreter, all the packages used in the project (e.g. `numpy`, `requests`, etc), and a few other things.
+
+The best way to create one is to run `uv venv`.
+
+It is very likely that you will **not** see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with `.`, but that doesn't matter.
 
 ### `README.md`
 
-A markdown file that describes the project, give hints on how to use it, how to install etc. There is no rule on what to do with this file, it's just used to tell people what's the first thing they should read before using your package. For instance, it could be something like this:
+A markdown file that describes the project, gives advice on how to use it, install it and so on. There are no rules about what to do with this file, it's just used to tell people what is the first thing they should read before using your package.
+
+For example, it could be something like this:
 
 ```md
 # sunflower: my cool Python package
@@ -128,13 +145,13 @@ It's a new project, but it will be available soon!
 
 ### `sandbox.py`
 
-A file that we'll use to test and use our package. It's facultative but very convenient.
+A file that we will use to test and use our package. It's optional but very practical.
 
 :::
 
 <br>
 
-As you can see, we haven't written a single line of Python code, and yet we already have lots of files and directories. Now our project organization looks like this:
+As you can see, we haven't written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this :
 
 ```markdown
 sunflower/
@@ -150,7 +167,7 @@ sunflower/
 
 ## Add Python code
 
-When creating a Python package, we want to write **reusable piece of code**, and not just put some scripts that do things. To illustrate:
+When creating a Python package, we want to write **a reusable piece of code**, not just put in a few scripts that do things. To illustrate :
 
 ::: {.panel-tabset}
 
@@ -162,7 +179,7 @@ message = f"Hello {name}"
 print(message)
 ```
 
-This code here actually does something: it prints a message.
+This code does something: it prints a message.
 
 ### Reusable code
 
@@ -172,7 +189,7 @@ def say_hello(name):
    print(message)
 ```
 
-This code above does "nothing". The only thing it does is that it creates a function object that will be stored in memory. Now I can call it and it will execute code. For example:
+The code above does ‘nothing’. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:
 
 ```{python}
 say_hello("Joseph")
@@ -180,9 +197,9 @@ say_hello("Joseph")
 
 :::
 
-Here we'll make it simple and assume we'll only want to want to provide functions and classes into our package.
+Here, we'll keep things simple and assume that we only want to provide functions and classes in our package.
 
-Now, let's create our first Python module (which is just a file ending with `.py`). We'll name it `module1.py`, but it could be anything we want. The only thing we want to respect when naming files are:
+Now, let's create our first Python module (which is just a file ending in `.py`). We'll call it `module1.py`, but it can be anything. The only thing we want to stick to when naming files is :
 
 - use lowercase only
 - avoid spaces and odd characters
@@ -211,7 +228,7 @@ myfile.py
 
 :::
 
-So let's put our `module1.py` in `sunflower/sunflower/`, which will lead to:
+So let's put our `module1.py` in `sunflower/sunflower/`, which will give us:
 
 ```markdown
 sunflower/
@@ -226,7 +243,7 @@ sunflower/
 └── pyproject.toml
 ```
 
-In `module1.py`, we'll add our very first function in our package. For instance, we'll create a `count_sunflower()` function. This function will count how many times the word "sunflower" is in a given string.
+In `module1.py`, we're going to add our very first function to our package. For example, we'll create a `count_sunflower()` function. This function will count how many times the word ‘sunflower’ occurs in a given string.
 
 ```py
 import re
@@ -239,7 +256,7 @@ def count_sunflowers(s):
    return n_sunflower + n_sunflowers
 ```
 
-Now we'll add a `__init__.py` file at the same place as the `module1.py` file that contains our previous function. This is a special file in Python. What it does is that it tells Python that the `sunflower/sunflower/` directory is a package, which will allow us to import functions from this package in the outside world.
+We're now going to add a `__init__.py` file in the same place as the `module1.py` file that contains our previous function. This is a special Python file. It tells Python that the `sunflower/sunflower/` directory is a package, which will allow us to import functions from that package into the outside world.
 
 We now have this:
 
@@ -257,7 +274,7 @@ sunflower/
 └── pyproject.toml
 ```
 
-For the moment, the `__init__.py` file must looks like this:
+The `__init__.py` file should look like this:
 
 ```py
 from .module1 import count_sunflowers
@@ -265,11 +282,11 @@ from .module1 import count_sunflowers
 __all__ = ["count_sunflowers"]
 ```
 
-And congrats! You might have not realized it, but we now already have a usable Python package with 1 function in it.
+And well done! You may not have realised it, but we already have a Python package that can be used with a function.
 
 ## User perspective
 
-Now let's see how to use our package from the user perspective.
+Let's now look at how to use our package from the user's point of view.
 
 Once again, we'll need to run a command in our terminal at `Desktop/sunflower/`:
 
@@ -277,9 +294,9 @@ Once again, we'll need to run a command in our terminal at `Desktop/sunflower/`:
 uv pip install -e .
 ```
 
-This command will install our current package in editable mode. This enables us to test our package while making updates to it.
+This command will install our current package in editable mode. This allows us to test our package while making updates.
 
-The next step is to open `sandbox.py` from earlier and write some code that uses our package. 
+The next step is to open `sandbox.py` and write some code that uses our package. 
 
 ```py
 from sunflower import count_sunflower
@@ -296,7 +313,7 @@ print(count_sunflower(text))
 
 3
 
-Note that we can use all of the following syntaxes:
+Note that we can use any of the following syntaxes:
 
 ::: {.panel-tabset}
 
@@ -347,15 +364,56 @@ sfl.count_sunflower(text)
 
 :::
 
+## Add an internal function
+
+When creating a package, it is very practical to create functions that we will use internally: inside the package itself.
+
+If we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let's name this function `_clean_string()` and place it in a new file: `module2.py`.
+
+```py
+import re
+
+def _clean_string(s):
+   s = re.sub(r"[^a-zA-Z\s]", "", s)  # Remove non-text characters
+   s = s.lower()  # Convert to lowercase
+   return s
+```
+
+Our code in `module1.py` should now become :
+
+```py
+from .module2 import _clean_string
+
+def count_sunflowers(s):
+   s = _clean_string(s)
+   n_sunflower = s.split().count("sunflower")
+   n_sunflowers = s.split().count("sunflowers")
+   return n_sunflower + n_sunflowers
+```
+
+We now have 2 functions:
+
+- `count_sunflowers()` a **public** function that users of the package will use.
+- `_clean_string()` a **private** function used internally. The underscore (‘`_`’) at the beginning of the function name tells other people that it should not be used outside the package from which it came.
+
+Note that `_clean_string()` is still usable by users if they run it:
+
+```py
+from sunflower.module2 import _clean_string
+```
+
+But as you can see from the [documentation blog post](./writing-documentation.html), we won't have or create documentation on these functions, so they're unlikely to find it anyway.
+
 ## Final organization
+
+After all these steps, our package now looks like this:
 
 ```markdown
 sunflower/
 ├── sunflower/
 │   ├── __init__.py
 │   ├── module1.py
-│   ├── module2.py
-│   └── utils.py
+│   └── module2.py
 ├── .git/
 ├── .venv/
 ├── .gitignore

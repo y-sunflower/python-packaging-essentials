@@ -6,6 +6,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-04-06">
 
 <title>2&nbsp; Organize a package – Python Packaging Essentials</title>
 <style>
@@ -225,7 +226,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#add-main-python-project-files" id="toc-add-main-python-project-files" class="nav-link" data-scroll-target="#add-main-python-project-files"><span class="header-section-number">2.2</span> Add main Python project files</a></li>
   <li><a href="#add-python-code" id="toc-add-python-code" class="nav-link" data-scroll-target="#add-python-code"><span class="header-section-number">2.3</span> Add Python code</a></li>
   <li><a href="#user-perspective" id="toc-user-perspective" class="nav-link" data-scroll-target="#user-perspective"><span class="header-section-number">2.4</span> User perspective</a></li>
-  <li><a href="#final-organization" id="toc-final-organization" class="nav-link" data-scroll-target="#final-organization"><span class="header-section-number">2.5</span> Final organization</a></li>
+  <li><a href="#add-an-internal-function" id="toc-add-an-internal-function" class="nav-link" data-scroll-target="#add-an-internal-function"><span class="header-section-number">2.5</span> Add an internal function</a></li>
+  <li><a href="#final-organization" id="toc-final-organization" class="nav-link" data-scroll-target="#final-organization"><span class="header-section-number">2.6</span> Final organization</a></li>
   </ul>
 </nav>
     </div>
@@ -242,6 +244,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 6, 2025</p>
+    </div>
+  </div>
   
     
   </div>
@@ -251,22 +259,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In order to follow the following steps, you need to have both <a href="https://git-scm.com/downloads">Git</a> and <a href="https://docs.astral.sh/uv/getting-started/installation/">uv</a> installed on your machine. Both of them are CLI. This means that using your terminal, you’ll be able to run commands that do things.</p>
-<p>Let’s assume we name our Python package <em>“sunflower”</em>.</p>
+<p>In order to follow the steps below, you’ll need to have both <a href="https://git-scm.com/downloads">Git</a> and <a href="https://docs.astral.sh/uv/getting-started/installation/">uv</a> installed on your machine. Both are command-line tools, meaning you’ll use your terminal to run commands that perform various actions.</p>
+<p>Let’s assume we’re naming our Python package <em>“sunflower”</em>.</p>
 <section id="initialize-the-directory" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="initialize-the-directory"><span class="header-section-number">2.1</span> Initialize the directory</h2>
-<p>The very first step, it to create a new directory named <em>“sunflower”</em>. In this directory, we create another directory, also named <em>“sunflower”</em>. This will looks like this:</p>
+<p>The very first step is to create a new directory named <em>“sunflower”</em>. Inside this directory, create another directory with the same name. The structure should look like this:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>└── sunflower/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="add-main-python-project-files" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="add-main-python-project-files"><span class="header-section-number">2.2</span> Add main Python project files</h2>
-<p>We need to create a few new files, that will be at the root of the project.</p>
+<p>Next, we need to create a few essential files at the root of the project.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true"><code>pyproject.toml</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>LICENSE</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false"><code>.git/</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false"><code>.gitignore</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false"><code>.venv/</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false"><code>README.md</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false"><code>sandbox.py</code></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>All the metadata of the package. It will contain many info useful when we’ll want to distribute this package PyPI so that everyone can install it easily. Here is a simple version of this file.</p>
+<p>All the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily.</p>
+<p>Here is a simple version of this file:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[project]</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"sunflower"</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
@@ -288,7 +297,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="dt">Issues</span> <span class="op">=</span> <span class="st">"https://github.com/user_name/sunflower/issues"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>A basic text file that contains the license of your package. This is important because it tells other people what they are allowed to do with your package. This is specific to every project, but you can learn more at <a href="https://choosealicense.com/">choosealicence.com</a>. Here is a example of the most common license: the MIT license.</p>
+<p>A basic text file containing the licence for your package. This licence is important because it tells other people what they are allowed to do with your package.</p>
+<p>It is specific to each project, but you can find out more at [choosealicence.com] (https://choosealicense.com/).</p>
+<p>Here is an example of the most common licence: the MIT licence.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Copyright (c) 2025 Your Name</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>Permission is hereby granted, free of charge, to any person obtaining a copy</span>
@@ -310,10 +321,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>SOFTWARE.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>This is a directory used internally by the Git software to track every changes in the project. Assuming the first <em>“sunflower”</em> directory is in your <code>Desktop/</code> directory, you need to create this directory by running the <code>git init</code> command when you are in the <code>Desktop/sunflower/</code> directory. It’s very likely that will <strong>not see it</strong>, as most operating systems (Windows, MacOS, etc) hide files/directories that start with a “<code>.</code>”, but it does not matter.</p>
+<p>This is a directory used internally by the Git software to track all changes in the project. Assuming that the first <em>“sunflower ’</em> directory is in your <code>Desktop/</code> directory, you should create this directory by running the <code>git init</code> command when you are in the <code>Desktop/sunflower/</code> directory.</p>
+<p>It’s very likely that you won’t see it, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with <code>.</code>, but it doesn’t matter.</p>
 </div>
 <div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<p>A file where each line describes one or multiple files/directories that are not explicitely part of the project or not relevant in general. Don’t worry too much about it, you can just start with the example content below. It’s very likely that will <strong>not see it</strong>, as most operating systems (Windows, MacOS, etc) hide files/directories that start with a “<code>.</code>”, but it does not matter.</p>
+<p>A file in which each line describes one or more files/directories that are not explicitly part of the project or are not relevant in general. Don’t worry too much about this, you can just start with the example content below.</p>
+<p>It is very likely that you will <strong>not</strong> see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with <code>.</code>, but that doesn’t matter.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a># Python-generated files</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>__pycache__/</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>*.py[oc]</span>
@@ -342,10 +355,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>sandbox.ipynb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
-<p>A directory that contains all the things we need to properly work in our Python environment. It contains a Python interpreter, all the packages used in the project (e.g <code>numpy</code>, <code>requests</code>, etc), and a few other things. The best way to create one is to run <code>uv venv</code>. It’s very likely that will <strong>not see it</strong>, as most operating systems (Windows, MacOS, etc) hide files/directories that start with a “<code>.</code>”, but it does not matter.</p>
+<p>A directory containing all the things we need to work properly in our Python environment. It contains a Python interpreter, all the packages used in the project (e.g.&nbsp;<code>numpy</code>, <code>requests</code>, etc), and a few other things.</p>
+<p>The best way to create one is to run <code>uv venv</code>.</p>
+<p>It is very likely that you will <strong>not</strong> see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with <code>.</code>, but that doesn’t matter.</p>
 </div>
 <div id="tabset-1-6" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-6-tab">
-<p>A markdown file that describes the project, give hints on how to use it, how to install etc. There is no rule on what to do with this file, it’s just used to tell people what’s the first thing they should read before using your package. For instance, it could be something like this:</p>
+<p>A markdown file that describes the project, gives advice on how to use it, install it and so on. There are no rules about what to do with this file, it’s just used to tell people what is the first thing they should read before using your package.</p>
+<p>For example, it could be something like this:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># sunflower: my cool Python package</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>Welcome to the homepage of the <span class="in">`sunflower`</span> project.</span>
@@ -353,12 +369,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>It's a new project, but it will be available soon!</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-1-7" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-7-tab">
-<p>A file that we’ll use to test and use our package. It’s facultative but very convenient.</p>
+<p>A file that we will use to test and use our package. It’s optional but very practical.</p>
 </div>
 </div>
 </div>
 <p><br></p>
-<p>As you can see, we haven’t written a single line of Python code, and yet we already have lots of files and directories. Now our project organization looks like this:</p>
+<p>As you can see, we haven’t written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this :</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>├── .git/</span>
@@ -371,12 +387,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="add-python-code" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="add-python-code"><span class="header-section-number">2.3</span> Add Python code</h2>
-<p>When creating a Python package, we want to write <strong>reusable piece of code</strong>, and not just put some scripts that do things. To illustrate:</p>
+<p>When creating a Python package, we want to write <strong>a reusable piece of code</strong>, not just put in a few scripts that do things. To illustrate :</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Not reusable code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Reusable code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<div id="f28ecd35" class="cell" data-execution_count="1">
+<div id="9f9a61d5" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Joseph"</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -384,16 +400,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Hello Joseph</code></pre>
 </div>
 </div>
-<p>This code here actually does something: it prints a message.</p>
+<p>This code does something: it prints a message.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div id="bad04c76" class="cell" data-execution_count="2">
+<div id="19d35668" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> say_hello(name):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>   message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This code above does “nothing”. The only thing it does is that it creates a function object that will be stored in memory. Now I can call it and it will execute code. For example:</p>
-<div id="bb8737f6" class="cell" data-execution_count="3">
+<p>The code above does ‘nothing’. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:</p>
+<div id="04cb2829" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>say_hello(<span class="st">"Joseph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello Joseph</code></pre>
@@ -402,8 +418,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Here we’ll make it simple and assume we’ll only want to want to provide functions and classes into our package.</p>
-<p>Now, let’s create our first Python module (which is just a file ending with <code>.py</code>). We’ll name it <code>module1.py</code>, but it could be anything we want. The only thing we want to respect when naming files are:</p>
+<p>Here, we’ll keep things simple and assume that we only want to provide functions and classes in our package.</p>
+<p>Now, let’s create our first Python module (which is just a file ending in <code>.py</code>). We’ll call it <code>module1.py</code>, but it can be anything. The only thing we want to stick to when naming files is :</p>
 <ul>
 <li>use lowercase only</li>
 <li>avoid spaces and odd characters</li>
@@ -427,7 +443,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>So let’s put our <code>module1.py</code> in <code>sunflower/sunflower/</code>, which will lead to:</p>
+<p>So let’s put our <code>module1.py</code> in <code>sunflower/sunflower/</code>, which will give us:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>│   └── module1.py</span>
@@ -438,7 +454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>├── LICENSE</span>
 <span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>├── sandbox.py</span>
 <span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In <code>module1.py</code>, we’ll add our very first function in our package. For instance, we’ll create a <code>count_sunflower()</code> function. This function will count how many times the word “sunflower” is in a given string.</p>
+<p>In <code>module1.py</code>, we’re going to add our very first function to our package. For example, we’ll create a <code>count_sunflower()</code> function. This function will count how many times the word ‘sunflower’ occurs in a given string.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_sunflowers(s):</span>
@@ -447,7 +463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>   n_sunflower <span class="op">=</span> s.split().count(<span class="st">"sunflower"</span>)</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>   n_sunflowers <span class="op">=</span> s.split().count(<span class="st">"sunflowers"</span>)</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> n_sunflower <span class="op">+</span> n_sunflowers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now we’ll add a <code>__init__.py</code> file at the same place as the <code>module1.py</code> file that contains our previous function. This is a special file in Python. What it does is that it tells Python that the <code>sunflower/sunflower/</code> directory is a package, which will allow us to import functions from this package in the outside world.</p>
+<p>We’re now going to add a <code>__init__.py</code> file in the same place as the <code>module1.py</code> file that contains our previous function. This is a special Python file. It tells Python that the <code>sunflower/sunflower/</code> directory is a package, which will allow us to import functions from that package into the outside world.</p>
 <p>We now have this:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
@@ -460,19 +476,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>├── LICENSE</span>
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>├── sandbox.py</span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For the moment, the <code>__init__.py</code> file must looks like this:</p>
+<p>The <code>__init__.py</code> file should look like this:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .module1 <span class="im">import</span> count_sunflowers</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>__all__ <span class="op">=</span> [<span class="st">"count_sunflowers"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>And congrats! You might have not realized it, but we now already have a usable Python package with 1 function in it.</p>
+<p>And well done! You may not have realised it, but we already have a Python package that can be used with a function.</p>
 </section>
 <section id="user-perspective" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="user-perspective"><span class="header-section-number">2.4</span> User perspective</h2>
-<p>Now let’s see how to use our package from the user perspective.</p>
+<p>Let’s now look at how to use our package from the user’s point of view.</p>
 <p>Once again, we’ll need to run a command in our terminal at <code>Desktop/sunflower/</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">-e</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>This command will install our current package in editable mode. This enables us to test our package while making updates to it.</p>
-<p>The next step is to open <code>sandbox.py</code> from earlier and write some code that uses our package.</p>
+<p>This command will install our current package in editable mode. This allows us to test our package while making updates.</p>
+<p>The next step is to open <code>sandbox.py</code> and write some code that uses our package.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sunflower <span class="im">import</span> count_sunflower</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"""</span></span>
@@ -484,7 +500,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(count_sunflower(text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>3</p>
-<p>Note that we can use all of the following syntaxes:</p>
+<p>Note that we can use any of the following syntaxes:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Syntax 1</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Syntax 2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Syntax 3</a></li></ul>
 <div class="tab-content">
@@ -527,21 +543,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="final-organization" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="final-organization"><span class="header-section-number">2.5</span> Final organization</h2>
-<div class="sourceCode" id="cb23"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>│   ├── __init__.py</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>│   ├── module1.py</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>│   ├── module2.py</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>│   └── utils.py</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>├── .git/</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>├── .gitignore</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>├── README.md</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>├── LICENSE</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>├── sandbox.py</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="add-an-internal-function" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="add-an-internal-function"><span class="header-section-number">2.5</span> Add an internal function</h2>
+<p>When creating a package, it is very practical to create functions that we will use internally: inside the package itself.</p>
+<p>If we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let’s name this function <code>_clean_string()</code> and place it in a new file: <code>module2.py</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> _clean_string(s):</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> re.sub(<span class="vs">r"[^a-zA-Z\s]"</span>, <span class="st">""</span>, s)  <span class="co"># Remove non-text characters</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> s.lower()  <span class="co"># Convert to lowercase</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> s</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Our code in <code>module1.py</code> should now become :</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .module2 <span class="im">import</span> _clean_string</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_sunflowers(s):</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> _clean_string(s)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>   n_sunflower <span class="op">=</span> s.split().count(<span class="st">"sunflower"</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>   n_sunflowers <span class="op">=</span> s.split().count(<span class="st">"sunflowers"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> n_sunflower <span class="op">+</span> n_sunflowers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>We now have 2 functions:</p>
+<ul>
+<li><code>count_sunflowers()</code> a <strong>public</strong> function that users of the package will use.</li>
+<li><code>_clean_string()</code> a <strong>private</strong> function used internally. The underscore (‘<code>_</code>’) at the beginning of the function name tells other people that it should not be used outside the package from which it came.</li>
+</ul>
+<p>Note that <code>_clean_string()</code> is still usable by users if they run it:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sunflower.module2 <span class="im">import</span> _clean_string</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>But as you can see from the <a href="./writing-documentation.html">documentation blog post</a>, we won’t have or create documentation on these functions, so they’re unlikely to find it anyway.</p>
+</section>
+<section id="final-organization" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="final-organization"><span class="header-section-number">2.6</span> Final organization</h2>
+<p>After all these steps, our package now looks like this:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>│   ├── __init__.py</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>│   ├── module1.py</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>│   └── module2.py</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>├── .git/</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>├── .gitignore</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>├── README.md</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>├── LICENSE</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>├── sandbox.py</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
