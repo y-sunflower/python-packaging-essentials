@@ -70,6 +70,16 @@
     ]
   },
   {
+    "objectID": "organize-a-package.html#add-an-internal-function",
+    "href": "organize-a-package.html#add-an-internal-function",
+    "title": "2  Organize a package",
+    "section": "2.5 Add an internal function",
+    "text": "2.5 Add an internal function\nWhen creating a package, it is very practical to create functions that we will use internally: inside the package itself.\nIf we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let’s name this function _clean_string() and place it in a new file: module2.py.\nimport re\n\ndef _clean_string(s):\n   s = re.sub(r\"[^a-zA-Z\\s]\", \"\", s)  # Remove non-text characters\n   s = s.lower()  # Convert to lowercase\n   return s\nOur code in module1.py should now become:\nfrom .module2 import _clean_string\n\ndef count_sunflowers(s):\n   s = _clean_string(s)\n   n_sunflower = s.split().count(\"sunflower\")\n   n_sunflowers = s.split().count(\"sunflowers\")\n   return n_sunflower + n_sunflowers\nWe now have 2 functions:\n\ncount_sunflowers() a public function that users of the package will use.\n_clean_string() a private function used internally. The underscore (‘_’) at the beginning of the function name tells other people that it should not be used outside the package from which it came.\n\nNote that _clean_string() is still usable by users if they run it:\nfrom sunflower.module2 import _clean_string\nBut as you can see from the documentation blog post, we won’t have or create documentation on these functions, so they’re unlikely to find it anyway.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
     "objectID": "organize-a-package.html#final-organization",
     "href": "organize-a-package.html#final-organization",
     "title": "2  Organize a package",
@@ -157,26 +167,6 @@
     "text": "This is a book created from markdown and executable code.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
-    ]
-  },
-  {
-    "objectID": "organize-a-package.html#add-a-new-function",
-    "href": "organize-a-package.html#add-a-new-function",
-    "title": "2  Organize a package",
-    "section": "2.5 Add a new function",
-    "text": "2.5 Add a new function\nIf we want to add another function to our package, we can either add it to module1.py or create a new file such as module2.py.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
-    ]
-  },
-  {
-    "objectID": "organize-a-package.html#add-an-internal-function",
-    "href": "organize-a-package.html#add-an-internal-function",
-    "title": "2  Organize a package",
-    "section": "2.5 Add an internal function",
-    "text": "2.5 Add an internal function\nWhen creating a package, it is very practical to create functions that we will use internally: inside the package itself.\nIf we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let’s name this function _clean_string() and place it in a new file: module2.py.\nimport re\n\ndef _clean_string(s):\n   s = re.sub(r\"[^a-zA-Z\\s]\", \"\", s)  # Remove non-text characters\n   s = s.lower()  # Convert to lowercase\n   return s\nOur code in module1.py should now become:\nfrom .module2 import _clean_string\n\ndef count_sunflowers(s):\n   s = _clean_string(s)\n   n_sunflower = s.split().count(\"sunflower\")\n   n_sunflowers = s.split().count(\"sunflowers\")\n   return n_sunflower + n_sunflowers\nWe now have 2 functions:\n\ncount_sunflowers() a public function that users of the package will use.\n_clean_string() a private function used internally. The underscore (‘_’) at the beginning of the function name tells other people that it should not be used outside the package from which it came.\n\nNote that _clean_string() is still usable by users if they run it:\nfrom sunflower.module2 import _clean_string\nBut as you can see from the documentation blog post, we won’t have or create documentation on these functions, so they’re unlikely to find it anyway.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
     ]
   }
 ]
