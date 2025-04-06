@@ -2,4 +2,4 @@
 title: "Introduction to packaging"
 ---
 
-This is a book created from markdown and executable code.
+This page is a work in progress. You can see the current state of the project [here](https://github.com/JosephBARBIERDARNAL/python-packaging-essentials).

@@ -14,7 +14,7 @@
     "href": "introduction-to-packaging.html",
     "title": "1  Introduction to packaging",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
     ]
@@ -94,7 +94,7 @@
     "href": "handling-dependencies.html",
     "title": "3  Handling dependencies",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
     ]
@@ -104,7 +104,7 @@
     "href": "unit-tests.html",
     "title": "4  Unit tests",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Unit tests</span>"
     ]
@@ -114,7 +114,7 @@
     "href": "writing-documentation.html",
     "title": "5  Writing documentation",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
     ]
@@ -124,7 +124,7 @@
     "href": "errors-and-warnings.html",
     "title": "6  Errors and warnings",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Errors and warnings</span>"
     ]
@@ -134,7 +134,7 @@
     "href": "github-actions.html",
     "title": "7  Github Actions",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Github Actions</span>"
     ]
@@ -144,7 +144,7 @@
     "href": "pre-commit.html",
     "title": "8  Pre-commit",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Pre-commit</span>"
     ]
@@ -154,7 +154,7 @@
     "href": "api-design.html",
     "title": "9  API design",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>9</span>  <span class='chapter-title'>API design</span>"
     ]
@@ -164,7 +164,7 @@
     "href": "publish-to-pypi.html",
     "title": "10  Publish to PyPI",
     "section": "",
-    "text": "This is a book created from markdown and executable code.",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
     ]
