@@ -7,21 +7,25 @@ book:
   title: "Python Packaging Essentials"
   author: "Joseph Barbier"
   date: today
+  downloads: pdf
+  repo-url: https://github.com/yellow-sunflower/python-packaging-essentials/
+  search: true
   chapters:
     - index.qmd
     - introduction-to-packaging.qmd
     - organize-a-package.qmd
-    - api-design.qmd
     - handling-dependencies.qmd
     - unit-tests.qmd
-    - github-actions.qmd
-    - pre-commit.qmd
     - writing-documentation.qmd
     - errors-and-warnings.qmd
+    - github-actions.qmd
+    - pre-commit.qmd
+    - api-design.qmd
     - publish-to-pypi.qmd
 
 format:
   html:
+    css: styles.css
     theme:
       - cosmo
       - brand
