@@ -20,6 +20,46 @@
     ]
   },
   {
+    "objectID": "introduction-to-packaging.html#the-__init__.py-file",
+    "href": "introduction-to-packaging.html#the-__init__.py-file",
+    "title": "1  Introduction to packaging",
+    "section": "",
+    "text": "my_package/\n└── __init__.py\n\n\nfrom my_package import something",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#package-vs-module",
+    "href": "introduction-to-packaging.html#package-vs-module",
+    "title": "1  Introduction to packaging",
+    "section": "1.2 Package vs Module",
+    "text": "1.2 Package vs Module\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., my_file.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules (e.g., multiple files)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#pypi-python-package-index",
+    "href": "introduction-to-packaging.html#pypi-python-package-index",
+    "title": "1  Introduction to packaging",
+    "section": "1.3 PyPI (Python Package Index)",
+    "text": "1.3 PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. This is where packages are stored so that others can find and install them.\nWhen you run:\npip install requests\nYou’re downloading the requests package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#pip-and-friends",
+    "href": "introduction-to-packaging.html#pip-and-friends",
+    "title": "1  Introduction to packaging",
+    "section": "1.4 pip (and friends)",
+    "text": "1.4 pip (and friends)\npip is the tool used to install packages from PyPI. It’s simple and widely supported.\nExample:\npip install numpy\nBut when working with packages in Python, you need to take into account the package version. Maybe you need numpy 2.1.2 instead of 2.1.1 for your project.\nYou can read more about this in the handling dependencies article, but in summary, it’s important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.\nSome newer tools are built around pip to offer additional features such as dependency management and better performance.\nOne of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there’s a problem.\nSince 2024, the best tool available is called uv. It’s super easy to use, super fast and does everything you need, in one place, with one tool. It’s more of a Python project manager than a simple package installer.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
     "objectID": "organize-a-package.html",
     "href": "organize-a-package.html",
     "title": "2  Organize a package",
@@ -167,96 +207,6 @@
     "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#whats-a-python-package",
-    "href": "introduction-to-packaging.html#whats-a-python-package",
-    "title": "1  Introduction to packaging",
-    "section": "",
-    "text": "1.1.1 📦 What it Means to Package\nPackaging your code means preparing it in a way that it can be: - Reused across projects - Shared with others - Installed using a tool like pip\nThink of it as wrapping your Python code with just enough metadata and structure so others (and Python tools) know how to use it.\n\n\n1.1.2 📁 The __init__.py File\nAt its simplest, a package is just a folder that contains an __init__.py file.\nmy_package/\n├── __init__.py\nThe presence of __init__.py tells Python: “this is a package.”\nEven if it’s an empty file, it’s important—it allows you to import parts of your code like this:\nfrom my_package import something\nWithout it, Python treats the folder as a regular directory, not something it can import from.\n\n\n1.1.3 📚 Package vs Module vs Library\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., math.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules\nLibrary: A collection of code meant to be reused, often made up of one or more packages\n\nSo: &gt; A library can be made up of packages, and packages contain modules.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#pypi-and-pip",
-    "href": "introduction-to-packaging.html#pypi-and-pip",
-    "title": "1  Introduction to packaging",
-    "section": "1.2 PyPI and pip",
-    "text": "1.2 PyPI and pip\nOnce your code is packaged, how do you share it—or install someone else’s? That’s where tools like PyPI and pip come in.\n\n1.2.1 🌍 PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. It’s where packages live so others can find and install them.\nWhen you run:\npip install requests\nYou’re downloading the requests package from PyPI.\n\n💡 There are alternatives too, like Conda (especially in data science contexts), but PyPI is the main one in Python-land.\n\n\n\n1.2.2 📥 pip (and Friends)\npip is the tool used to install packages from PyPI. It’s simple and widely supported.\nExample:\npip install my-awesome-package\nSome newer tools wrap around pip to offer extra features like dependency management and better performance. For example: - uv: Fast, modern pip replacement - poetry: Full project/dependency management tool - pip-tools: Simplifies requirement management\nYou don’t need these to get started—but knowing they exist is helpful as your projects grow.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#why-package",
-    "href": "introduction-to-packaging.html#why-package",
-    "title": "1  Introduction to packaging",
-    "section": "2.3 Why package",
-    "text": "2.3 Why package",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#types-of-packages",
-    "href": "introduction-to-packaging.html#types-of-packages",
-    "title": "1  Introduction to packaging",
-    "section": "2.3 Types of packages",
-    "text": "2.3 Types of packages\n\nPure Python vs. packages with compiled extensions (just a one-liner)\nLibraries vs. applications vs. plugins",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#the-__init__.py-file",
-    "href": "introduction-to-packaging.html#the-__init__.py-file",
-    "title": "1  Introduction to packaging",
-    "section": "",
-    "text": "my_package/\n└── __init__.py\n\n\nfrom my_package import something",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#package-vs-module-vs-library",
-    "href": "introduction-to-packaging.html#package-vs-module-vs-library",
-    "title": "1  Introduction to packaging",
-    "section": "1.2 Package vs Module vs Library",
-    "text": "1.2 Package vs Module vs Library\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., my_file.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules (e.g., multiple files)\nLibrary: A collection of code meant to be reused, often made up of one or more packages\n\nSo:\n\nA library can be made up of packages, and packages contain modules.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#pypi-python-package-index",
-    "href": "introduction-to-packaging.html#pypi-python-package-index",
-    "title": "1  Introduction to packaging",
-    "section": "1.3 PyPI (Python Package Index)",
-    "text": "1.3 PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. This is where packages are stored so that others can find and install them.\nWhen you run:\npip install requests\nYou’re downloading the requests package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#pip-and-friends",
-    "href": "introduction-to-packaging.html#pip-and-friends",
-    "title": "1  Introduction to packaging",
-    "section": "1.4 pip (and friends)",
-    "text": "1.4 pip (and friends)\npip is the tool used to install packages from PyPI. It’s simple and widely supported.\nExample:\npip install numpy\nBut when working with packages in Python, you need to take into account the package version. Maybe you need numpy 2.1.2 instead of 2.1.1 for your project.\nYou can read more about this in the handling dependencies article, but in summary, it’s important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.\nSome newer tools are built around pip to offer additional features such as dependency management and better performance.\nOne of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there’s a problem.\nSince 2024, the best tool available is called uv. It’s super easy to use, super fast and does everything you need, in one place, with one tool. It’s more of a Python project manager than a simple package installer.",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
-    ]
-  },
-  {
-    "objectID": "introduction-to-packaging.html#package-vs-module",
-    "href": "introduction-to-packaging.html#package-vs-module",
-    "title": "1  Introduction to packaging",
-    "section": "1.2 Package vs Module",
-    "text": "1.2 Package vs Module\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., my_file.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules (e.g., multiple files)",
-    "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
     ]
   }
 ]
