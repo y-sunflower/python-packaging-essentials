@@ -54,7 +54,7 @@ Issues = "https://github.com/user_name/sunflower/issues"
 
 A basic text file containing the licence for your package. This licence is important because it tells other people what they are allowed to do with your package.
 
-It is specific to each project, but you can find out more at [choosealicence.com] (https://choosealicense.com/).
+It is specific to each project, but you can find out more at [choosealicence.com](https://choosealicense.com/).
 
 Here is an example of the most common licence: the MIT licence.
 

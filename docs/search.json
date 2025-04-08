@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Python Packaging Essentials",
     "section": "",
-    "text": "Preface\nThe aim of this site it to provide all the must known practices when it comes to create a Python package. It offers 10 blog posts, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.\nWe’ll over concrete examples, use clear explanations, and try as much as possible to go straight to the point.\n\nGood to know\n\nAll blog posts are independant. Even if they follow some sort of order, it’s perfectly fine to just look at what interests you.",
+    "text": "Preface\nThe aim of this site it to provide all the must known practices when it comes to create a Python package. It offers 10 blog posts, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.\nWe’ll over concrete examples, use clear explanations, and try as much as possible to go straight to the point so that anyone with some Python knowledge can create their own Python packages.\n\nGood to know\n\nAll blog posts are independant. Even if they follow some sort of order, it’s perfectly fine to just look at what interests you.\nThis site is open source and in continuous improvement. If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it’s more than welcomed. It starts here.\nYou can download the PDF version of this site in the top left of the site / navigation bar.",
     "crumbs": [
       "Preface"
     ]
@@ -14,7 +14,7 @@
     "href": "introduction-to-packaging.html",
     "title": "1  Introduction to packaging",
     "section": "",
-    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "text": "1.1 The __init__.py File\nCreating a Python package is all about making your code reusable, shareable, and easy to install. Whether you want to publish a library for the world or just organize your own projects better, understanding how packaging works is the first step.\nAt its simplest, a package is just a folder that contains an __init__.py file.\nThe presence of __init__.py tells Python: “this is a package.”\nEven if it’s an empty file, it’s important—it allows you to import parts of your code like this:\nWithout it, Python treats the folder as a regular directory, not something it can import from.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
     ]
@@ -44,7 +44,7 @@
     "href": "organize-a-package.html#add-main-python-project-files",
     "title": "2  Organize a package",
     "section": "2.2 Add main Python project files",
-    "text": "2.2 Add main Python project files\nNext, we need to create a few essential files at the root of the project.\n\npyproject.tomlLICENSE.git/.gitignore.venv/README.mdsandbox.py\n\n\nAll the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily.\nHere is a simple version of this file:\n[project]\nname = \"sunflower\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\nauthors = [\n  { name=\"author_name\", email=\"email\" },\n]\ndependencies = []\nclassifiers = [\n    \"Programming Language :: Python :: 3\",\n    \"License :: OSI Approved :: MIT License\",\n    \"Operating System :: OS Independent\",\n]\n\n[project.urls]\nHomepage = \"https://github.com/user_name/sunflower\"\nIssues = \"https://github.com/user_name/sunflower/issues\"\n\n\nA basic text file containing the licence for your package. This licence is important because it tells other people what they are allowed to do with your package.\nIt is specific to each project, but you can find out more at [choosealicence.com] (https://choosealicense.com/).\nHere is an example of the most common licence: the MIT licence.\nCopyright (c) 2025 Your Name\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\n\nThis is a directory used internally by the Git software to track all changes in the project. Assuming that the first “sunflower” directory is in your Desktop/ directory, you should create this directory by running the git init command when you are in the Desktop/sunflower/ directory.\nIt’s very likely that you won’t see it, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but it doesn’t matter.\n\n\nA file in which each line describes one or more files/directories that are not explicitly part of the project or are not relevant in general. Don’t worry too much about this, you can just start with the example content below.\nIt is very likely that you will not see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but that doesn’t matter.\n# Python-generated files\n__pycache__/\n*.py[oc]\nbuild/\ndist/\nwheels/\n*.egg-info\n\n# Virtual environments\n.venv/\nvenv/\n.env/\nenv/\n\n# VS code config\n.vscode/\n\n# files on mac\n.DS_Store\n\n# all cache files\n*cache*\n\n# Sandbox files\nsandbox.py\nsandbox.ipynb\n\n\nA directory containing all the things we need to work properly in our Python environment. It contains a Python interpreter, all the packages used in the project (e.g. numpy, requests, etc), and a few other things.\nThe best way to create one is to run uv venv.\nIt is very likely that you will not see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but that doesn’t matter.\n\n\nA markdown file that describes the project, gives advice on how to use it, install it and so on. There are no rules about what to do with this file, it’s just used to tell people what is the first thing they should read before using your package.\nFor example, it could be something like this:\n# sunflower: my cool Python package\n\nWelcome to the homepage of the `sunflower` project.\n\nIt's a new project, but it will be available soon!\n\n\nA file that we will use to test and use our package. It’s optional but very practical.\n\n\n\n\nAs you can see, we haven’t written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this:\nsunflower/\n├── sunflower/\n├── .git/\n├── .venv/\n├── .gitignore\n├── README.md\n├── LICENSE\n├── sandbox.py\n└── pyproject.toml",
+    "text": "2.2 Add main Python project files\nNext, we need to create a few essential files at the root of the project.\n\npyproject.tomlLICENSE.git/.gitignore.venv/README.mdsandbox.py\n\n\nAll the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily.\nHere is a simple version of this file:\n[project]\nname = \"sunflower\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\nauthors = [\n  { name=\"author_name\", email=\"email\" },\n]\ndependencies = []\nclassifiers = [\n    \"Programming Language :: Python :: 3\",\n    \"License :: OSI Approved :: MIT License\",\n    \"Operating System :: OS Independent\",\n]\n\n[project.urls]\nHomepage = \"https://github.com/user_name/sunflower\"\nIssues = \"https://github.com/user_name/sunflower/issues\"\n\n\nA basic text file containing the licence for your package. This licence is important because it tells other people what they are allowed to do with your package.\nIt is specific to each project, but you can find out more at choosealicence.com.\nHere is an example of the most common licence: the MIT licence.\nCopyright (c) 2025 Your Name\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\n\nThis is a directory used internally by the Git software to track all changes in the project. Assuming that the first “sunflower” directory is in your Desktop/ directory, you should create this directory by running the git init command when you are in the Desktop/sunflower/ directory.\nIt’s very likely that you won’t see it, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but it doesn’t matter.\n\n\nA file in which each line describes one or more files/directories that are not explicitly part of the project or are not relevant in general. Don’t worry too much about this, you can just start with the example content below.\nIt is very likely that you will not see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but that doesn’t matter.\n# Python-generated files\n__pycache__/\n*.py[oc]\nbuild/\ndist/\nwheels/\n*.egg-info\n\n# Virtual environments\n.venv/\nvenv/\n.env/\nenv/\n\n# VS code config\n.vscode/\n\n# files on mac\n.DS_Store\n\n# all cache files\n*cache*\n\n# Sandbox files\nsandbox.py\nsandbox.ipynb\n\n\nA directory containing all the things we need to work properly in our Python environment. It contains a Python interpreter, all the packages used in the project (e.g. numpy, requests, etc), and a few other things.\nThe best way to create one is to run uv venv.\nIt is very likely that you will not see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but that doesn’t matter.\n\n\nA markdown file that describes the project, gives advice on how to use it, install it and so on. There are no rules about what to do with this file, it’s just used to tell people what is the first thing they should read before using your package.\nFor example, it could be something like this:\n# sunflower: my cool Python package\n\nWelcome to the homepage of the `sunflower` project.\n\nIt's a new project, but it will be available soon!\n\n\nA file that we will use to test and use our package. It’s optional but very practical.\n\n\n\n\nAs you can see, we haven’t written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this:\nsunflower/\n├── sunflower/\n├── .git/\n├── .venv/\n├── .gitignore\n├── README.md\n├── LICENSE\n├── sandbox.py\n└── pyproject.toml",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
     ]
@@ -167,6 +167,96 @@
     "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#whats-a-python-package",
+    "href": "introduction-to-packaging.html#whats-a-python-package",
+    "title": "1  Introduction to packaging",
+    "section": "",
+    "text": "1.1.1 📦 What it Means to Package\nPackaging your code means preparing it in a way that it can be: - Reused across projects - Shared with others - Installed using a tool like pip\nThink of it as wrapping your Python code with just enough metadata and structure so others (and Python tools) know how to use it.\n\n\n1.1.2 📁 The __init__.py File\nAt its simplest, a package is just a folder that contains an __init__.py file.\nmy_package/\n├── __init__.py\nThe presence of __init__.py tells Python: “this is a package.”\nEven if it’s an empty file, it’s important—it allows you to import parts of your code like this:\nfrom my_package import something\nWithout it, Python treats the folder as a regular directory, not something it can import from.\n\n\n1.1.3 📚 Package vs Module vs Library\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., math.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules\nLibrary: A collection of code meant to be reused, often made up of one or more packages\n\nSo: &gt; A library can be made up of packages, and packages contain modules.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#pypi-and-pip",
+    "href": "introduction-to-packaging.html#pypi-and-pip",
+    "title": "1  Introduction to packaging",
+    "section": "1.2 PyPI and pip",
+    "text": "1.2 PyPI and pip\nOnce your code is packaged, how do you share it—or install someone else’s? That’s where tools like PyPI and pip come in.\n\n1.2.1 🌍 PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. It’s where packages live so others can find and install them.\nWhen you run:\npip install requests\nYou’re downloading the requests package from PyPI.\n\n💡 There are alternatives too, like Conda (especially in data science contexts), but PyPI is the main one in Python-land.\n\n\n\n1.2.2 📥 pip (and Friends)\npip is the tool used to install packages from PyPI. It’s simple and widely supported.\nExample:\npip install my-awesome-package\nSome newer tools wrap around pip to offer extra features like dependency management and better performance. For example: - uv: Fast, modern pip replacement - poetry: Full project/dependency management tool - pip-tools: Simplifies requirement management\nYou don’t need these to get started—but knowing they exist is helpful as your projects grow.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#why-package",
+    "href": "introduction-to-packaging.html#why-package",
+    "title": "1  Introduction to packaging",
+    "section": "2.3 Why package",
+    "text": "2.3 Why package",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#types-of-packages",
+    "href": "introduction-to-packaging.html#types-of-packages",
+    "title": "1  Introduction to packaging",
+    "section": "2.3 Types of packages",
+    "text": "2.3 Types of packages\n\nPure Python vs. packages with compiled extensions (just a one-liner)\nLibraries vs. applications vs. plugins",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#the-__init__.py-file",
+    "href": "introduction-to-packaging.html#the-__init__.py-file",
+    "title": "1  Introduction to packaging",
+    "section": "",
+    "text": "my_package/\n└── __init__.py\n\n\nfrom my_package import something",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#package-vs-module-vs-library",
+    "href": "introduction-to-packaging.html#package-vs-module-vs-library",
+    "title": "1  Introduction to packaging",
+    "section": "1.2 Package vs Module vs Library",
+    "text": "1.2 Package vs Module vs Library\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., my_file.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules (e.g., multiple files)\nLibrary: A collection of code meant to be reused, often made up of one or more packages\n\nSo:\n\nA library can be made up of packages, and packages contain modules.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#pypi-python-package-index",
+    "href": "introduction-to-packaging.html#pypi-python-package-index",
+    "title": "1  Introduction to packaging",
+    "section": "1.3 PyPI (Python Package Index)",
+    "text": "1.3 PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. This is where packages are stored so that others can find and install them.\nWhen you run:\npip install requests\nYou’re downloading the requests package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#pip-and-friends",
+    "href": "introduction-to-packaging.html#pip-and-friends",
+    "title": "1  Introduction to packaging",
+    "section": "1.4 pip (and friends)",
+    "text": "1.4 pip (and friends)\npip is the tool used to install packages from PyPI. It’s simple and widely supported.\nExample:\npip install numpy\nBut when working with packages in Python, you need to take into account the package version. Maybe you need numpy 2.1.2 instead of 2.1.1 for your project.\nYou can read more about this in the handling dependencies article, but in summary, it’s important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.\nSome newer tools are built around pip to offer additional features such as dependency management and better performance.\nOne of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there’s a problem.\nSince 2024, the best tool available is called uv. It’s super easy to use, super fast and does everything you need, in one place, with one tool. It’s more of a Python project manager than a simple package installer.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "introduction-to-packaging.html#package-vs-module",
+    "href": "introduction-to-packaging.html#package-vs-module",
+    "title": "1  Introduction to packaging",
+    "section": "1.2 Package vs Module",
+    "text": "1.2 Package vs Module\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., my_file.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules (e.g., multiple files)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
     ]
   }
 ]

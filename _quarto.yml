@@ -9,6 +9,7 @@ book:
   author: "Joseph Barbier"
   date: today
   downloads: pdf
+  license: MIT
   repo-url: https://github.com/yellow-sunflower/python-packaging-essentials/
   search: true
   chapters:
