@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -182,8 +216,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#specify-dependencies" id="toc-specify-dependencies" class="nav-link active" data-scroll-target="#specify-dependencies"><span class="header-section-number">3.1</span> Specify dependencies</a></li>
+  <li><a href="#avoiding-dependencies" id="toc-avoiding-dependencies" class="nav-link" data-scroll-target="#avoiding-dependencies"><span class="header-section-number">3.2</span> Avoiding dependencies</a></li>
+  <li><a href="#controlling-the-versions" id="toc-controlling-the-versions" class="nav-link" data-scroll-target="#controlling-the-versions"><span class="header-section-number">3.3</span> Controlling the versions</a>
+  <ul class="collapse">
+  <li><a href="#set-the-minimum-version-required" id="toc-set-the-minimum-version-required" class="nav-link" data-scroll-target="#set-the-minimum-version-required"><span class="header-section-number">3.3.1</span> Set the minimum version required…</a></li>
+  <li><a href="#test-your-code" id="toc-test-your-code" class="nav-link" data-scroll-target="#test-your-code"><span class="header-section-number">3.3.2</span> … test your code…</a></li>
+  <li><a href="#and-be-convenient" id="toc-and-be-convenient" class="nav-link" data-scroll-target="#and-be-convenient"><span class="header-section-number">3.3.3</span> … and be convenient</a></li>
+  </ul></li>
+  <li><a href="#breaking-changes" id="toc-breaking-changes" class="nav-link" data-scroll-target="#breaking-changes"><span class="header-section-number">3.4</span> Breaking changes</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -207,9 +255,120 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This page is a work in progress. You can see the current state of the project <a href="https://github.com/yellow-sunflower/python-packaging-essentials">here</a>.</p>
+<p>Dependencies are the external Python packages your code needs in order to work—like <code>requests</code>, <code>numpy</code>, or <code>pandas</code>.</p>
+<section id="specify-dependencies" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="specify-dependencies"><span class="header-section-number">3.1</span> Specify dependencies</h2>
+<p>For example, let’s say we have this function in our package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize(array):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   min_val <span class="op">=</span> np.<span class="bu">min</span>(array)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   max_val <span class="op">=</span> np.<span class="bu">max</span>(array)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> (array <span class="op">-</span> min_val) <span class="op">/</span> (max_val <span class="op">-</span> min_val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>When people want to use our function, they <strong>need</strong> to have <code>numpy</code> installed for it to work, otherwise it will raise a <code>ModuleNotFoundError</code> on their machine.</p>
+<p>So in order to ensure they get <code>numpy</code> installed, we set <code>numpy</code> as a dependency of our package. The dependencies of a package are listed in the <code>pyproject.toml</code> file. If you don’t know what that is, check out <a href="./organize-a-package.html">organizing a package</a>.</p>
+<p>With <a href="https://docs.astral.sh/uv/">uv</a>, we just have to run:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add numpy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This will automatically add <code>numpy</code> to our <code>pyproject.toml</code>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Before</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">After</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="sourceCode" id="cb3"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[project]</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"mypackage"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Add your description here"</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dt">readme</span> <span class="op">=</span> <span class="st">"README.md"</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="dt">requires-python</span> <span class="op">=</span> <span class="st">"&gt;=3.13"</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="sourceCode" id="cb4"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[project]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">name</span> <span class="op">=</span> <span class="st">"mypackage"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="dt">version</span> <span class="op">=</span> <span class="st">"0.1.0"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">description</span> <span class="op">=</span> <span class="st">"Add your description here"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dt">readme</span> <span class="op">=</span> <span class="st">"README.md"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="dt">requires-python</span> <span class="op">=</span> <span class="st">"&gt;=3.13"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="dt">dependencies</span> <span class="op">=</span> <span class="op">[</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"numpy&gt;=2.2.4"</span><span class="op">,</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>If we add other dependencies, they will be added to the <code>dependencies</code> list.</p>
+</section>
+<section id="avoiding-dependencies" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="avoiding-dependencies"><span class="header-section-number">3.2</span> Avoiding dependencies</h2>
+<p>In general, we want to <strong>avoid</strong> having too many dependencies. Why is that? Because when we install a package, we need to install its dependencies too, as well as the dependencies of those packages, and so on.</p>
+<p>The issue with this is that it adds a lot complexity quickly and increase the risk of having <strong>conflicts</strong>.</p>
+<p>For example, one package might need a version of <code>numpy</code> before <code>&lt;2.0.0</code>, while another need a version above or equal to <code>&gt;=2.2.0</code>. This kind of situation can quickly arise if not careful when adding too many dependencies, and it’s usually a nightmare to resolve.</p>
+<blockquote class="blockquote">
+<p>Note: packages with low or no dependencies are called <strong>lightweight</strong>. As an example, have a look at the <a href="https://narwhals-dev.github.io/narwhals/">narwhals</a> package.</p>
+</blockquote>
+<p>The thing with having lots of dependencies is that it makes it easier for you to write code because you can use other people code super easily. So it’s always a trade-off somehow.</p>
+<p>Always ask yourself those questions before adding a new package to your dependencies:</p>
+<ul>
+<li>is the dependency a well-known, stable package (<code>numpy</code>, <code>requests</code>, etc) or is it new and is likely to change in the future?</li>
+<li>does this dependency has lots of dependencies too? This might be a red flag 🚩</li>
+<li>can’t you just code what it does yourself? If you only need a single function, go check their source code on Github and see if it’s easy to do on your side (and ensure their License allow you to copy the code too).</li>
+</ul>
+</section>
+<section id="controlling-the-versions" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="controlling-the-versions"><span class="header-section-number">3.3</span> Controlling the versions</h2>
+<p>What’s the difference between <code>numpy</code> <code>2.1.0</code> and <code>numpy</code> <code>2.0.0</code>? Well, many things, but for example, in <code>numpy</code> <code>2.0.0</code>, the <code>np.unstack()</code> function doesn’t exist as it’s a new one from <code>numpy</code> <code>2.1.0</code>.</p>
+<p>If our package relies on <code>np.unstack()</code> in one of our functions, we <strong>can’t</strong> let people install any <code>numpy</code> version when installing our package. We need to ensure people install this version: <code>numpy&gt;=2.1.0</code>. If we translate it, it means <em>any version of <code>numpy</code> above or equal to <code>2.1.0</code></em>. Let’s see some other examples.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true"><code>numpy==2.1.0</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false"><code>numpy&lt;=2.1.0</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false"><code>numpy&gt;=2.1.0,&lt;2.2.0</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-4" role="tab" aria-controls="tabset-2-4" aria-selected="false"><code>numpy</code></a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<p>Install exactly this version of <code>numpy</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install numpy==2.1.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Install the latest available version before <code>2.1.0</code> (including <code>2.1.0</code>) of <code>numpy</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="st">'numpy&lt;=2.1.0'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
+<p>Install the latest version between <code>2.1.0</code> (included) and <code>2.2.0</code> (excluded) of <code>numpy</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="st">'numpy&gt;=2.1.0,&lt;2.2.0'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
+<p>Install the latest version of <code>numpy</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install numpy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p>Note that for each of those, the package resolver will always try to install the latest version it can depending on the other dependencies. If another package requires <code>numpy&lt;=2.1.0</code>, other packages <strong>must</strong> include <code>numpy</code> <code>2.1.0</code> for it to work.</p>
+<p>But you might ask, <strong>how do I know</strong> which versions of each dependencies are required for my package? Well, as far as I know, there is no easy answer to this, but there are ways to ensure you don’t get unexpected behaviors.</p>
+<section id="set-the-minimum-version-required" class="level3" data-number="3.3.1">
+<h3 data-number="3.3.1" class="anchored" data-anchor-id="set-the-minimum-version-required"><span class="header-section-number">3.3.1</span> Set the minimum version required…</h3>
+<p>For each of your dependencies, set in your <code>pyproject.toml</code> the minimum version required. With <a href="https://docs.astral.sh/uv/">uv</a>, you can run the following to install a specific version:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install numpy==2.0.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>Warning: the command above will install a specific version of <code>numpy</code>, but will not change the requirements in <code>pyproject.toml</code>.</p>
+</blockquote>
+</section>
+<section id="test-your-code" class="level3" data-number="3.3.2">
+<h3 data-number="3.3.2" class="anchored" data-anchor-id="test-your-code"><span class="header-section-number">3.3.2</span> … test your code…</h3>
+<p>You have to test that your code works as expected on those versions. The best way to do that is <strong>unit testing</strong>, and it’s the point of the <a href="./unit-tests.html">next blog post</a>.</p>
+</section>
+<section id="and-be-convenient" class="level3" data-number="3.3.3">
+<h3 data-number="3.3.3" class="anchored" data-anchor-id="and-be-convenient"><span class="header-section-number">3.3.3</span> … and be convenient</h3>
+<blockquote class="blockquote">
+<p>Dependening on whether you’re planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We’ll assume you want to distribute it at the end.</p>
+</blockquote>
+<p>When your package goaled is to be installed by other people, you want to be convenient. By that I mean <strong>not being too restrictive</strong>.</p>
+<p>If we take our example from before, we know that we need at least <code>numpy==2.1.0</code> for our package to work, but we also know that <strong>any numpy version above works too</strong>. For this reason, we set <code>numpy&gt;=2.1.0</code> instead of <code>numpy==2.1.0</code> to allow a broader range of possibility.</p>
+</section>
+</section>
+<section id="breaking-changes" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="breaking-changes"><span class="header-section-number">3.4</span> Breaking changes</h2>
+<p>By default, when installing our package, it will try to find the latest <code>numpy</code> version that satisfies the requirements.</p>
+<p>But, you might say there’s a risk it will break on a new <code>numpy</code> version? Yes, <strong>it absolutely does</strong>. And that’s exactly we said earlier why we wanted to avoid having too many dependencies and use stable ones.</p>
+<p>The good thing with packages like <code>numpy</code> is that it’s one of the most important Python package and one of its core component. They <strong>can’t</strong> make breaking changes on any significant feature. When they want to do it, they usually add warnings like this: <em>“The function xxx is deprecated and will be removed in a future version, please use yyy instead?”</em>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

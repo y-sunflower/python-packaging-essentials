@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Python Packaging Essentials",
     "section": "",
-    "text": "Preface\nThe aim of this site it to provide all the must known practices when it comes to create a Python package. It offers 10 blog posts, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.\nWe’ll over concrete examples, use clear explanations, and try as much as possible to go straight to the point so that anyone with some Python knowledge can create their own Python packages.\n\nGood to know\n\nAll blog posts are independant. Even if they follow some sort of order, it’s perfectly fine to just look at what interests you.\nThis site is open source and in continuous improvement. If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it’s more than welcomed. It starts here.\nYou can download the PDF version of this site in the top left of the site / navigation bar.",
+    "text": "Preface\n\nAbout\nThe aim of this site it to provide all the must known practices when it comes to create a Python package. It offers 10 blog posts, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.\nWe’ll go over concrete examples, use clear explanations, and try as much as possible to go straight to the point so that anyone with some Python knowledge can create their own Python packages.\n\n\nGood to know\n\nAll blog posts are independant. Even if they follow some sort of order, it’s perfectly fine to just look at what interests you.\nThis site is open source and in continuous improvement. If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it’s more than welcomed. It starts here.\nYou can download the PDF version of this site in the top left of the site / navigation bar.\nThis website is not exhaustive and does not aim to be. We aim to focus on the key points and refer to other resources for more specific topics.",
     "crumbs": [
       "Preface"
     ]
@@ -134,7 +134,7 @@
     "href": "handling-dependencies.html",
     "title": "3  Handling dependencies",
     "section": "",
-    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "text": "3.1 Specify dependencies\nDependencies are the external Python packages your code needs in order to work—like requests, numpy, or pandas.\nFor example, let’s say we have this function in our package:\nWhen people want to use our function, they need to have numpy installed for it to work, otherwise it will raise a ModuleNotFoundError on their machine.\nSo in order to ensure they get numpy installed, we set numpy as a dependency of our package. The dependencies of a package are listed in the pyproject.toml file. If you don’t know what that is, check out organizing a package.\nWith uv, we just have to run:\nThis will automatically add numpy to our pyproject.toml.\nIf we add other dependencies, they will be added to the dependencies list.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
     ]
@@ -207,6 +207,66 @@
     "text": "This page is a work in progress. You can see the current state of the project here.",
     "crumbs": [
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
+    ]
+  },
+  {
+    "objectID": "handling-dependencies.html#specify-dependencies",
+    "href": "handling-dependencies.html#specify-dependencies",
+    "title": "3  Handling dependencies",
+    "section": "",
+    "text": "import numpy as np\n\ndef normalize(array):\n   min_val = np.min(array)\n   max_val = np.max(array)\n   return (array - min_val) / (max_val - min_val)\n\n\n\nuv add numpy\n\n\nBeforeAfter\n\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = []\n\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = [\n    \"numpy&gt;=2.2.4\",\n]",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "handling-dependencies.html#avoiding-dependencies",
+    "href": "handling-dependencies.html#avoiding-dependencies",
+    "title": "3  Handling dependencies",
+    "section": "3.2 Avoiding dependencies",
+    "text": "3.2 Avoiding dependencies\nIn general, we want to avoid having too many dependencies. Why is that? Because when we install a package, we need to install its dependencies too, as well as the dependencies of those packages, and so on.\nThe issue with this is that it adds a lot complexity quickly and increase the risk of having conflicts.\nFor example, one package might need a version of numpy before &lt;2.0.0, while another need a version above or equal to &gt;=2.2.0. This kind of situation can quickly arise if not careful when adding too many dependencies, and it’s usually a nightmare to resolve.\n\nNote: packages with low or no dependencies are called lightweight. As an example, have a look at the narwhals package.\n\nThe thing with having lots of dependencies is that it makes it easier for you to write code because you can use other people code super easily. So it’s always a trade-off somehow.\nAlways ask yourself those questions before adding a new package to your dependencies:\n\nis the dependency a well-known, stable package (numpy, requests, etc) or is it new and is likely to change in the future?\ndoes this dependency has lots of dependencies too? This might be a red flag 🚩\ncan’t you just code what it does yourself? If you only need a single function, go check their source code on Github and see if it’s easy to do on your side (and ensure their License allow you to copy the code too).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "handling-dependencies.html#control",
+    "href": "handling-dependencies.html#control",
+    "title": "3  Handling dependencies",
+    "section": "3.3 Control",
+    "text": "3.3 Control",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "handling-dependencies.html#controlling-the-versions",
+    "href": "handling-dependencies.html#controlling-the-versions",
+    "title": "3  Handling dependencies",
+    "section": "3.3 Controlling the versions",
+    "text": "3.3 Controlling the versions\nWhat’s the difference between numpy 2.1.0 and numpy 2.0.0? Well, many things, but for example, in numpy 2.0.0, the np.unstack() function doesn’t exist as it’s a new one from numpy 2.1.0.\nIf our package relies on np.unstack() in one of our functions, we can’t let people install any numpy version when installing our package. We need to ensure people install this version: numpy&gt;=2.1.0. If we translate it, it means any version of numpy above or equal to 2.1.0. Let’s see some other examples.\n\nnumpy==2.1.0numpy&lt;=2.1.0numpy&gt;=2.1.0,&lt;2.2.0numpy\n\n\nInstall exactly this version of numpy.\nuv pip install numpy==2.1.0\n\n\nInstall the latest available version before 2.1.0 (including 2.1.0) of numpy.\nuv pip install 'numpy&lt;=2.1.0'\n\n\nInstall the latest version between 2.1.0 (included) and 2.2.0 (excluded) of numpy.\nuv pip install 'numpy&gt;=2.1.0,&lt;2.2.0'\n\n\nInstall the latest version of numpy.\nuv pip install numpy\n\n\n\nNote that for each of those, the package resolver will always try to install the latest version it can depending on the other dependencies. If another package requires numpy&lt;=2.1.0, other packages must include numpy 2.1.0 for it to work.\nBut you might ask, how do I know which versions of each dependencies are required for my package? Well, as far as I know, there is no easy answer to this, but there are ways to ensure you don’t get unexpected behaviors.\n\n3.3.1 Set the minimum version required…\nFor each of your dependencies, set in your pyproject.toml the minimum version required. With uv, you can run the following to install a specific version:\nuv pip install numpy==2.0.0\n\nWarning: the command above will install a specific version of numpy, but will not change the requirements in pyproject.toml.\n\n\n\n3.3.2 … test your code…\nYou have to test that your code works as expected on those versions. The best way to do that is unit testing, and it’s the point of the next blog post.\n\n\n3.3.3 … and be convenient\n\nDependening on whether you’re planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We’ll assume you want to distribute it at the end.\n\nWhen your package goaled is to be installed by other people, you want to be convenient. By that I mean not being too restrictive.\nIf we take our example from before, we know that we need at least numpy==2.1.0 for our package to work, but we also know that any numpy version above works too. For this reason, we set numpy&gt;=2.1.0 instead of numpy==2.1.0 to allow a broader range of possibility.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "handling-dependencies.html#breaking-changes",
+    "href": "handling-dependencies.html#breaking-changes",
+    "title": "3  Handling dependencies",
+    "section": "3.4 Breaking changes",
+    "text": "3.4 Breaking changes\nBy default, when installing our package, it will try to find the latest numpy version that satisfies the requirements.\nBut, you might say there’s a risk it will break on a new numpy version? Yes, it absolutely does. And that’s exactly we said earlier why we wanted to avoid having too many dependencies and use stable ones.\nThe good thing with packages like numpy is that it’s one of the most important Python package and one of its core component. They can’t make breaking changes on any significant feature. When they want to do it, they usually add warnings like this: “The function xxx is deprecated and will be removed in a future version, please use yyy instead?”.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "handling-dependencies.html#required-optional-and-dev-dependencies",
+    "href": "handling-dependencies.html#required-optional-and-dev-dependencies",
+    "title": "3  Handling dependencies",
+    "section": "3.5 Required, Optional and Dev dependencies",
+    "text": "3.5 Required, Optional and Dev dependencies",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
     ]
   }
 ]

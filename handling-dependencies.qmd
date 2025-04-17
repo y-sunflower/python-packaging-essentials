@@ -2,4 +2,160 @@
 title: "Handling dependencies"
 ---
 
-This page is a work in progress. You can see the current state of the project [here](https://github.com/yellow-sunflower/python-packaging-essentials).
+Dependencies are the external Python packages your code needs in order to work—like `requests`, `numpy`, or `pandas`.
+
+## Specify dependencies
+
+For example, let's say we have this function in our package:
+
+```py
+import numpy as np
+
+def normalize(array):
+   min_val = np.min(array)
+   max_val = np.max(array)
+   return (array - min_val) / (max_val - min_val)
+```
+
+When people want to use our function, they **need** to have `numpy` installed for it to work, otherwise it will raise a `ModuleNotFoundError` on their machine.
+
+So in order to ensure they get `numpy` installed, we set `numpy` as a dependency of our package. The dependencies of a package are listed in the `pyproject.toml` file. If you don't know what that is, check out [organizing a package](./organize-a-package.html).
+
+With [uv](https://docs.astral.sh/uv/), we just have to run:
+
+```bash
+uv add numpy
+```
+
+This will automatically add `numpy` to our `pyproject.toml`.
+
+::: {.panel-tabset}
+
+### Before
+
+```toml
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+```
+
+### After
+
+```toml
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy>=2.2.4",
+]
+```
+
+:::
+
+If we add other dependencies, they will be added to the `dependencies` list.
+
+## Avoiding dependencies
+
+In general, we want to **avoid** having too many dependencies. Why is that? Because when we install a package, we need to install its dependencies too, as well as the dependencies of those packages, and so on.
+
+The issue with this is that it adds a lot complexity quickly and increase the risk of having **conflicts**.
+
+For example, one package might need a version of `numpy` before `<2.0.0`, while another need a version above or equal to `>=2.2.0`. This kind of situation can quickly arise if not careful when adding too many dependencies, and it's usually a nightmare to resolve.
+
+> Note: packages with low or no dependencies are called **lightweight**. As an example, have a look at the [narwhals](https://narwhals-dev.github.io/narwhals/) package.
+
+The thing with having lots of dependencies is that it makes it easier for you to write code because you can use other people code super easily. So it's always a trade-off somehow.
+
+Always ask yourself those questions before adding a new package to your dependencies:
+
+- is the dependency a well-known, stable package (`numpy`, `requests`, etc) or is it new and is likely to change in the future?
+- does this dependency has lots of dependencies too? This might be a red flag 🚩
+- can't you just code what it does yourself? If you only need a single function, go check their source code on Github and see if it's easy to do on your side (and ensure their License allow you to copy the code too).
+
+## Controlling the versions
+
+What's the difference between `numpy` `2.1.0` and `numpy` `2.0.0`? Well, many things, but for example, in `numpy` `2.0.0`, the `np.unstack()` function doesn't exist as it's a new one from `numpy` `2.1.0`.
+
+If our package relies on `np.unstack()` in one of our functions, we **can't** let people install any `numpy` version when installing our package. We need to ensure people install this version: `numpy>=2.1.0`. If we translate it, it means *any version of `numpy` above or equal to `2.1.0`*. Let's see some other examples.
+
+::: {.panel-tabset}
+
+### `numpy==2.1.0`
+
+Install exactly this version of `numpy`.
+
+```bash
+uv pip install numpy==2.1.0
+```
+
+### `numpy<=2.1.0`
+
+Install the latest available version before `2.1.0` (including `2.1.0`) of `numpy`.
+
+```bash
+uv pip install 'numpy<=2.1.0'
+```
+
+### `numpy>=2.1.0,<2.2.0`
+
+Install the latest version between `2.1.0` (included) and `2.2.0` (excluded) of `numpy`.
+
+```bash
+uv pip install 'numpy>=2.1.0,<2.2.0'
+```
+
+### `numpy`
+
+Install the latest version of `numpy`.
+
+```bash
+uv pip install numpy
+```
+
+:::
+
+Note that for each of those, the package resolver will always try to install the latest version it can depending on the other dependencies. If a package requires `numpy<=2.1.0`, other packages **must** include `numpy` `2.1.0` for it to work.
+
+At this point, you might ask, **how do I know** which versions of each dependencies are required for my package? Well, as far as I know, there is no easy answer to this, but there are ways to ensure you don't get unexpected behaviors.
+
+### Set the minimum version required...
+
+For each of your dependencies, set in your `pyproject.toml` the minimum version required. With [uv](https://docs.astral.sh/uv/), you can run the following to install a specific version:
+
+```bash
+uv pip install numpy==2.0.0
+```
+
+> Warning: the command above will install a specific version of `numpy`, but will not change the requirements in `pyproject.toml`.
+
+### ... test your code...
+
+You have to test that your code works as expected on those versions. The best way to do that is **unit testing**, and it's the point of the [next blog post](./unit-tests.html).
+
+
+### ... and be convenient
+
+> Dependening on whether you're planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We'll assume you want to distribute it at the end.
+
+When your package goaled is to be installed by other people, you want to be convenient. By that I mean **not being too restrictive**.
+
+If we take our example from before, we know that we need at least `numpy==2.1.0` for our package to work, but we also know that **any numpy version above works too**. For this reason, we set `numpy>=2.1.0` instead of `numpy==2.1.0` to allow a broader range of possibility.
+
+## Breaking changes
+
+By default, when installing our package, it will try to find the latest `numpy` version that satisfies the requirements.
+
+But, you might say there's a risk it will break on a new `numpy` version? Yes, **it absolutely does**. And that's exactly why we said earlier why we wanted to avoid having too many dependencies and use stable ones only.
+
+The good thing with packages like `numpy` is that it's one of the most important Python package and one of its core component. They **can't** make breaking changes on any significant feature. When they want to do it, they usually add warnings like this: *"The function xxx is deprecated and will be removed in a future version, please use yyy instead?"*.
+
+But, if you want to be sure you don't get breaking changes, set the maximum version of the dependencies, with things like `numpy<=2.2.0`. This will ensure it's safe, but this also means you'll need to manually update it as new versions come out.
+
+## Required, Optional and Dev dependencies
