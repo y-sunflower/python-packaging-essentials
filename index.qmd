@@ -36,12 +36,32 @@ git checkout -b branch-name
 
 - Set up your environment
 
+::: {.panel-tabset}
+
+#### MacOS/Unix-like
+
 ```bash
 uv sync
+source .venv/bin/activate
 ```
 
-- Preview locally
+#### Windows
+
+```bash
+uv sync
+.venv\Scripts\activate
+```
+
+:::
+
+### Make changes
+
+Each blog post lives in a Quarto file (`.qmd`). It's a mix of markdown and chunk of code.
+
+You can preview locally your changes with:
 
 ```bash
 quarto preview
 ```
+
+If not done automatically, open your browser at [http://localhost:4000/](http://localhost:4000/)

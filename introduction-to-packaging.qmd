@@ -1,6 +1,5 @@
 ---
 title: "Introduction to packaging"
-date: today
 ---
 
 Creating a Python package is all about making your code __reusable__, __shareable__, and __easy to install__. Whether you want to publish a library for the world or just organize your own projects better, understanding how packaging works is the first step.

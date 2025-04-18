@@ -159,3 +159,129 @@ The good thing with packages like `numpy` is that it's one of the most important
 But, if you want to be sure you don't get breaking changes, set the maximum version of the dependencies, with things like `numpy<=2.2.0`. This will ensure it's safe, but this also means you'll need to manually update it as new versions come out.
 
 ## Required, Optional and Dev dependencies
+
+When working with dependencies, it's useful to differentiate between three main types: required, optional, and development dependencies. Each serves a different purpose in your package.
+
+### Required
+
+Required dependencies are the ones we've been discussing so far - packages that your code absolutely needs to function properly. These go in the `dependencies` list in your `pyproject.toml`.
+
+```toml
+[project]
+dependencies = [
+    "numpy>=2.1.0",
+    "pandas>=2.0.0",
+]
+```
+
+### Optional dependencies
+
+Optional dependencies are packages that enhance your code but aren't strictly necessary for core functionality. For example, if your data processing package works with CSV files by default but can also handle Excel files with an additional dependency.
+
+You can specify these in your `pyproject.toml` using the `[project.optional-dependencies]` section:
+
+
+```toml
+[project.optional-dependencies]
+excel = ["openpyxl>=3.1.0"]
+plot = ["matplotlib>=3.7.0", "plotly>=5.23.0"]
+```
+
+This lets users install only what they need:
+
+::: {.panel-tabset}
+
+#### `mypackage`
+
+Install your package required dependencies **only**:
+
+```bash
+uv pip install mypackage
+```
+
+#### `mypackage[excel]`
+
+Install your package required dependencies as well `openpyxl`:
+
+```bash
+uv pip install "mypackage[excel]"
+```
+
+#### `mypackage[plot]`
+
+Install your package required dependencies as well `matplotlib` and `plotly`:
+
+```bash
+uv pip install "mypackage[plot]"
+```
+
+#### `mypackage[excel,plot]`
+
+Install with all optional dependencies:
+
+```bash
+uv pip install "mypackage[excel,plot]"
+```
+
+:::
+
+In your code, you'll need to handle cases where optional dependencies aren't installed:
+
+```python
+def read_file(filename):
+    if filename.endswith('.csv'):
+        # Core functionality
+        import pandas as pd
+        return pd.read_csv(filename)
+    elif filename.endswith('.xlsx'):
+        try:
+            # Optional functionality
+            import openpyxl
+            import pandas as pd
+            return pd.read_excel(filename)
+        except ImportError:
+            raise ImportError(
+                "Excel support requires 'openpyxl'. "
+                "Install with 'pip install mypackage[excel]'"
+            )
+```
+
+This will give your users a **clear and meaningful error message** that they can resolve very quickly. This kind of thing exist for the same reason we're talking about in this article: trying to minimize the number of dependencies (especially the unused ones!).
+
+In order to add package to your optional dependencies, you can run:
+
+```bash
+uv add matplotlib --optional plot
+```
+
+This will add `matplotlib` to the `plot` section in the optional dependencies in your `pyproject.toml`.
+
+### Dev dependencies
+
+Development dependencies are packages you need only when developing your package, not when using it. These include testing frameworks, documentation generators, linters, and similar tools.
+
+Specify these in your `pyproject.toml` like this:
+
+```toml
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "ruff>=0.11.5",
+    "sphinx>=7.0.0",
+]
+```
+
+In order to add a package to your dev dependencies, you can run:
+
+```bash
+uv add ruff --dev
+```
+
+Developers working on your package can install all optional dependencies as well as dev dependencies with:
+
+```bash
+uv sync --all-extras
+uv pip install -e .
+```
+
+> The `-e` flag installs your package in "editable" mode, meaning changes to your code take effect immediately without needing to reinstall. This might not be necessary as `uv` is already doing it in the first command, but let's explicit it here.

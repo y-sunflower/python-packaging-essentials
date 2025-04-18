@@ -1,6 +1,5 @@
 ---
 title: "Organize a package"
-date: today
 ---
 
 In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both are command-line tools, meaning you'll use your terminal to run commands that perform various actions.
