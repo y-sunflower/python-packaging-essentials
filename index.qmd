@@ -19,7 +19,7 @@ We'll go over concrete examples, use clear explanations, and try as much as poss
 
 ### Set up environment
 
-In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads), [uv](https://docs.astral.sh/uv/getting-started/installation/) and [Quarto](https://quarto.org/) installed on your machine.
+In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads), [`uv`](https://docs.astral.sh/uv/getting-started/installation/) and [Quarto](https://quarto.org/) installed on your machine.
 
 - Fork the [Github repo](https://github.com/yellow-sunflower/python-packaging-essentials/)
 - Git clone it:
@@ -41,6 +41,7 @@ git checkout -b branch-name
 #### MacOS/Unix-like
 
 ```bash
+uv python install
 uv sync
 source .venv/bin/activate
 ```

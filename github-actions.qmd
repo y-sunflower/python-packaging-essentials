@@ -2,4 +2,267 @@
 title: "Github Actions"
 ---
 
-This page is a work in progress. You can see the current state of the project [here](https://github.com/yellow-sunflower/python-packaging-essentials).
+Having a package implies several things, most importantly:
+
+- creating and deploying a documentation website  
+- testing that it works as expected using unit tests  
+- tracking changes with version control (Git)  
+
+In this post, we’ll walk through 3 essential Github Actions you __need__ in your workflow when developing Python packages.
+
+> This blog assumes basic Git/Github knowledge (push/pull, pull requests, branches).
+
+## TLDR: Github Actions
+
+Github Actions are scripts that perform tasks (pretty much anything you want) when specific "events" occur. You can do __a lot__ with them, but here we’ll focus on practical use cases for developing a Python package.
+
+These scripts live in the `.github/workflows/` directory and are written as `yaml` files. For instance, a Python package named "sunflower" with two different Github Actions might be organized like this:
+
+```markdown
+sunflower/
+├── sunflower/
+│   ├── __init__.py
+│   ├── module1.py
+│   └── module2.py
+├── .gitub/
+│   └── workflows/
+│        ├── unit-tests.yaml
+│        └── code-format.yaml
+├── tests/
+├── .git/
+├── .venv/
+├── .gitignore
+├── README.md
+├── LICENSE
+└── pyproject.toml
+```
+
+On certain "events" (as defined in those scripts), `unit-tests.yaml` and `code-format.yaml` will be triggered.
+
+The events we care about here are:
+
+- Opening a pull request  
+- Merging or pushing to the main branch  
+
+Let’s look at a practical example to understand why these scripts are important.
+
+## Unit testing
+
+> If you’re not familiar with unit testing, check out [this blog post](./unit-tests.html) first.
+
+Suppose we have unit tests written with `pytest` in the `tests/` directory. We can now add a `unit-tests.yaml` file in `.github/workflows/` that looks like this:
+
+```yaml
+name: Unit tests
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.9", "3.13"]
+
+    env:
+      UV_PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Enable caching
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Run tests
+        run: uv run pytest
+```
+
+What it does:
+
+When someone pushes a commit to a branch with an open pull request (as specified in the `on` section), this action will:
+
+- install [`uv`](https://docs.astral.sh/uv/) (a Python package manager)  
+- install the project dependencies using `uv sync --all-extras --dev`  
+- run the test suite with `uv run pytest`  
+
+This runs across multiple Python versions (3.9 and 3.13) and operating systems (Windows, macOS, and Linux). That gives us 6 combinations in total (2 Python versions × 3 OSes).
+
+Here’s what shows up on the pull request while the tests are running:
+
+![](img/github-actions-in-progress.png)
+
+If any of those combinations fail (meaning at least one test fails), you’ll see a message indicating that something didn’t work. For example, you might learn that your package fails on Windows with Python 3.9. Otherwise, you’ll see something like this:
+
+![](img/github-actions-success.png)
+
+The purpose of setting up this Github Action is to __automatically and easily__ verify that the package works in different environments, helping ensure that only valid code is merged into the main branch.
+
+In this example, we used just two Python versions and one set of dependencies, but this approach can be extended to test the package under many more scenarios. That way, we get a clear and precise picture of what works and what doesn’t.
+
+
+
+## Create and deploy documentation
+
+> There’s a dedicated blog post on generating and deploying documentation for your package. Check it out [here](./writing-documentation.html).
+
+Let’s say we’ve created our documentation website with `mkdocs`. We then add a `deploy-site.yaml` file in `.github/workflows/`.
+
+Since generating the documentation website creates a large number of files, it's not ideal to store them in version control. But how do we deploy it to Github Pages if it's not in version control? That’s where Github Actions come in!
+
+Now, let’s take a look at the following Github Action script:
+
+```yaml
+name: ci
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure Git Credentials
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+      - uses: actions/cache@v4
+        with:
+          key: mkdocs-material-${{ env.cache_id }}
+          path: .cache
+          restore-keys: |
+            mkdocs-material-
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Enable caching
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Deploy MkDocs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: uv run mkdocs gh-deploy --force
+```
+
+What it does:
+
+When someone merges or pushes to the main branch, this action will:
+
+- install [`uv`](https://docs.astral.sh/uv/) (a Python package manager)  
+- install the project dependencies using `uv sync --all-extras --dev`  
+- generate the entire documentation website with `uv run mkdocs gh-deploy --force`  
+- push the documentation website to the `gh-pages` branch on Github  
+
+With this setup, assuming our website is deployed to Github Pages using the `gh-pages` branch, the documentation site is deployed automatically whenever a pull request is opened or we merge/push to the main branch. All without keeping the auto-generated files in version control.
+
+This also __removes all manual work__ related to building and deploying the documentation, as it’s now fully automated through this Github Action.
+
+## Code linting and formatting
+
+When working on a project, it’s crucial to maintain standardized coding practices:
+
+- Consistent formatting (e.g., indentation, spacing, quotes)  
+- Clean code free of unused imports, bad patterns, or minor bugs  
+
+This is where __code formatting__ and __linting__ tools come into play, and we can automate them using Github Actions.
+
+We’ll use [`ruff`](https://docs.astral.sh/ruff/) here, which is a super fast linter and formatter for Python. It can both check for issues (like `flake8` or `pylint`) __and__ format code (like `black`), all in one tool.
+
+### Add Ruff to your project
+
+First, add Ruff as a development dependency:
+
+```bash
+uv add --dev ruff
+```
+
+### Create the GitHub Action
+
+Now, create a file named `.github/workflows/code-format.yaml` with the following content:
+
+```yaml
+name: Ruff lint and format
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Enable caching
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+
+      - name: Check formatting
+        run: uv run ruff format . --check
+
+      - name: Lint code
+        run: uv run ruff check .
+```
+
+What it does:
+
+When a pull request is opened against `main`, this action will:
+
+- Install your project and its development dependencies using `uv`  
+- Check if the code is properly formatted with `ruff format . --check`  
+- Lint the code with `ruff check .` to catch any potential issues  
+
+If there’s anything wrong (such as a file needing formatting or an unused import), the action will fail, and the pull request will show a red ❌. That’s your cue to fix the code.
+
+This ensures that all code added to the codebase is well-formatted and adheres to the established rules.
+
+> Note that there's an additional way to enforce this called `pre-commit`, and there’s a [dedicated blog post](./pre-commit.html) on it.
+
+## FAQ
+
+::: {.panel-tabset}
+
+### I didn't understand certain things
+
+Github Actions is one of those things where you need to try it yourself to get the full picture. I recommend creating a basic Python package with documentation and tests, then testing the examples provided to see how they work.
+
+### Where does the code run?
+
+When a Github Action is triggered, Github sets up a clean VM (virtual machine) to run your workflow. There are limits on usage, but they’re quite generous before you’ll need to enter your credit card details.
+
+### Can I run it on my machine?
+
+Yes, you can! Thanks to a project called [act](https://github.com/nektos/act). In short, it uses [Docker](https://www.docker.com/) to run your Github Actions in the correct context.
+
+:::

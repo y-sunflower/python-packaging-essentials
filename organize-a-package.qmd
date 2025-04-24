@@ -2,7 +2,7 @@
 title: "Organize a package"
 ---
 
-In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both are command-line tools, meaning you'll use your terminal to run commands that perform various actions.
+In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads) and [`uv`](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both are command-line tools, meaning you'll use your terminal to run commands that perform various actions.
 
 Let's assume we're naming our Python package *"sunflower"*.
 
@@ -30,29 +30,35 @@ Here is a simple version of this file:
 ```toml
 [project]
 name = "sunflower"
-description = "Description of the package"
 version = "0.1.0"
+description = "create pretty sunflowers"
 license = "MIT"
 license-files = ["LICENSE"]
-keywords = ["sunflower", "yellow"]
+keywords = ["sunflower", "flower"]
 authors = [
-  { name="Your Name", email="yourmail@gmail.com" },
+    { name = "Your Name", email = "yourmail@example.com" },
 ]
 readme = "README.md"
 requires-python = ">=3.9"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
-]
-dependencies = []
+dependencies = ["matplotlib"]
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = [
+    "setuptools",
+    "setuptools-scm",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["sunflower"]
+
+[tool.uv.sources]
+sunflower = { workspace = true }
 
 [project.urls]
-Homepage = "https://github.com/yourname/sunflower"
-Issues = "https://github.com/yourname/sunflower/issues"
+Homepage = "https://sunflower-are-beautiful.com"
+Issues = "https://github.com/YourName/sunflower/issues"
+Repository = "https://github.com/YourName/sunflower"
 ```
 
 ### `LICENSE`
@@ -263,6 +269,8 @@ def count_sunflowers(s):
 
 We're now going to add a `__init__.py` file in the same place as the `module1.py` file that contains our previous function. This is a special Python file. It tells Python that the `sunflower/sunflower/` directory is a package, which will allow us to import functions from that package into the outside world.
 
+> Learn more the `__init__.py` file [here](./introduction-to-packaging.html).
+
 We now have this:
 
 ```markdown
@@ -369,6 +377,8 @@ sfl.count_sunflower(text)
 
 :::
 
+> You can learn more about it in the [API design blog post](./api-design.html).
+
 ## Add an internal function
 
 When creating a package, it is very practical to create functions that we will use internally: inside the package itself.
@@ -380,7 +390,7 @@ import re
 
 def _clean_string(s):
    s = re.sub(r"[^a-zA-Z\s]", "", s)  # Remove non-text characters
-   s = s.lower()  # Convert to lowercase
+   s = s.lower()                      # Convert to lowercase
    return s
 ```
 

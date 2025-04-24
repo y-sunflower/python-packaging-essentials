@@ -4,6 +4,9 @@ project:
   preview:
     port: 4000
 
+website:
+  google-analytics: "G-XXXXXXXX"
+
 book:
   title: "Python Packaging Essentials"
   author: "Joseph Barbier"
@@ -33,6 +36,3 @@ format:
       - brand
   pdf:
     documentclass: scrreprt
-
-
-
