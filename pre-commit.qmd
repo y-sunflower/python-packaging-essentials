@@ -1,5 +1,137 @@
 ---
-title: "Pre-commit"
+title: "Pre-commit Hooks"
 ---
 
-This page is a work in progress. You can see the current state of the project [here](https://github.com/yellow-sunflower/python-packaging-essentials).
+In this post, we’ll walk through how to add `pre-commit` to your Python package to enforce good code hygiene *automatically*.
+
+> This post assumes you’re already using Git and are familiar with what commits are. It also requires using [uv](https://docs.astral.sh/uv/){target="_blank"}.
+
+## TLDR: What is `pre-commit`?
+
+`pre-commit` is a framework for managing and running "hooks", which are just scripts defined in a `.pre-commit-config.yaml` file that run at specific points in the Git lifecycle. The most common is the `pre-commit` hook, which runs **before** a commit is created.
+
+The point of using pre-commit hooks is to prevent your codebase from including unwanted things, such as unformatted code, oversized files, print statements, and so on.
+
+Here’s what makes `pre-commit` awesome:
+
+- **It runs locally** – unlike CI (e.g. [GitHub Actions](./github-actions.html)), it catches issues *before* they get pushed  
+- **It’s fast** – runs only on the files you’ve changed  
+- **It’s customizable** – tons of hooks are available, or you can write your own  
+- **It integrates with CI** – you can run `pre-commit` in CI to make sure everyone follows the same rules
+
+## How it looks
+
+Here is a pre-commit hook that:
+
+- checks if our code is both linted and formatted  
+- if not, it will try to fix it
+
+```yaml
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.7
+    hooks:
+      - id: ruff
+        types_or: [python, pyi]
+        args: [--fix]
+      - id: ruff-format
+        types_or: [python, pyi]
+```
+
+This will run each time we run `git commit`. If our code is not perfectly linted and formatted, it will prevent the commit and lint/format it (if possible).
+
+Once our code is fixed, we can re-run `git add` and `git commit`, and it will accept our commit, which we can then push.
+
+## How to set up
+
+::: {.panel-tabset}
+
+### 1. Configuration
+
+Create a `.pre-commit-config.yaml` file at the root of your project.
+
+Let’s use a relatively common pre-commit setup. It configures formatting and linting with [ruff](https://docs.astral.sh/ruff/), checks for large files, and removes trailing whitespace:
+
+```yaml
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.7
+    hooks:
+      - id: ruff
+        types_or: [python, pyi]
+        args: [--fix]
+      - id: ruff-format
+        types_or: [python, pyi]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: check-added-large-files
+```
+
+- The `repo` field defines where the actual checks to run are defined  
+- Each `rev` pin ensures you're using a specific version of that hook for reproducibility  
+- The `id` defines the exact check to run  
+
+
+### 2. Install
+
+Install it as a development dependency:
+
+```bash
+uv add --dev pre-commit
+uv run pre-commit install
+```
+
+If you don't want to add it to your development dependencies, you can simply run :
+
+```bash
+uv pip install pre-commit
+uv run pre-commit install
+```
+
+### 3. Commit
+
+Now try editing a Python file (add spaces at the end of the file or change the formatting of something). Then try committing it:
+
+```bash
+git commit -m "Test pre-commit"
+```
+
+You’ll see the hooks run automatically and fix (or block) your commit if needed.
+
+```bash
+[INFO] Installing environment for https://github.com/astral-sh/ruff-pre-commit.
+[INFO] Once installed, this environment will be reused.
+[INFO] Running ruff-format...
+[INFO] Files were modified by this hook. Please stage the changes and try again.
+```
+
+If `pre-commit` fixes files automatically, it will ask you to re-stage them and try committing again. This prevents broken or messy code from slipping into version control.
+
+:::
+
+
+## FAQ
+
+::: {.panel-tabset}
+
+### "Files were modified by this hook"
+
+This means the hook fixed your files. Run:
+
+```bash
+git add .
+git commit -m "message"
+```
+
+### "Hook failed"
+
+Some hooks (like `ruff`) don’t fix issues automatically. You’ll need to fix them manually based on the error messages.
+
+### "Nothing happens when I commit"
+
+Did you run `uv run pre-commit install`? That installs the Git hook. Without it, the hooks won’t run.
+
+:::
