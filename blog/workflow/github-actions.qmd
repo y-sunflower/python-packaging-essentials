@@ -91,7 +91,7 @@ What it does:
 
 When someone pushes a commit to a branch with an open pull request (as specified in the `on` section), this action will:
 
-- install [`uv`](https://docs.astral.sh/uv/) (a Python package manager)  
+- install [uv](https://docs.astral.sh/uv/) (a Python package manager)  
 - install the project dependencies using `uv sync --all-extras --dev`  
 - run the test suite with `uv run pytest`  
 
@@ -172,7 +172,7 @@ What it does:
 
 When someone merges or pushes to the main branch, this action will:
 
-- install [`uv`](https://docs.astral.sh/uv/) (a Python package manager)  
+- install [uv](https://docs.astral.sh/uv/) (a Python package manager)  
 - install the project dependencies using `uv sync --all-extras --dev`  
 - generate the entire documentation website with `uv run mkdocs gh-deploy --force`  
 - push the documentation website to the `gh-pages` branch on Github  

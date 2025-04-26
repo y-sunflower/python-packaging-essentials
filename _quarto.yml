@@ -9,6 +9,7 @@ website:
 
 book:
   title: "Python Packaging Essentials"
+  description: "Practical guide that walks you through creating, organizing, testing, and publishing Python packages."
   author: "Joseph Barbier"
   date: today
   downloads: pdf

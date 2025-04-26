@@ -2,7 +2,7 @@
 
 The aim of this site it to provide all the must known practices when it comes to create a Python package. It offers **multiple blog posts**, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.
 
-The site is live [here](#)
+The site is live [here](#).
 
 <br><br>
 

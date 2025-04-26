@@ -4,7 +4,7 @@ title: "Handling dependencies"
 
 Dependencies are the external Python packages your code needs in order to work—like `requests`, `numpy`, or `pandas`.
 
-Here we'll focus on using [`uv`](https://docs.astral.sh/uv/) to handle dependencies, as it's currently the best tool for this out there (it's fast and fairly easy to use, especially if you know `pip`).
+Here we'll focus on using [uv](https://docs.astral.sh/uv/) to handle dependencies, as it's currently the best tool for this out there (it's fast and fairly easy to use, especially if you know `pip`).
 
 ## Specify dependencies
 
@@ -23,7 +23,7 @@ When people want to use our function, they **need** to have `numpy` installed fo
 
 So in order to ensure they get `numpy` installed, we set `numpy` as a dependency of our package. The dependencies of a package are listed in the `pyproject.toml` file. If you don't know what that is, check out [organizing a package](./organize-a-package.html).
 
-With [`uv`](https://docs.astral.sh/uv/), we just have to run:
+With [uv](https://docs.astral.sh/uv/), we just have to run:
 
 ```bash
 uv add numpy
@@ -129,7 +129,7 @@ At this point, you might ask, **how do I know** which versions of each dependenc
 
 ### Set the minimum version required...
 
-For each of your dependencies, set in your `pyproject.toml` the minimum version required. With [`uv`](https://docs.astral.sh/uv/), you can run the following to install a specific version:
+For each of your dependencies, set in your `pyproject.toml` the minimum version required. With [uv](https://docs.astral.sh/uv/), you can run the following to install a specific version:
 
 ```bash
 uv pip install numpy==2.0.0
