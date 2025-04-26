@@ -14,19 +14,27 @@ book:
   downloads: pdf
   license: MIT
   repo-url: https://github.com/yellow-sunflower/python-packaging-essentials/
+  repo-branch: main
+  repo-actions: [edit, issue]
   search: true
   chapters:
     - index.qmd
-    - introduction-to-packaging.qmd
-    - organize-a-package.qmd
-    - handling-dependencies.qmd
-    - unit-tests.qmd
-    - writing-documentation.qmd
-    - errors-and-warnings.qmd
-    - github-actions.qmd
-    - pre-commit.qmd
-    - api-design.qmd
-    - publish-to-pypi.qmd
+    - part: blog/create-a-package/index.qmd
+      chapters:
+        - blog/create-a-package/introduction-to-packaging.qmd
+        - blog/create-a-package/organize-a-package.qmd
+        - blog/create-a-package/handling-dependencies.qmd
+    - part: blog/code-quality/index.qmd
+      chapters:
+        - blog/code-quality/unit-tests.qmd
+        - blog/code-quality/writing-documentation.qmd
+        - blog/code-quality/errors-and-warnings.qmd
+        - blog/code-quality/api-design.qmd
+    - part: blog/workflow/index.qmd
+      chapters:
+        - blog/workflow/github-actions.qmd
+        - blog/workflow/pre-commit.qmd
+        - blog/workflow/publish-to-pypi.qmd
 
 format:
   html:

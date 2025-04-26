@@ -1,9 +1,9 @@
 
 
 
-# About {.unnumbered}
+# Preface {.unnumbered}
 
-The aim of this site it to provide all the must known practices when it comes to create a Python package. It offers **10 blog posts**, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.
+The aim of this site it to provide all the must known practices when it comes to create a Python package. It offers **multiple blog posts**, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.
 
 We'll go over concrete examples, use clear explanations, and try as much as possible to go straight to the point so that anyone with some Python knowledge can create their own Python packages.
 
