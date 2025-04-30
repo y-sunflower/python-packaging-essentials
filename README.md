@@ -6,7 +6,7 @@ The site is live [here](#).
 
 <br><br>
 
-### Progress
+## Progress
 
 | Post                  | Section          | State |
 | --------------------- | ---------------- | ----- |
@@ -23,7 +23,7 @@ The site is live [here](#).
 
 <br><br>
 
-### Build from source
+## Contributing
 
 ### Set up environment
 
