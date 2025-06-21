@@ -4,7 +4,7 @@ title: "Handling dependencies"
 
 Dependencies are the external Python packages your code needs in order to work, such as `requests`, `numpy`, or `pandas`.
 
-Here we'll focus on using [uv](https://docs.astral.sh/uv/) to handle dependencies, as it's currently the best tool for this out there (it's fast and fairly easy to use, especially if you know `pip`).
+Here we'll focus on using [uv](https://docs.astral.sh/uv/){target="_blank"} to handle dependencies, as it's currently the best tool for this out there (it's fast and fairly easy to use, especially if you know `pip`).
 
 ## Specify dependencies
 
@@ -21,9 +21,11 @@ def normalize(array):
 
 When people want to use our function, they **need** to have `numpy` installed for it to work, otherwise it will raise a `ModuleNotFoundError` on their machine.
 
-So in order to ensure they get `numpy` installed, we set `numpy` as a dependency of our package. The dependencies of a package are listed in the `pyproject.toml` file. If you don't know what that is, check out [organizing a package](./organize-a-package.html).
+So in order to ensure is `numpy` installed, we set `numpy` as a dependency of our package. This means that every time someone install our package, they will also install `numpy`.
 
-With [uv](https://docs.astral.sh/uv/), we just have to run:
+The dependencies of a package are listed in the `pyproject.toml` file. If you don't know what that is, check out [organizing a package](./organize-a-package.html).
+
+With [uv](https://docs.astral.sh/uv/){target="_blank"}, we just have to run:
 
 ```bash
 uv add numpy
@@ -135,7 +137,7 @@ For each of your dependencies, set in your `pyproject.toml` the minimum version 
 uv pip install numpy==2.0.0
 ```
 
-> Warning: the command above will install a specific version of `numpy`, but will not change the requirements in `pyproject.toml`.
+> Warning: the command above will install a specific version of `numpy`, but will not change the requirements in `pyproject.toml`. Use `uv add` if you want to change them.
 
 ### ... test your code...
 
@@ -258,6 +260,37 @@ uv add matplotlib --optional plot
 
 This will add `matplotlib` to the `plot` section in the optional dependencies in your `pyproject.toml`.
 
+::: {.panel-tabset}
+
+### Before
+
+```toml
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+```
+
+### After
+
+```toml
+[project]
+name = "mypackage"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.7.0"]
+```
+
+:::
+
 ### Dev dependencies
 
 Development dependencies are packages you need only when developing your package, not when using it. These include testing frameworks, documentation generators, linters, and similar tools.
@@ -282,8 +315,7 @@ uv add ruff --dev
 Developers working on your package can install all optional dependencies as well as dev dependencies with:
 
 ```bash
-uv sync --all-extras
-uv pip install -e .
+uv sync --all-groups
 ```
 
-> The `-e` flag installs your package in "editable" mode, meaning changes to your code take effect immediately without needing to reinstall. This might not be necessary as `uv` is already doing it in the first command, but let's explicit it here.
+
