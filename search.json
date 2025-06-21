@@ -1,0 +1,406 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Python Packaging Essentials",
+    "section": "",
+    "text": "Preface\nThe aim of this site it to provide all the must known practices when it comes to create a Python package. It offers multiple blog posts, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.\nWe’ll go over concrete examples, use clear explanations, and try as much as possible to go straight to the point so that anyone with some Python knowledge can create their own Python packages.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#good-to-know",
+    "href": "index.html#good-to-know",
+    "title": "Python Packaging Essentials",
+    "section": "Good to know",
+    "text": "Good to know\n\nAll blog posts are independant. Even if they follow some sort of order, it’s perfectly fine to just look at what interests you.\nThis site is open source and in continuous improvement. If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it’s more than welcomed. It starts here.\nYou can download the PDF version of this site in the top left of the site / navigation bar.\nThis website is not exhaustive and does not aim to be. We aim to focus on the key points and refer to other resources for more specific topics.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "index.html#contributing",
+    "href": "index.html#contributing",
+    "title": "Python Packaging Essentials",
+    "section": "Contributing",
+    "text": "Contributing\n\nSet up environment\nIn order to follow the steps below, you’ll need to have both Git, uv and Quarto installed on your machine.\n\nFork the Github repo\nGit clone it:\n\ngit clone https://github.com/YourUsername/python-packaging-essentials.git\n\nCreate a new Git branch\n\ngit checkout -b branch-name\n\nSet up your environment\n\n\nMacOS/Unix-likeWindows\n\n\nuv python install\nuv sync\nsource .venv/bin/activate\n\n\nuv python install\nuv sync\n.venv\\Scripts\\activate\n\n\n\n\n\nMake changes\nEach blog post lives in a Quarto file (.qmd). It’s a mix of markdown and chunk of code.\nYou can preview locally your changes with:\nquarto preview\nIf not done automatically, open your browser at http://localhost:4000/",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/introduction-to-packaging.html",
+    "href": "blog/create-a-package/introduction-to-packaging.html",
+    "title": "1  Introduction to packaging",
+    "section": "",
+    "text": "1.1 The __init__.py File\nCreating a Python package is all about making your code reusable, shareable, and easy to install. Whether you want to publish a library for the world or just organize your own projects better, understanding how packaging works is the first step.\nAt its simplest, a package is just a folder that contains an __init__.py file.\nThe presence of __init__.py tells Python: “this is a package.”\nEven if it’s an empty file, it’s important—it allows you to import parts of your code like this:\nWithout it, Python treats the folder as a regular directory, not something it can import from.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/introduction-to-packaging.html#the-__init__.py-file",
+    "href": "blog/create-a-package/introduction-to-packaging.html#the-__init__.py-file",
+    "title": "1  Introduction to packaging",
+    "section": "",
+    "text": "my_package/\n└── __init__.py\n\n\nfrom my_package import something",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/introduction-to-packaging.html#package-vs-module",
+    "href": "blog/create-a-package/introduction-to-packaging.html#package-vs-module",
+    "title": "1  Introduction to packaging",
+    "section": "1.2 Package vs Module",
+    "text": "1.2 Package vs Module\nThese terms get thrown around a lot. Here’s the quick breakdown:\n\nModule: A single .py file (e.g., my_file.py)\nPackage: A directory with an __init__.py, possibly containing multiple modules (e.g., multiple files)",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/introduction-to-packaging.html#pypi-python-package-index",
+    "href": "blog/create-a-package/introduction-to-packaging.html#pypi-python-package-index",
+    "title": "1  Introduction to packaging",
+    "section": "1.3 PyPI (Python Package Index)",
+    "text": "1.3 PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. This is where packages are stored so that others can find and install them.\nWhen you run:\npip install requests\nYou’re downloading the requests package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/introduction-to-packaging.html#pip-and-friends",
+    "href": "blog/create-a-package/introduction-to-packaging.html#pip-and-friends",
+    "title": "1  Introduction to packaging",
+    "section": "1.4 pip (and friends)",
+    "text": "1.4 pip (and friends)\npip is the tool used to install packages from PyPI. It’s simple and widely supported.\nExample:\npip install numpy\nBut when working with packages in Python, you need to take into account the package version. Maybe you need numpy 2.1.2 instead of 2.1.1 for your project.\nYou can read more about this in the handling dependencies article, but in summary, it’s important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.\nSome newer tools are built around pip to offer additional features such as dependency management and better performance.\nOne of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there’s a problem.\nSince 2024, the best tool available is called uv. It’s super easy to use, super fast and does everything you need, in one place, with one tool. It’s more of a Python project manager than a simple package installer.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to packaging</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/organize-a-package.html",
+    "href": "blog/create-a-package/organize-a-package.html",
+    "title": "2  Organize a package",
+    "section": "",
+    "text": "2.1 Initialize the directory\nIn order to follow the steps below, you’ll need to have both Git and uv installed on your machine. Both are command-line tools, meaning you’ll use your terminal to run commands that perform various actions.\nLet’s assume we’re naming our Python package “sunflower”.\nThe very first step is to create a new directory named “sunflower”. Inside this directory, create another directory with the same name. The structure should look like this:",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/organize-a-package.html#initialize-the-directory",
+    "href": "blog/create-a-package/organize-a-package.html#initialize-the-directory",
+    "title": "2  Organize a package",
+    "section": "",
+    "text": "sunflower/\n└── sunflower/",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/organize-a-package.html#add-main-python-project-files",
+    "href": "blog/create-a-package/organize-a-package.html#add-main-python-project-files",
+    "title": "2  Organize a package",
+    "section": "2.2 Add main Python project files",
+    "text": "2.2 Add main Python project files\nNext, we need to create a few essential files at the root of the project.\n\npyproject.tomlLICENSE.git/.gitignore.venv/README.mdsandbox.py\n\n\nAll the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily.\nHere is a simple version of this file:\n[project]\nname = \"sunflower\"\nversion = \"0.1.0\"\ndescription = \"create pretty sunflowers\"\nlicense = \"MIT\"\nlicense-files = [\"LICENSE\"]\nkeywords = [\"sunflower\", \"flower\"]\nauthors = [\n    { name = \"Your Name\", email = \"yourmail@example.com\" },\n]\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.9\"\ndependencies = [\"matplotlib\"]\n\n[build-system]\nrequires = [\n    \"setuptools\",\n    \"setuptools-scm\",\n]\nbuild-backend = \"setuptools.build_meta\"\n\n[tool.setuptools]\npackages = [\"sunflower\"]\n\n[tool.uv.sources]\nsunflower = { workspace = true }\n\n[project.urls]\nHomepage = \"https://sunflower-are-beautiful.com\"\nIssues = \"https://github.com/YourName/sunflower/issues\"\nRepository = \"https://github.com/YourName/sunflower\"\n\n\nA basic text file containing the licence for your package. This licence is important because it tells other people what they are allowed to do with your package.\nIt is specific to each project, but you can find out more at choosealicence.com.\nHere is an example of the most common licence: the MIT licence.\nCopyright (c) 2025 Your Name\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\n\nThis is a directory used internally by the Git software to track all changes in the project. Assuming that the first “sunflower” directory is in your Desktop/ directory, you should create this directory by running the git init command when you are in the Desktop/sunflower/ directory.\nIt’s very likely that you won’t see it, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but it doesn’t matter. This directory will be managed entirely by Git itself, so we recommend that you never make any manual changes to it.\n\n\nA file in which each line describes one or more files/directories that are not explicitly part of the project or are not relevant in general. Don’t worry too much about this, you can just start with the example content below.\nIt is very likely that you will not see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but that doesn’t matter.\n# Python-generated files\n__pycache__/\n*.py[oc]\nbuild/\ndist/\nwheels/\n*.egg-info\n\n# Virtual environments\n.venv/\nvenv/\n.env/\nenv/\n\n# VS code config\n.vscode/\n\n# files on mac\n.DS_Store\n\n# all cache files\n*cache*\n\n# Sandbox files\nsandbox.py\nsandbox.ipynb\n\n\nA directory containing all the things we need to work properly in our Python environment. It contains a Python interpreter, all the packages used in the project (e.g. numpy, requests, etc), and a few other things.\nThe best way to create one is to run uv venv.\nIt is very likely that you will not see it outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with ., but that doesn’t matter.\n\n\nA markdown file that describes the project, gives advice on how to use it, install it and so on. There are no rules about what to do with this file, it’s just used to tell people what is the first thing they should read before using your package.\nFor example, it could be something like this:\n# sunflower: my cool Python package\n\nWelcome to the homepage of the `sunflower` project.\n\nIt's a new project, but it will be available soon!\n\n\nA file that we will use to test and use our package. It’s optional but very practical.\n\n\n\n\nAs you can see, we haven’t written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this:\nsunflower/\n├── sunflower/\n├── .git/\n├── .venv/\n├── .gitignore\n├── README.md\n├── LICENSE\n├── sandbox.py\n└── pyproject.toml",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/organize-a-package.html#add-python-code",
+    "href": "blog/create-a-package/organize-a-package.html#add-python-code",
+    "title": "2  Organize a package",
+    "section": "2.3 Add Python code",
+    "text": "2.3 Add Python code\nWhen creating a Python package, we want to write a reusable piece of code, not just put in a few scripts that do things. To illustrate:\n\nNot reusable codeReusable code\n\n\n\nname = \"Joseph\"\nmessage = f\"Hello {name}\"\nprint(message)\n\nHello Joseph\n\n\nThis code does something: it prints a message.\n\n\n\ndef say_hello(name):\n   message = f\"Hello {name}\"\n   print(message)\n\nThe code above does ‘nothing’. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:\n\nsay_hello(\"Joseph\")\n\nHello Joseph\n\n\n\n\n\nHere, we’ll keep things simple and assume that we only want to provide functions and classes in our package.\nNow, let’s create our first Python module (which is just a file ending in .py). We’ll call it module1.py, but it can be anything. The only thing we want to stick to when naming files is:\n\nuse lowercase only\navoid spaces and odd characters\nkeep it short\nuse underscores “_”\n\n\nBad file namesGood file names\n\n\nmy file.py\nMyfile.py\nmyFile.py\nmy@file.py\nmy-file.py\nthis-file-does-this-and-that.py\n\n\nmy_file.py\nmyfile.py\n\n\n\nSo let’s put our module1.py in sunflower/sunflower/, which will give us:\nsunflower/\n├── sunflower/\n│   └── module1.py\n├── .git/\n├── .venv/\n├── .gitignore\n├── README.md\n├── LICENSE\n├── sandbox.py\n└── pyproject.toml\nIn module1.py, we’re going to add our very first function to our package. For example, we’ll create a count_sunflower() function. This function will count how many times the word ‘sunflower’ occurs in a given string.\nimport re\n\ndef count_sunflowers(s):\n   s = re.sub(r\"[^a-zA-Z\\s]\", \"\", s)  # Remove non-text characters\n   s = s.lower()                      # Convert to lowercase\n   n_sunflower = s.split().count(\"sunflower\")\n   n_sunflowers = s.split().count(\"sunflowers\")\n   return n_sunflower + n_sunflowers\nWe’re now going to add a __init__.py file in the same place as the module1.py file that contains our previous function. This is a special Python file. It tells Python that the sunflower/sunflower/ directory is a package, which will allow us to import functions from that package into the outside world.\n\nLearn more the __init__.py file here.\n\nWe now have this:\nsunflower/\n├── sunflower/\n│   ├── __init__.py\n│   └── module1.py\n├── .git/\n├── .venv/\n├── .gitignore\n├── README.md\n├── LICENSE\n├── sandbox.py\n└── pyproject.toml\nThe __init__.py file should look like this:\nfrom .module1 import count_sunflowers\n\n__all__ = [\"count_sunflowers\"]\nAnd well done! You may not have realised it, but we already have a Python package that can be used with a function.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/organize-a-package.html#user-perspective",
+    "href": "blog/create-a-package/organize-a-package.html#user-perspective",
+    "title": "2  Organize a package",
+    "section": "2.4 User perspective",
+    "text": "2.4 User perspective\nLet’s now look at how to use our package from the user’s point of view.\nOnce again, we’ll need to run a command in our terminal at Desktop/sunflower/:\nuv pip install -e .\nThis command will install our current package in editable mode. This allows us to test our package while making updates.\nThe next step is to open sandbox.py and write some code that uses our package.\nfrom sunflower import count_sunflower\n\ntext = \"\"\"\nSunflower petals bright and gold,  \nSunflower fields, a sight to behold.  \nSunflower dreams in the morning light,  \nBlooming softly, pure and bright.\n\"\"\"\n\nprint(count_sunflower(text))\n3\nNote that we can use any of the following syntaxes:\n\nSyntax 1Syntax 2Syntax 3\n\n\nfrom sunflower import count_sunflower\n\ntext = \"\"\"\nSunflower petals bright and gold,  \nSunflower fields, a sight to behold.  \nSunflower dreams in the morning light,  \nBlooming softly, pure and bright.\n\"\"\"\n\ncount_sunflower(text)\n\n\nimport sunflower\n\ntext = \"\"\"\nSunflower petals bright and gold,  \nSunflower fields, a sight to behold.  \nSunflower dreams in the morning light,  \nBlooming softly, pure and bright.\n\"\"\"\n\nsunflower.count_sunflower(text)\n\n\nimport sunflower as sfl # or any other alias like \"sf\" or \"sunflo\"\n\ntext = \"\"\"\nSunflower petals bright and gold,  \nSunflower fields, a sight to behold.  \nSunflower dreams in the morning light,  \nBlooming softly, pure and bright.\n\"\"\"\n\nsfl.count_sunflower(text)\n\n\n\n\nYou can learn more about it in the API design blog post.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/organize-a-package.html#add-an-internal-function",
+    "href": "blog/create-a-package/organize-a-package.html#add-an-internal-function",
+    "title": "2  Organize a package",
+    "section": "2.5 Add an internal function",
+    "text": "2.5 Add an internal function\nWhen creating a package, it is very practical to create functions that we will use internally: inside the package itself.\nIf we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let’s name this function _clean_string() and place it in a new file: module2.py.\nimport re\n\ndef _clean_string(s):\n   s = re.sub(r\"[^a-zA-Z\\s]\", \"\", s)  # Remove non-text characters\n   s = s.lower()                      # Convert to lowercase\n   return s\nOur code in module1.py should now become:\nfrom .module2 import _clean_string\n\ndef count_sunflowers(s):\n   s = _clean_string(s)\n   n_sunflower = s.split().count(\"sunflower\")\n   n_sunflowers = s.split().count(\"sunflowers\")\n   return n_sunflower + n_sunflowers\nWe now have 2 functions:\n\ncount_sunflowers() a public function that users of the package will use.\n_clean_string() a private function used internally. The underscore (‘_’) at the beginning of the function name tells other people that it should not be used outside the package from which it came.\n\nNote that _clean_string() is still usable by users if they run it:\nfrom sunflower.module2 import _clean_string\nBut as you can see from the documentation blog post, we won’t have or create documentation on these functions, so they’re unlikely to find it anyway.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/organize-a-package.html#final-organization",
+    "href": "blog/create-a-package/organize-a-package.html#final-organization",
+    "title": "2  Organize a package",
+    "section": "2.6 Final organization",
+    "text": "2.6 Final organization\nAfter all these steps, our package now looks like this:\nsunflower/\n├── sunflower/\n│   ├── __init__.py\n│   ├── module1.py\n│   └── module2.py\n├── .git/\n├── .venv/\n├── .gitignore\n├── README.md\n├── LICENSE\n├── sandbox.py\n└── pyproject.toml",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Organize a package</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/handling-dependencies.html",
+    "href": "blog/create-a-package/handling-dependencies.html",
+    "title": "3  Handling dependencies",
+    "section": "",
+    "text": "3.1 Specify dependencies\nDependencies are the external Python packages your code needs in order to work—like requests, numpy, or pandas.\nHere we’ll focus on using uv to handle dependencies, as it’s currently the best tool for this out there (it’s fast and fairly easy to use, especially if you know pip).\nFor example, let’s say we have this function in our package:\nWhen people want to use our function, they need to have numpy installed for it to work, otherwise it will raise a ModuleNotFoundError on their machine.\nSo in order to ensure they get numpy installed, we set numpy as a dependency of our package. The dependencies of a package are listed in the pyproject.toml file. If you don’t know what that is, check out organizing a package.\nWith uv, we just have to run:\nThis will automatically add numpy to our pyproject.toml.\nIf we add other dependencies, they will be added to the dependencies list.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/handling-dependencies.html#specify-dependencies",
+    "href": "blog/create-a-package/handling-dependencies.html#specify-dependencies",
+    "title": "3  Handling dependencies",
+    "section": "",
+    "text": "import numpy as np\n\ndef normalize(array):\n   min_val = np.min(array)\n   max_val = np.max(array)\n   return (array - min_val) / (max_val - min_val)\n\n\n\nuv add numpy\n\n\nBeforeAfter\n\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = []\n\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = [\n    \"numpy&gt;=2.2.4\",\n]",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/handling-dependencies.html#avoiding-dependencies",
+    "href": "blog/create-a-package/handling-dependencies.html#avoiding-dependencies",
+    "title": "3  Handling dependencies",
+    "section": "3.2 Avoiding dependencies",
+    "text": "3.2 Avoiding dependencies\nIn general, we want to avoid having too many dependencies. Why is that? Because when we install a package, we need to install its dependencies too, as well as the dependencies of those packages, and so on.\nThe issue with this is that it adds a lot complexity quickly and increase the risk of having conflicts.\nFor example, one package might need a version of numpy before &lt;2.0.0, while another need a version above or equal to &gt;=2.2.0. This kind of situation can quickly arise if not careful when adding too many dependencies, and it’s usually a nightmare to resolve.\n\nNote: packages with low or no dependencies are called lightweight. As an example, have a look at the narwhals package.\n\nThe thing with having lots of dependencies is that it makes it easier for you to write code because you can use other people code super easily. So it’s always a trade-off somehow.\nAlways ask yourself those questions before adding a new package to your dependencies:\n\nis the dependency a well-known, stable package (numpy, requests, etc) or is it new and is likely to change in the future?\ndoes this dependency has lots of dependencies too? This might be a red flag 🚩\ncan’t you just code what it does yourself? If you only need a single function, go check their source code on Github and see if it’s easy to do on your side (and ensure their License allow you to copy the code too).",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/handling-dependencies.html#controlling-the-versions",
+    "href": "blog/create-a-package/handling-dependencies.html#controlling-the-versions",
+    "title": "3  Handling dependencies",
+    "section": "3.3 Controlling the versions",
+    "text": "3.3 Controlling the versions\nWhat’s the difference between numpy 2.1.0 and numpy 2.0.0? Well, many things, but for example, in numpy 2.0.0, the np.unstack() function doesn’t exist as it’s a new one from numpy 2.1.0.\nIf our package relies on np.unstack() in one of our functions, we can’t let people install any numpy version when installing our package. We need to ensure people install this version: numpy&gt;=2.1.0. If we translate it, it means any version of numpy above or equal to 2.1.0. Let’s see some other examples.\n\nnumpy==2.1.0numpy&lt;=2.1.0numpy&gt;=2.1.0,&lt;2.2.0numpy\n\n\nInstall exactly this version of numpy.\nuv pip install numpy==2.1.0\n\n\nInstall the latest available version before 2.1.0 (including 2.1.0) of numpy.\nuv pip install 'numpy&lt;=2.1.0'\n\n\nInstall the latest version between 2.1.0 (included) and 2.2.0 (excluded) of numpy.\nuv pip install 'numpy&gt;=2.1.0,&lt;2.2.0'\n\n\nInstall the latest version of numpy.\nuv pip install numpy\n\n\n\nNote that for each of those, the package resolver will always try to install the latest version it can depending on the other dependencies. If a package requires numpy&lt;=2.1.0, other packages must include numpy 2.1.0 for it to work.\nAt this point, you might ask, how do I know which versions of each dependencies are required for my package? Well, as far as I know, there is no easy answer to this, but there are ways to ensure you don’t get unexpected behaviors.\n\n3.3.1 Set the minimum version required…\nFor each of your dependencies, set in your pyproject.toml the minimum version required. With uv, you can run the following to install a specific version:\nuv pip install numpy==2.0.0\n\nWarning: the command above will install a specific version of numpy, but will not change the requirements in pyproject.toml.\n\n\n\n3.3.2 … test your code…\nYou have to test that your code works as expected on those versions. The best way to do that is unit testing, and it’s the point of the next blog post.\n\n\n3.3.3 … and be convenient\n\nDependening on whether you’re planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We’ll assume you want to distribute it at the end.\n\nWhen your package goaled is to be installed by other people, you want to be convenient. By that I mean not being too restrictive.\nIf we take our example from before, we know that we need at least numpy==2.1.0 for our package to work, but we also know that any numpy version above works too. For this reason, we set numpy&gt;=2.1.0 instead of numpy==2.1.0 to allow a broader range of possibility.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/handling-dependencies.html#breaking-changes",
+    "href": "blog/create-a-package/handling-dependencies.html#breaking-changes",
+    "title": "3  Handling dependencies",
+    "section": "3.4 Breaking changes",
+    "text": "3.4 Breaking changes\nBy default, when installing our package, it will try to find the latest numpy version that satisfies the requirements.\nBut, you might say there’s a risk it will break on a new numpy version? Yes, it absolutely does. And that’s exactly why we said earlier why we wanted to avoid having too many dependencies and use stable ones only.\nThe good thing with packages like numpy is that it’s one of the most important Python package and one of its core component. They can’t make breaking changes on any significant feature. When they want to do it, they usually add warnings like this: “The function xxx is deprecated and will be removed in a future version, please use yyy instead?”.\nBut, if you want to be sure you don’t get breaking changes, set the maximum version of the dependencies, with things like numpy&lt;=2.2.0. This will ensure it’s safe, but this also means you’ll need to manually update it as new versions come out.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "blog/create-a-package/handling-dependencies.html#required-optional-and-dev-dependencies",
+    "href": "blog/create-a-package/handling-dependencies.html#required-optional-and-dev-dependencies",
+    "title": "3  Handling dependencies",
+    "section": "3.5 Required, Optional and Dev dependencies",
+    "text": "3.5 Required, Optional and Dev dependencies\nWhen working with dependencies, it’s useful to differentiate between three main types: required, optional, and development dependencies. Each serves a different purpose in your package.\n\n3.5.1 Required\nRequired dependencies are the ones we’ve been discussing so far - packages that your code absolutely needs to function properly. These go in the dependencies list in your pyproject.toml.\n[project]\ndependencies = [\n    \"numpy&gt;=2.1.0\",\n    \"pandas&gt;=2.0.0\",\n]\n\n\n3.5.2 Optional dependencies\nOptional dependencies are packages that enhance your code but aren’t strictly necessary for core functionality. For example, if your data processing package works with CSV files by default but can also handle Excel files with an additional dependency.\nYou can specify these in your pyproject.toml using the [project.optional-dependencies] section:\n[project.optional-dependencies]\nexcel = [\"openpyxl&gt;=3.1.0\"]\nplot = [\"matplotlib&gt;=3.7.0\", \"plotly&gt;=5.23.0\"]\nThis lets users install only what they need:\n\nmypackagemypackage[excel]mypackage[plot]mypackage[excel,plot]\n\n\nInstall your package required dependencies only:\nuv pip install mypackage\n\n\nInstall your package required dependencies as well openpyxl:\nuv pip install \"mypackage[excel]\"\n\n\nInstall your package required dependencies as well matplotlib and plotly:\nuv pip install \"mypackage[plot]\"\n\n\nInstall with all optional dependencies:\nuv pip install \"mypackage[excel,plot]\"\n\n\n\nIn your code, you’ll need to handle cases where optional dependencies aren’t installed:\ndef read_file(filename):\n    if filename.endswith('.csv'):\n        # Core functionality\n        import pandas as pd\n        return pd.read_csv(filename)\n    elif filename.endswith('.xlsx'):\n        try:\n            # Optional functionality\n            import openpyxl\n            import pandas as pd\n            return pd.read_excel(filename)\n        except ImportError:\n            raise ImportError(\n                \"Excel support requires 'openpyxl'. \"\n                \"Install with 'pip install mypackage[excel]'\"\n            )\nThis will give your users a clear and meaningful error message that they can resolve very quickly. This kind of thing exist for the same reason we’re talking about in this article: trying to minimize the number of dependencies (especially the unused ones!).\nIn order to add package to your optional dependencies, you can run:\nuv add matplotlib --optional plot\nThis will add matplotlib to the plot section in the optional dependencies in your pyproject.toml.\n\n\n3.5.3 Dev dependencies\nDevelopment dependencies are packages you need only when developing your package, not when using it. These include testing frameworks, documentation generators, linters, and similar tools.\nSpecify these in your pyproject.toml like this:\n[project.optional-dependencies]\ndev = [\n    \"pytest&gt;=7.0.0\",\n    \"ruff&gt;=0.11.5\",\n    \"sphinx&gt;=7.0.0\",\n]\nIn order to add a package to your dev dependencies, you can run:\nuv add ruff --dev\nDevelopers working on your package can install all optional dependencies as well as dev dependencies with:\nuv sync --all-extras\nuv pip install -e .\n\nThe -e flag installs your package in “editable” mode, meaning changes to your code take effect immediately without needing to reinstall. This might not be necessary as uv is already doing it in the first command, but let’s explicit it here.",
+    "crumbs": [
+      "Create a package",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/unit-tests.html",
+    "href": "blog/code-quality/unit-tests.html",
+    "title": "4  Unit tests",
+    "section": "",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Unit tests</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html",
+    "href": "blog/code-quality/writing-documentation.html",
+    "title": "5  Writing documentation",
+    "section": "",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/errors-and-warnings.html",
+    "href": "blog/code-quality/errors-and-warnings.html",
+    "title": "6  Errors and warnings",
+    "section": "",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Errors and warnings</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/api-design.html",
+    "href": "blog/code-quality/api-design.html",
+    "title": "7  API design",
+    "section": "",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>API design</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/github-actions.html",
+    "href": "blog/workflow/github-actions.html",
+    "title": "8  Github Actions",
+    "section": "",
+    "text": "8.1 TLDR: Github Actions\nHaving a package implies several things, most importantly:\nIn this post, we’ll walk through 3 essential Github Actions you need in your workflow when developing Python packages.\nGithub Actions are scripts that perform tasks (pretty much anything you want) when specific “events” occur. You can do a lot with them, but here we’ll focus on practical use cases for developing a Python package.\nThese scripts live in the .github/workflows/ directory and are written as yaml files. For instance, a Python package named “sunflower” with two different Github Actions might be organized like this:\nOn certain “events” (as defined in those scripts), unit-tests.yaml and code-format.yaml will be triggered.\nThe events we care about here are:\nLet’s look at a practical example to understand why these scripts are important.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/github-actions.html#tldr-github-actions",
+    "href": "blog/workflow/github-actions.html#tldr-github-actions",
+    "title": "8  Github Actions",
+    "section": "",
+    "text": "sunflower/\n├── sunflower/\n│   ├── __init__.py\n│   ├── module1.py\n│   └── module2.py\n├── .gitub/\n│   └── workflows/\n│        ├── unit-tests.yaml\n│        └── code-format.yaml\n├── tests/\n├── .git/\n├── .venv/\n├── .gitignore\n├── README.md\n├── LICENSE\n└── pyproject.toml\n\n\n\nOpening a pull request\n\nMerging or pushing to the main branch",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/github-actions.html#unit-testing",
+    "href": "blog/workflow/github-actions.html#unit-testing",
+    "title": "8  Github Actions",
+    "section": "8.2 Unit testing",
+    "text": "8.2 Unit testing\n\nIf you’re not familiar with unit testing, check out this blog post first.\n\nSuppose we have unit tests written with pytest in the tests/ directory. We can now add a unit-tests.yaml file in .github/workflows/ that looks like this:\nname: Unit tests\n\non:\n  pull_request:\n    branches: [main]\n\njobs:\n  build:\n    runs-on: ${{ matrix.os }}\n    strategy:\n      matrix:\n        os: [ubuntu-latest, windows-latest, macos-latest]\n        python-version: [\"3.9\", \"3.13\"]\n\n    env:\n      UV_PYTHON: ${{ matrix.python-version }}\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Install uv\n        uses: astral-sh/setup-uv@v5\n\n      - name: Enable caching\n        uses: astral-sh/setup-uv@v5\n        with:\n          enable-cache: true\n\n      - name: Install the project\n        run: uv sync --all-extras --dev\n\n      - name: Run tests\n        run: uv run pytest\nWhat it does:\nWhen someone pushes a commit to a branch with an open pull request (as specified in the on section), this action will:\n\ninstall uv (a Python package manager)\n\ninstall the project dependencies using uv sync --all-extras --dev\n\nrun the test suite with uv run pytest\n\nThis runs across multiple Python versions (3.9 and 3.13) and operating systems (Windows, macOS, and Linux). That gives us 6 combinations in total (2 Python versions × 3 OSes).\nHere’s what shows up on the pull request while the tests are running:\n\nIf any of those combinations fail (meaning at least one test fails), you’ll see a message indicating that something didn’t work. For example, you might learn that your package fails on Windows with Python 3.9. Otherwise, you’ll see something like this:\n\nThe purpose of setting up this Github Action is to automatically and easily verify that the package works in different environments, helping ensure that only valid code is merged into the main branch.\nIn this example, we used just two Python versions and one set of dependencies, but this approach can be extended to test the package under many more scenarios. That way, we get a clear and precise picture of what works and what doesn’t.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/github-actions.html#create-and-deploy-documentation",
+    "href": "blog/workflow/github-actions.html#create-and-deploy-documentation",
+    "title": "8  Github Actions",
+    "section": "8.3 Create and deploy documentation",
+    "text": "8.3 Create and deploy documentation\n\nThere’s a dedicated blog post on generating and deploying documentation for your package. Check it out here.\n\nLet’s say we’ve created our documentation website with mkdocs. We then add a deploy-site.yaml file in .github/workflows/.\nSince generating the documentation website creates a large number of files, it’s not ideal to store them in version control. But how do we deploy it to Github Pages if it’s not in version control? That’s where Github Actions come in!\nNow, let’s take a look at the following Github Action script:\nname: ci\n\non:\n  push:\n    branches: [main]\n\npermissions:\n  contents: write\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Configure Git Credentials\n        run: |\n          git config user.name github-actions[bot]\n          git config user.email 41898282+github-actions[bot]@users.noreply.github.com\n      - uses: actions/setup-python@v5\n        with:\n          python-version: 3.x\n      - run: echo \"cache_id=$(date --utc '+%V')\" &gt;&gt; $GITHUB_ENV\n      - uses: actions/cache@v4\n        with:\n          key: mkdocs-material-${{ env.cache_id }}\n          path: .cache\n          restore-keys: |\n            mkdocs-material-\n\n      - name: Install uv\n        uses: astral-sh/setup-uv@v5\n\n      - name: Enable caching\n        uses: astral-sh/setup-uv@v5\n        with:\n          enable-cache: true\n\n      - name: Install the project\n        run: uv sync --all-extras --dev\n\n      - name: Deploy MkDocs\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n        run: uv run mkdocs gh-deploy --force\nWhat it does:\nWhen someone merges or pushes to the main branch, this action will:\n\ninstall uv (a Python package manager)\n\ninstall the project dependencies using uv sync --all-extras --dev\n\ngenerate the entire documentation website with uv run mkdocs gh-deploy --force\n\npush the documentation website to the gh-pages branch on Github\n\nWith this setup, assuming our website is deployed to Github Pages using the gh-pages branch, the documentation site is deployed automatically whenever a pull request is opened or we merge/push to the main branch. All without keeping the auto-generated files in version control.\nThis also removes all manual work related to building and deploying the documentation, as it’s now fully automated through this Github Action.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/github-actions.html#code-linting-and-formatting",
+    "href": "blog/workflow/github-actions.html#code-linting-and-formatting",
+    "title": "8  Github Actions",
+    "section": "8.4 Code linting and formatting",
+    "text": "8.4 Code linting and formatting\nWhen working on a project, it’s crucial to maintain standardized coding practices:\n\nConsistent formatting (e.g., indentation, spacing, quotes)\n\nClean code free of unused imports, bad patterns, or minor bugs\n\nThis is where code formatting and linting tools come into play, and we can automate them using Github Actions.\nWe’ll use ruff here, which is a super fast linter and formatter for Python. It can both check for issues (like flake8 or pylint) and format code (like black), all in one tool.\n\n8.4.1 Add Ruff to your project\nFirst, add Ruff as a development dependency:\nuv add --dev ruff\n\n\n8.4.2 Create the GitHub Action\nNow, create a file named .github/workflows/code-format.yaml with the following content:\nname: Ruff lint and format\n\non:\n  pull_request:\n    branches: [main]\n\njobs:\n  lint:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n\n      - name: Install uv\n        uses: astral-sh/setup-uv@v5\n\n      - name: Enable caching\n        uses: astral-sh/setup-uv@v5\n        with:\n          enable-cache: true\n\n      - name: Install dependencies\n        run: uv sync --all-extras --dev\n\n      - name: Check formatting\n        run: uv run ruff format . --check\n\n      - name: Lint code\n        run: uv run ruff check .\nWhat it does:\nWhen a pull request is opened against main, this action will:\n\nInstall your project and its development dependencies using uv\n\nCheck if the code is properly formatted with ruff format . --check\n\nLint the code with ruff check . to catch any potential issues\n\nIf there’s anything wrong (such as a file needing formatting or an unused import), the action will fail, and the pull request will show a red ❌. That’s your cue to fix the code.\nThis ensures that all code added to the codebase is well-formatted and adheres to the established rules.\n\nNote that there’s an additional way to enforce this called pre-commit, and there’s a dedicated blog post on it.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/github-actions.html#faq",
+    "href": "blog/workflow/github-actions.html#faq",
+    "title": "8  Github Actions",
+    "section": "8.5 FAQ",
+    "text": "8.5 FAQ\n\nI didn’t understand certain thingsWhere does the code run?Can I run it on my machine?\n\n\nGithub Actions is one of those things where you need to try it yourself to get the full picture. I recommend creating a basic Python package with documentation and tests, then testing the examples provided to see how they work.\n\n\nWhen a Github Action is triggered, Github sets up a clean VM (virtual machine) to run your workflow. There are limits on usage, but they’re quite generous before you’ll need to enter your credit card details.\n\n\nYes, you can! Thanks to a project called act. In short, it uses Docker to run your Github Actions in the correct context.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/pre-commit.html",
+    "href": "blog/workflow/pre-commit.html",
+    "title": "9  Pre-commit Hooks",
+    "section": "",
+    "text": "9.1 TLDR: What is pre-commit?\nIn this post, we’ll walk through how to add pre-commit to your Python package to enforce good code hygiene automatically.\npre-commit is a framework for managing and running “hooks”, which are just scripts defined in a .pre-commit-config.yaml file that run at specific points in the Git lifecycle. The most common is the pre-commit hook, which runs before a commit is created.\nThe point of using pre-commit hooks is to prevent your codebase from including unwanted things, such as unformatted code, oversized files, print statements, and so on.\nHere’s what makes pre-commit awesome:",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Pre-commit Hooks</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/pre-commit.html#tldr-what-is-pre-commit",
+    "href": "blog/workflow/pre-commit.html#tldr-what-is-pre-commit",
+    "title": "9  Pre-commit Hooks",
+    "section": "",
+    "text": "It runs locally – unlike CI (e.g. GitHub Actions), it catches issues before they get pushed\n\nIt’s fast – runs only on the files you’ve changed\n\nIt’s customizable – tons of hooks are available, or you can write your own\n\nIt integrates with CI – you can run pre-commit in CI to make sure everyone follows the same rules",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Pre-commit Hooks</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/pre-commit.html#how-it-looks",
+    "href": "blog/workflow/pre-commit.html#how-it-looks",
+    "title": "9  Pre-commit Hooks",
+    "section": "9.2 How it looks",
+    "text": "9.2 How it looks\nHere is a pre-commit hook that:\n\nchecks if our code is both linted and formatted\n\nif not, it will try to fix it\n\nrepos:\n  - repo: https://github.com/astral-sh/ruff-pre-commit\n    rev: v0.11.7\n    hooks:\n      - id: ruff\n        types_or: [python, pyi]\n        args: [--fix]\n      - id: ruff-format\n        types_or: [python, pyi]\nThis will run each time we run git commit. If our code is not perfectly linted and formatted, it will prevent the commit and lint/format it (if possible).\nOnce our code is fixed, we can re-run git add and git commit, and it will accept our commit, which we can then push.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Pre-commit Hooks</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/pre-commit.html#how-to-set-up",
+    "href": "blog/workflow/pre-commit.html#how-to-set-up",
+    "title": "9  Pre-commit Hooks",
+    "section": "9.3 How to set up",
+    "text": "9.3 How to set up\n\n1. Configuration2. Install3. Commit\n\n\nCreate a .pre-commit-config.yaml file at the root of your project.\nLet’s use a relatively common pre-commit setup. It configures formatting and linting with ruff, checks for large files, and removes trailing whitespace:\nrepos:\n  - repo: https://github.com/astral-sh/ruff-pre-commit\n    rev: v0.11.7\n    hooks:\n      - id: ruff\n        types_or: [python, pyi]\n        args: [--fix]\n      - id: ruff-format\n        types_or: [python, pyi]\n\n  - repo: https://github.com/pre-commit/pre-commit-hooks\n    rev: v5.0.0\n    hooks:\n      - id: trailing-whitespace\n      - id: check-added-large-files\n\nThe repo field defines where the actual checks to run are defined\n\nEach rev pin ensures you’re using a specific version of that hook for reproducibility\n\nThe id defines the exact check to run\n\n\n\nInstall it as a development dependency:\nuv add --dev pre-commit\nuv run pre-commit install\nIf you don’t want to add it to your development dependencies, you can simply run :\nuv pip install pre-commit\nuv run pre-commit install\n\n\nNow try editing a Python file (add spaces at the end of the file or change the formatting of something). Then try committing it:\ngit commit -m \"Test pre-commit\"\nYou’ll see the hooks run automatically and fix (or block) your commit if needed.\n[INFO] Installing environment for https://github.com/astral-sh/ruff-pre-commit.\n[INFO] Once installed, this environment will be reused.\n[INFO] Running ruff-format...\n[INFO] Files were modified by this hook. Please stage the changes and try again.\nIf pre-commit fixes files automatically, it will ask you to re-stage them and try committing again. This prevents broken or messy code from slipping into version control.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Pre-commit Hooks</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/pre-commit.html#faq",
+    "href": "blog/workflow/pre-commit.html#faq",
+    "title": "9  Pre-commit Hooks",
+    "section": "9.4 FAQ",
+    "text": "9.4 FAQ\n\n“Files were modified by this hook”“Hook failed”“Nothing happens when I commit”\n\n\nThis means the hook fixed your files. Run:\ngit add .\ngit commit -m \"message\"\n\n\nSome hooks (like ruff) don’t fix issues automatically. You’ll need to fix them manually based on the error messages.\n\n\nDid you run uv run pre-commit install? That installs the Git hook. Without it, the hooks won’t run.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>Pre-commit Hooks</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/publish-to-pypi.html",
+    "href": "blog/workflow/publish-to-pypi.html",
+    "title": "10  Publish to PyPI",
+    "section": "",
+    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
+    ]
+  }
+]
