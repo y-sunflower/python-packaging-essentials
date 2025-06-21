@@ -16,55 +16,132 @@ my_package/
 
 The presence of `__init__.py` tells Python: "this is a package."  
 
-Even if it’s an empty file, it’s important—it allows you to import parts of your code like this:
+Even if it’s an empty file, it’s important: it allows you to import parts of your code like this:
 
 ```python
 from my_package import something
 ```
 
-Without it, Python treats the folder as a regular directory, **not something it can import from**.
+Without it, Python treats the directory `my_package/` as a regular directory, **not something it can import from**.
 
 
 
-## Package vs Module
+## Package vs Module vs Library
 
 These terms get thrown around a lot. Here's the quick breakdown:
 
 - **Module**: A single `.py` file (e.g., `my_file.py`)
 - **Package**: A directory with an `__init__.py`, possibly containing multiple modules (e.g., multiple files)
+- **Library**: A more general programming term and refers to a bundle of code that can be used ([source](https://www.reddit.com/r/Python/comments/weycrc/comment/iiqy6fi/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button){target="_blank"})
 
+Library and package most of the time refer to the same thing. All packages are libraries, the opposite is not true. For the sake of simplicity, it's ok to consider them "equivalent", even though we're are mostly interested in packages in practice.
 
+Now, let's create the smallest Python package possible.
 
-## PyPI (Python Package Index)
+## Initialize the directory
 
-[PyPI](https://pypi.org) is the default online repository for Python packages. This is where packages are stored so that others can find and install them.
+The very first step is to create a new directory named *"my_package"*. Inside this directory, create another directory with the same name. The structure should look like this:
 
-When you run:
-
-```bash
-pip install requests
+```markdown
+my_package/
+└── my_package/
 ```
 
-You’re downloading the `requests` package from PyPI. More specifically, you’re downloading the package's distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.
 
-## pip (and friends)
+## Reusable Python code
 
-`pip` is the tool used to install packages from PyPI. It’s simple and widely supported.
+When creating a Python package, we want to write **a reusable piece of code**, not just put in a few scripts that do things. To illustrate:
 
-Example:
+::: {.panel-tabset}
 
-```bash
-pip install numpy
+### Not reusable code
+
+```{python}
+name = "Joseph"
+message = f"Hello {name}"
+print(message)
 ```
 
-But when working with packages in Python, you need to take into account the package version. Maybe you need `numpy` `2.1.2` instead of `2.1.1` for your project.
+This code does something: it prints a message.
 
-You can read more about this in the [handling dependencies article](./handling-dependencies.html), but in summary, it's important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.
+### Reusable code
 
-Some newer tools are built around `pip` to offer additional features such as **dependency management** and **better performance**.
+```{python}
+def say_hello(name):
+   message = f"Hello {name}"
+   print(message)
+```
 
-One of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there's a problem.
+The code above does 'nothing'. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:
 
-Since 2024, the best tool available is called [uv](https://docs.astral.sh/uv/). It's super easy to use, super fast and does everything you need, in one place, with one tool. It's more of a Python project manager than a simple package installer.
+```{python}
+say_hello("Joseph")
+```
+
+:::
 
 
+
+## Package structure
+
+Now, let's create our first Python module (which is just a file ending in `.py`). We'll call it `my_module.py`.
+
+Our file `my_module.py` will be next to the `__init__.py` we talked about before:
+
+```markdown
+my_package/
+└── my_package/
+    ├── __init__.py
+    └── my_module.py
+```
+
+::: {.panel-tabset}
+
+### `my_module.py`
+
+```python
+def say_hello(name):
+   message = f"Hello {name}"
+   print(message)
+```
+
+### `__init__.py`
+
+```py
+from .my_module import say_hello
+
+__all__ = ["say_hello"]
+```
+
+:::
+
+## Use our package
+
+Now, how do we use our package, from a user point of view?
+
+For this, you'll need to have [uv](https://docs.astral.sh/uv/){target="_blank"} installed.
+
+Then we'll need to run a command in our terminal at `Desktop/my_package/`:
+
+```bash
+uv init
+uv venv
+uv pip install -e .
+```
+
+> Don't worry too much about those commands yet.
+
+This command will install our current package in **editable mode**. This allows us to test our package while making updates.
+
+The next step is to open a new Python file, console or notebook, ideally not in the package directory. I usually like having a `sandbox.py` file. In this file, we'll run:
+
+```py
+from package_name import say_hello
+
+say_hello("Julia")
+```
+
+> Hello Julia
+
+
+And now we have a fully functional Python package! This is just the beginning, but this is an important fondation to have for what's coming next.

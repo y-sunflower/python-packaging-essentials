@@ -3,3 +3,60 @@ title: "API design"
 ---
 
 This page is a work in progress. You can see the current state of the project [here](https://github.com/yellow-sunflower/python-packaging-essentials).
+
+
+<br>
+<br>
+<br>
+<br>
+
+Note that we can use any of the following syntaxes:
+
+::: {.panel-tabset}
+
+### Syntax 1
+
+```py
+from my_package import count_my_package
+
+text = """
+my_package petals bright and gold,  
+my_package fields, a sight to behold.  
+my_package dreams in the morning light,  
+Blooming softly, pure and bright.
+"""
+
+count_my_package(text)
+```
+
+### Syntax 2
+
+```py
+import my_package
+
+text = """
+my_package petals bright and gold,  
+my_package fields, a sight to behold.  
+my_package dreams in the morning light,  
+Blooming softly, pure and bright.
+"""
+
+my_package.count_my_package(text)
+```
+
+### Syntax 3
+
+```py
+import my_package as sfl # or any other alias like "sf" or "sunflo"
+
+text = """
+my_package petals bright and gold,  
+my_package fields, a sight to behold.  
+my_package dreams in the morning light,  
+Blooming softly, pure and bright.
+"""
+
+sfl.count_my_package(text)
+```
+
+:::

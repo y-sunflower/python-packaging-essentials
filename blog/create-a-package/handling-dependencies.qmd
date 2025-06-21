@@ -2,7 +2,7 @@
 title: "Handling dependencies"
 ---
 
-Dependencies are the external Python packages your code needs in order to work—like `requests`, `numpy`, or `pandas`.
+Dependencies are the external Python packages your code needs in order to work, such as `requests`, `numpy`, or `pandas`.
 
 Here we'll focus on using [uv](https://docs.astral.sh/uv/) to handle dependencies, as it's currently the best tool for this out there (it's fast and fairly easy to use, especially if you know `pip`).
 

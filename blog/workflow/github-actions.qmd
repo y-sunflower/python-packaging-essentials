@@ -99,11 +99,11 @@ This runs across multiple Python versions (3.9 and 3.13) and operating systems (
 
 Here’s what shows up on the pull request while the tests are running:
 
-![](img/github-actions-in-progress.png)
+![](../../img/github-actions-in-progress.png)
 
 If any of those combinations fail (meaning at least one test fails), you’ll see a message indicating that something didn’t work. For example, you might learn that your package fails on Windows with Python 3.9. Otherwise, you’ll see something like this:
 
-![](img/github-actions-success.png)
+![](../../img/github-actions-success.png)
 
 The purpose of setting up this Github Action is to __automatically and easily__ verify that the package works in different environments, helping ensure that only valid code is merged into the main branch.
 

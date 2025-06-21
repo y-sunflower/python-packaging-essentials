@@ -4,15 +4,36 @@ title: "Organize a package"
 
 In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads) and [uv](https://docs.astral.sh/uv/getting-started/installation/) installed on your machine. Both are command-line tools, meaning you'll use your terminal to run commands that perform various actions.
 
-Let's assume we're naming our Python package *"sunflower"*.
-
-## Initialize the directory
-
-The very first step is to create a new directory named *"sunflower"*. Inside this directory, create another directory with the same name. The structure should look like this:
+Let's assume we're naming our Python package *"sunflower"*, with a single function:
 
 ```markdown
 sunflower/
 └── sunflower/
+    ├── __init__.py
+    └── my_module.py
+```
+
+To learn about this structure and why we need a `__init__.py` file, check out the [previous blog post](./introduction-to-packaging.html).
+
+We'll also assume that `my_module.py` looks like this:
+
+```py
+import re
+
+def count_sunflowers(s):
+   s = re.sub(r"[^a-zA-Z\s]", "", s)  # Remove non-text characters
+   s = s.lower()                      # Convert to lowercase
+   n_sunflower = s.split().count("sunflower")
+   n_sunflowers = s.split().count("sunflowers")
+   return n_sunflower + n_sunflowers
+```
+
+The `__init__.py` file look like this:
+
+```py
+from .my_module import count_sunflowers
+
+__all__ = ["count_sunflowers"]
 ```
 
 ## Add main Python project files
@@ -23,24 +44,29 @@ Next, we need to create a few essential files at the root of the project.
 
 ### `pyproject.toml`
 
-All the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily.
+All the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily. Don't worry too much about all of its content.
 
 Here is a simple version of this file:
 
 ```toml
 [project]
 name = "sunflower"
+description = "Create pretty sunflowers"
 version = "0.1.0"
-description = "create pretty sunflowers"
 license = "MIT"
 license-files = ["LICENSE"]
 keywords = ["sunflower", "flower"]
 authors = [
-    { name = "Your Name", email = "yourmail@example.com" },
+  { name="your_name", email="your_name@mail.com" },
 ]
 readme = "README.md"
 requires-python = ">=3.9"
-dependencies = ["matplotlib"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha"
+]
+dependencies = []
 
 [build-system]
 requires = [
@@ -56,9 +82,10 @@ packages = ["sunflower"]
 sunflower = { workspace = true }
 
 [project.urls]
-Homepage = "https://sunflower-are-beautiful.com"
-Issues = "https://github.com/YourName/sunflower/issues"
-Repository = "https://github.com/YourName/sunflower"
+Homepage = "https://your_name.github.io/sunflower/"
+Issues = "https://github.com/your_name/sunflower/issues"
+Documentation = "https://your_name.github.io/sunflower/"
+Repository = "https://github.com/your_name/sunflower"
 ```
 
 ### `LICENSE`
@@ -156,128 +183,19 @@ It's a new project, but it will be available soon!
 
 ### `sandbox.py`
 
-A file that we will use to test and use our package. It's optional but very practical.
+A file that we will use to test and use our package. It's optional but practical.
 
 :::
 
 <br>
 
-As you can see, we haven't written a single line of Python code, yet we already have a lot of files and directories. The organisation of our project now looks like this:
-
-```markdown
-sunflower/
-├── sunflower/
-├── .git/
-├── .venv/
-├── .gitignore
-├── README.md
-├── LICENSE
-├── sandbox.py
-└── pyproject.toml
-```
-
-## Add Python code
-
-When creating a Python package, we want to write **a reusable piece of code**, not just put in a few scripts that do things. To illustrate:
-
-::: {.panel-tabset}
-
-### Not reusable code
-
-```{python}
-name = "Joseph"
-message = f"Hello {name}"
-print(message)
-```
-
-This code does something: it prints a message.
-
-### Reusable code
-
-```{python}
-def say_hello(name):
-   message = f"Hello {name}"
-   print(message)
-```
-
-The code above does 'nothing'. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:
-
-```{python}
-say_hello("Joseph")
-```
-
-:::
-
-Here, we'll keep things simple and assume that we only want to provide functions and classes in our package.
-
-Now, let's create our first Python module (which is just a file ending in `.py`). We'll call it `module1.py`, but it can be anything. The only thing we want to stick to when naming files is:
-
-- use lowercase only
-- avoid spaces and odd characters
-- keep it short
-- use underscores "`_`"
-
-::: {.panel-tabset}
-
-### Bad file names
-
-```txt
-my file.py
-Myfile.py
-myFile.py
-my@file.py
-my-file.py
-this-file-does-this-and-that.py
-```
-
-### Good file names
-
-```txt
-my_file.py
-myfile.py
-```
-
-:::
-
-So let's put our `module1.py` in `sunflower/sunflower/`, which will give us:
-
-```markdown
-sunflower/
-├── sunflower/
-│   └── module1.py
-├── .git/
-├── .venv/
-├── .gitignore
-├── README.md
-├── LICENSE
-├── sandbox.py
-└── pyproject.toml
-```
-
-In `module1.py`, we're going to add our very first function to our package. For example, we'll create a `count_sunflower()` function. This function will count how many times the word 'sunflower' occurs in a given string.
-
-```py
-import re
-
-def count_sunflowers(s):
-   s = re.sub(r"[^a-zA-Z\s]", "", s)  # Remove non-text characters
-   s = s.lower()                      # Convert to lowercase
-   n_sunflower = s.split().count("sunflower")
-   n_sunflowers = s.split().count("sunflowers")
-   return n_sunflower + n_sunflowers
-```
-
-We're now going to add a `__init__.py` file in the same place as the `module1.py` file that contains our previous function. This is a special Python file. It tells Python that the `sunflower/sunflower/` directory is a package, which will allow us to import functions from that package into the outside world.
-
-> Learn more the `__init__.py` file [here](./introduction-to-packaging.html).
-
-We now have this:
+The organisation of our project now looks like this:
 
 ```markdown
 sunflower/
 ├── sunflower/
 │   ├── __init__.py
-│   └── module1.py
+│   └── my_module.py
 ├── .git/
 ├── .venv/
 ├── .gitignore
@@ -287,103 +205,11 @@ sunflower/
 └── pyproject.toml
 ```
 
-The `__init__.py` file should look like this:
-
-```py
-from .module1 import count_sunflowers
-
-__all__ = ["count_sunflowers"]
-```
-
-And well done! You may not have realised it, but we already have a Python package that can be used with a function.
-
-## User perspective
-
-Let's now look at how to use our package from the user's point of view.
-
-Once again, we'll need to run a command in our terminal at `Desktop/sunflower/`:
-
-```bash
-uv pip install -e .
-```
-
-This command will install our current package in editable mode. This allows us to test our package while making updates.
-
-The next step is to open `sandbox.py` and write some code that uses our package. 
-
-```py
-from sunflower import count_sunflower
-
-text = """
-Sunflower petals bright and gold,  
-Sunflower fields, a sight to behold.  
-Sunflower dreams in the morning light,  
-Blooming softly, pure and bright.
-"""
-
-print(count_sunflower(text))
-```
-
-3
-
-Note that we can use any of the following syntaxes:
-
-::: {.panel-tabset}
-
-### Syntax 1
-
-```py
-from sunflower import count_sunflower
-
-text = """
-Sunflower petals bright and gold,  
-Sunflower fields, a sight to behold.  
-Sunflower dreams in the morning light,  
-Blooming softly, pure and bright.
-"""
-
-count_sunflower(text)
-```
-
-### Syntax 2
-
-```py
-import sunflower
-
-text = """
-Sunflower petals bright and gold,  
-Sunflower fields, a sight to behold.  
-Sunflower dreams in the morning light,  
-Blooming softly, pure and bright.
-"""
-
-sunflower.count_sunflower(text)
-```
-
-### Syntax 3
-
-```py
-import sunflower as sfl # or any other alias like "sf" or "sunflo"
-
-text = """
-Sunflower petals bright and gold,  
-Sunflower fields, a sight to behold.  
-Sunflower dreams in the morning light,  
-Blooming softly, pure and bright.
-"""
-
-sfl.count_sunflower(text)
-```
-
-:::
-
-> You can learn more about it in the [API design blog post](./api-design.html).
-
 ## Add an internal function
 
 When creating a package, it is very practical to create functions that we will use internally: inside the package itself.
 
-If we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let's name this function `_clean_string()` and place it in a new file: `module2.py`.
+If we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let's name this function `_clean_string()` and place it in a new file: `other_module.py`.
 
 ```py
 import re
@@ -394,10 +220,10 @@ def _clean_string(s):
    return s
 ```
 
-Our code in `module1.py` should now become:
+Our code in `my_module.py` should now become:
 
 ```py
-from .module2 import _clean_string
+from .other_module import _clean_string
 
 def count_sunflowers(s):
    s = _clean_string(s)
@@ -414,7 +240,7 @@ We now have 2 functions:
 Note that `_clean_string()` is still usable by users if they run it:
 
 ```py
-from sunflower.module2 import _clean_string
+from sunflower.other_module import _clean_string
 ```
 
 But as you can see from the [documentation blog post](./writing-documentation.html), we won't have or create documentation on these functions, so they're unlikely to find it anyway.
@@ -427,8 +253,8 @@ After all these steps, our package now looks like this:
 sunflower/
 ├── sunflower/
 │   ├── __init__.py
-│   ├── module1.py
-│   └── module2.py
+│   ├── my_module.py
+│   └── other_module.py
 ├── .git/
 ├── .venv/
 ├── .gitignore
