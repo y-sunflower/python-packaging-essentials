@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Python Packaging Essentials",
     "section": "",
-    "text": "Preface\nThe aim of this site it to provide all the must known practices when it comes to create a Python package. It offers multiple blog posts, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.\nWe’ll go over concrete examples, use clear explanations, and try as much as possible to go straight to the point so that anyone with some Python knowledge can create their own Python packages.",
+    "text": "Preface\nThe aim of this site it to provide all the must known practices when it comes to create a Python package. It offers multiple blog posts, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.\nWe’ll go over concrete examples, use clear explanations, and try as much as possible to go straight to the point so that anyone with some Python knowledge can create their own Python packages.\nAll blog posts aim to be very practical, and do not try to be exhaustive. If you’re looking to learn more about a very specific topic, it’s recommended to use the official Python packaging guide. As a matter of fact, this previous guide is cited a large number of times in the blog posts.",
     "crumbs": [
       "Preface"
     ]
@@ -14,7 +14,7 @@
     "href": "index.html#good-to-know",
     "title": "Python Packaging Essentials",
     "section": "Good to know",
-    "text": "Good to know\n\nAll blog posts are independant. Even if they follow some sort of order, it’s perfectly fine to just look at what interests you.\nThis site is open source and in continuous improvement. If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it’s more than welcomed. It starts here.\nYou can download the PDF version of this site in the top left of the site / navigation bar.\nThis website is not exhaustive and does not aim to be. We aim to focus on the key points and refer to other resources for more specific topics.",
+    "text": "Good to know\n\nAll blog posts are independant. Even if they follow some sort of order, it’s perfectly fine to just look at what interests you.\nThis site is open source and in continuous improvement. If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it’s more than welcomed. It starts here.\nYou can download the PDF version of this site in the top left of the site / navigation bar.",
     "crumbs": [
       "Preface"
     ]
@@ -285,7 +285,7 @@
     "href": "blog/workflow/github-actions.html",
     "title": "8  Github Actions",
     "section": "",
-    "text": "8.1 TLDR: Github Actions\nHaving a package implies several things, most importantly:\nIn this post, we’ll walk through 3 essential Github Actions you need in your workflow when developing Python packages.\nGithub Actions are scripts that perform tasks (pretty much anything you want) when specific “events” occur. You can do a lot with them, but here we’ll focus on practical use cases for developing a Python package.\nThese scripts live in the .github/workflows/ directory and are written as yaml files. For instance, a Python package named “sunflower” with two different Github Actions might be organized like this:\nOn certain “events” (as defined in those scripts), unit-tests.yaml and code-format.yaml will be triggered.\nThe events we care about here are:\nLet’s look at a practical example to understand why these scripts are important.",
+    "text": "8.1 TLDR: Github Actions\nHaving a package implies several things, most importantly:\nIn this post, we’ll walk through 3 essential Github Actions you need in your workflow when developing Python packages.\nGithub Actions are scripts that perform tasks (pretty much anything you want) when specific “events” occur. You can do a lot with them, but here we’ll focus on practical use cases for developing a Python package.\nThese scripts live in the .github/workflows/ directory and are written as yaml files. For instance, a Python package named “sunflower” with two different Github Actions might be organized like this:\nOn certain “events” (as defined in those scripts), unit-tests.yaml and code-format.yaml will be triggered.\nThe events we care about here are:w\nLet’s look at a practical example to understand why these scripts are important.",
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
