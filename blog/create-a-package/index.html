@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Practical guide that walks you through creating, organizing, testing, and publishing Python packages.">
 
 <title>Create a package – Python Packaging Essentials</title>
 <style>
@@ -100,8 +99,9 @@ ul.task-list li input[type="checkbox"] {
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Python Packaging Essentials</a> 
-        <div class="sidebar-tools-main">
-    <a href="https://github.com/yellow-sunflower/python-packaging-essentials/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/y-sunflower/python-packagin-essentials" title="" class="quarto-navigation-tool px-1" aria-label=""><i class="bi bi-github"></i></a>
+    <a href="https://github.com/y-sunflower/python-packaging-essentials/" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
     <a href="../../Python-Packaging-Essentials.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
@@ -212,6 +212,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../contributing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Contributing</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -226,7 +232,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#is-it-hard" id="toc-is-it-hard" class="nav-link" data-scroll-target="#is-it-hard">Is it hard?</a></li>
   <li><a href="#is-it-only-for-large-projects" id="toc-is-it-only-for-large-projects" class="nav-link" data-scroll-target="#is-it-only-for-large-projects">Is it only for large projects?</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -252,15 +258,15 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="should-i-create-a-package" class="level2">
 <h2 class="anchored" data-anchor-id="should-i-create-a-package">Should I create a package?</h2>
-<p>Before starting to create a package, it’s good to ask should you even create one. Because even if it’s not fundamentally complicated, it’s still some additional compared to not to.</p>
-<p>A good rule of thumb for this is to answer the question “Do I plan to reuse the code from this project elsewhere?”. If so, then it makes sense to make it a package.</p>
+<p>Before starting to create a package, it’s good to ask if you should even create one. Because even if it’s not fundamentally complicated, it’s still some additional work compared to not doing so.</p>
+<p>A good rule of thumb for this is to answer the question “Do I plan to reuse the code from this project elsewhere?” If so, then it makes sense to make it a package.</p>
 <p>More generally, you can ask yourself whether you’re building a tool or using tools. A statistical analysis probably does not belong in a package, while functions to do statistics probably should.</p>
-<p>Also, note that it’s unlikely to regret making a Python project a package, while the opposite might happen more often. Packages, if well done, are usually more modular and better organized compared to non-package projects.</p>
+<p>Also, note that it’s unlikely you’ll regret making a Python project a package, while the opposite might happen more often. Packages, if well done, are usually more modular and better organized compared to non-package projects.</p>
 </section>
 <section id="is-it-hard" class="level2">
 <h2 class="anchored" data-anchor-id="is-it-hard">Is it hard?</h2>
 <p>Not really, especially if you take the time to read about it.</p>
-<p>Making a Python package is mostly about organizing your project in a specific, standardized way. There is not low-level computer science concepts that you should know, but rather respect a more or less large set of rules.</p>
+<p>Making a Python package is mostly about organizing your project in a specific, standardized way. There are no low-level computer science concepts that you should know, but rather a more or less large set of rules to respect.</p>
 </section>
 <section id="is-it-only-for-large-projects" class="level2">
 <h2 class="anchored" data-anchor-id="is-it-only-for-large-projects">Is it only for large projects?</h2>
@@ -686,4 +692,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

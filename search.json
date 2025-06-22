@@ -20,21 +20,11 @@
     ]
   },
   {
-    "objectID": "index.html#contributing",
-    "href": "index.html#contributing",
-    "title": "Python Packaging Essentials",
-    "section": "Contributing",
-    "text": "Contributing\n\nSet up environment\nIn order to follow the steps below, you’ll need to have both Git, uv and Quarto installed on your machine.\n\nFork the Github repo\nGit clone it:\n\ngit clone https://github.com/YourUsername/python-packaging-essentials.git\n\nCreate a new Git branch\n\ngit checkout -b branch-name\n\nSet up your environment\n\n\nMacOS/Unix-likeWindows\n\n\nuv python install\nuv sync\nsource .venv/bin/activate\n\n\nuv python install\nuv sync\n.venv\\Scripts\\activate\n\n\n\n\n\nMake changes\nEach blog post lives in a Quarto file (.qmd). It’s a mix of markdown and chunk of code.\nYou can preview locally your changes with:\nquarto preview\nIf not done automatically, open your browser at http://localhost:4000/",
-    "crumbs": [
-      "Preface"
-    ]
-  },
-  {
     "objectID": "blog/create-a-package/index.html",
     "href": "blog/create-a-package/index.html",
     "title": "Create a package",
     "section": "",
-    "text": "Should I create a package?\nBefore starting to create a package, it’s good to ask should you even create one. Because even if it’s not fundamentally complicated, it’s still some additional compared to not to.\nA good rule of thumb for this is to answer the question “Do I plan to reuse the code from this project elsewhere?”. If so, then it makes sense to make it a package.\nMore generally, you can ask yourself whether you’re building a tool or using tools. A statistical analysis probably does not belong in a package, while functions to do statistics probably should.\nAlso, note that it’s unlikely to regret making a Python project a package, while the opposite might happen more often. Packages, if well done, are usually more modular and better organized compared to non-package projects.",
+    "text": "Should I create a package?\nBefore starting to create a package, it’s good to ask if you should even create one. Because even if it’s not fundamentally complicated, it’s still some additional work compared to not doing so.\nA good rule of thumb for this is to answer the question “Do I plan to reuse the code from this project elsewhere?” If so, then it makes sense to make it a package.\nMore generally, you can ask yourself whether you’re building a tool or using tools. A statistical analysis probably does not belong in a package, while functions to do statistics probably should.\nAlso, note that it’s unlikely you’ll regret making a Python project a package, while the opposite might happen more often. Packages, if well done, are usually more modular and better organized compared to non-package projects.",
     "crumbs": [
       "Create a package"
     ]
@@ -44,7 +34,7 @@
     "href": "blog/create-a-package/index.html#is-it-hard",
     "title": "Create a package",
     "section": "Is it hard?",
-    "text": "Is it hard?\nNot really, especially if you take the time to read about it.\nMaking a Python package is mostly about organizing your project in a specific, standardized way. There is not low-level computer science concepts that you should know, but rather respect a more or less large set of rules.",
+    "text": "Is it hard?\nNot really, especially if you take the time to read about it.\nMaking a Python package is mostly about organizing your project in a specific, standardized way. There are no low-level computer science concepts that you should know, but rather a more or less large set of rules to respect.",
     "crumbs": [
       "Create a package"
     ]
@@ -453,6 +443,16 @@
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
+    ]
+  },
+  {
+    "objectID": "contributing.html",
+    "href": "contributing.html",
+    "title": "Contributing",
+    "section": "",
+    "text": "Set up environment\nIn order to follow the steps below, you’ll need to have both Git, uv and Quarto installed on your machine.\n\nFork the Github repo\nGit clone it:\n\ngit clone https://github.com/YourUsername/python-packaging-essentials.git\n\nCreate a new Git branch\n\ngit checkout -b branch-name\n\nSet up your environment\n\n\nMacOS/Unix-likeWindows\n\n\nuv python install\nuv sync\nsource .venv/bin/activate\n\n\nuv python install\nuv sync\n.venv\\Scripts\\activate\n\n\n\n\n\nMake changes\nEach blog post lives in a Quarto file (.qmd). It’s a mix of markdown and chunk of code.\nYou can preview locally your changes with:\nquarto preview\nIf not done automatically, open your browser at http://localhost:4000/",
+    "crumbs": [
+      "Contributing"
     ]
   }
 ]
