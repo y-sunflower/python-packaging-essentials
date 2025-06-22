@@ -2,4 +2,4 @@
 title: "Errors and warnings"
 ---
 
-This page is a work in progress. You can see the current state of the project [here](https://github.com/yellow-sunflower/python-packaging-essentials).
+This page is a work in progress. You can see the current state of the project [here](https://github.com/y-sunflower/python-packaging-essentials).

@@ -37,6 +37,7 @@ book:
         - blog/workflow/github-actions.qmd
         - blog/workflow/pre-commit.qmd
         - blog/workflow/publish-to-pypi.qmd
+    - blog/bonus/index.qmd
     - contributing.qmd
 
 format:

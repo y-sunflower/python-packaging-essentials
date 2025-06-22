@@ -39,7 +39,7 @@ sunflower/
 
 On certain "events" (as defined in those scripts), `unit-tests.yaml` and `code-format.yaml` will be triggered.
 
-The events we care about here are:
+The events we care about here are:w
 
 - Opening a pull request  
 - Merging or pushing to the main branch  
