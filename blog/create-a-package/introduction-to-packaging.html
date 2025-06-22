@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f8cb7fe94b71c4ea6759b609738bfe9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -258,9 +258,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#the-__init__.py-file" id="toc-the-__init__.py-file" class="nav-link active" data-scroll-target="#the-__init__.py-file"><span class="header-section-number">1.1</span> The <code>__init__.py</code> File</a></li>
-  <li><a href="#package-vs-module" id="toc-package-vs-module" class="nav-link" data-scroll-target="#package-vs-module"><span class="header-section-number">1.2</span> Package vs Module</a></li>
-  <li><a href="#pypi-python-package-index" id="toc-pypi-python-package-index" class="nav-link" data-scroll-target="#pypi-python-package-index"><span class="header-section-number">1.3</span> PyPI (Python Package Index)</a></li>
-  <li><a href="#pip-and-friends" id="toc-pip-and-friends" class="nav-link" data-scroll-target="#pip-and-friends"><span class="header-section-number">1.4</span> pip (and friends)</a></li>
+  <li><a href="#package-vs-module-vs-library" id="toc-package-vs-module-vs-library" class="nav-link" data-scroll-target="#package-vs-module-vs-library"><span class="header-section-number">1.2</span> Package vs Module vs Library</a></li>
+  <li><a href="#initialize-the-directory" id="toc-initialize-the-directory" class="nav-link" data-scroll-target="#initialize-the-directory"><span class="header-section-number">1.3</span> Initialize the directory</a></li>
+  <li><a href="#reusable-python-code" id="toc-reusable-python-code" class="nav-link" data-scroll-target="#reusable-python-code"><span class="header-section-number">1.4</span> Reusable Python code</a></li>
+  <li><a href="#package-structure" id="toc-package-structure" class="nav-link" data-scroll-target="#package-structure"><span class="header-section-number">1.5</span> Package structure</a></li>
+  <li><a href="#use-our-package" id="toc-use-our-package" class="nav-link" data-scroll-target="#use-our-package"><span class="header-section-number">1.6</span> Use our package</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/introduction-to-packaging.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -293,35 +295,105 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">my_package/</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> __init__.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The presence of <code>__init__.py</code> tells Python: “this is a package.”</p>
-<p>Even if it’s an empty file, it’s important—it allows you to import parts of your code like this:</p>
+<p>Even if it’s an empty file, it’s important: it allows you to import parts of your code like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> my_package <span class="im">import</span> something</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Without it, Python treats the folder as a regular directory, <strong>not something it can import from</strong>.</p>
+<p>Without it, Python treats the directory <code>my_package/</code> as a regular directory, <strong>not something it can import from</strong>.</p>
 </section>
-<section id="package-vs-module" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="package-vs-module"><span class="header-section-number">1.2</span> Package vs Module</h2>
+<section id="package-vs-module-vs-library" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="package-vs-module-vs-library"><span class="header-section-number">1.2</span> Package vs Module vs Library</h2>
 <p>These terms get thrown around a lot. Here’s the quick breakdown:</p>
 <ul>
 <li><strong>Module</strong>: A single <code>.py</code> file (e.g., <code>my_file.py</code>)</li>
 <li><strong>Package</strong>: A directory with an <code>__init__.py</code>, possibly containing multiple modules (e.g., multiple files)</li>
+<li><strong>Library</strong>: A more general programming term and refers to a bundle of code that can be used (<a href="https://www.reddit.com/r/Python/comments/weycrc/comment/iiqy6fi/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button" target="_blank">source</a>)</li>
 </ul>
+<p>Library and package most of the time refer to the same thing. All packages are libraries, the opposite is not true. For the sake of simplicity, it’s ok to consider them “equivalent”, even though we’re are mostly interested in packages in practice.</p>
+<p>Now, let’s create the smallest Python package possible.</p>
 </section>
-<section id="pypi-python-package-index" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="pypi-python-package-index"><span class="header-section-number">1.3</span> PyPI (Python Package Index)</h2>
-<p><a href="https://pypi.org">PyPI</a> is the default online repository for Python packages. This is where packages are stored so that others can find and install them.</p>
-<p>When you run:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You’re downloading the <code>requests</code> package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.</p>
+<section id="initialize-the-directory" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="initialize-the-directory"><span class="header-section-number">1.3</span> Initialize the directory</h2>
+<p>The very first step is to create a new directory named <em>“my_package”</em>. Inside this directory, create another directory with the same name. The structure should look like this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>my_package/</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>└── my_package/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="pip-and-friends" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="pip-and-friends"><span class="header-section-number">1.4</span> pip (and friends)</h2>
-<p><code>pip</code> is the tool used to install packages from PyPI. It’s simple and widely supported.</p>
-<p>Example:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>But when working with packages in Python, you need to take into account the package version. Maybe you need <code>numpy</code> <code>2.1.2</code> instead of <code>2.1.1</code> for your project.</p>
-<p>You can read more about this in the <a href="./handling-dependencies.html">handling dependencies article</a>, but in summary, it’s important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.</p>
-<p>Some newer tools are built around <code>pip</code> to offer additional features such as <strong>dependency management</strong> and <strong>better performance</strong>.</p>
-<p>One of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there’s a problem.</p>
-<p>Since 2024, the best tool available is called <a href="https://docs.astral.sh/uv/">uv</a>. It’s super easy to use, super fast and does everything you need, in one place, with one tool. It’s more of a Python project manager than a simple package installer.</p>
+<section id="reusable-python-code" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="reusable-python-code"><span class="header-section-number">1.4</span> Reusable Python code</h2>
+<p>When creating a Python package, we want to write <strong>a reusable piece of code</strong>, not just put in a few scripts that do things. To illustrate:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Not reusable code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Reusable code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div id="02388c80" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Joseph"</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello Joseph</code></pre>
+</div>
+</div>
+<p>This code does something: it prints a message.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div id="4f81b918" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> say_hello(name):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The code above does ‘nothing’. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:</p>
+<div id="e4dc63d1" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>say_hello(<span class="st">"Joseph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Hello Joseph</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="package-structure" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="package-structure"><span class="header-section-number">1.5</span> Package structure</h2>
+<p>Now, let’s create our first Python module (which is just a file ending in <code>.py</code>). We’ll call it <code>my_module.py</code>.</p>
+<p>Our file <code>my_module.py</code> will be next to the <code>__init__.py</code> we talked about before:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>my_package/</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>└── my_package/</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    ├── __init__.py</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    └── my_module.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true"><code>my_module.py</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false"><code>__init__.py</code></a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> say_hello(name):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>   message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="sourceCode" id="cb11"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .my_module <span class="im">import</span> say_hello</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">__all__</span> <span class="op">=</span> [<span class="st">"say_hello"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="use-our-package" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="use-our-package"><span class="header-section-number">1.6</span> Use our package</h2>
+<p>Now, how do we use our package, from a user point of view?</p>
+<p>For this, you’ll need to have <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> installed.</p>
+<p>Then we’ll need to run a command in our terminal at <code>Desktop/my_package/</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install <span class="at">-e</span> .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>Don’t worry too much about those commands yet.</p>
+</blockquote>
+<p>This command will install our current package in <strong>editable mode</strong>. This allows us to test our package while making updates.</p>
+<p>The next step is to open a new Python file, console or notebook, ideally not in the package directory. I usually like having a <code>sandbox.py</code> file. In this file, we’ll run:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> package_name <span class="im">import</span> say_hello</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>say_hello(<span class="st">"Julia"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>Hello Julia</p>
+</blockquote>
+<p>And now we have a fully functional Python package! This is just the beginning, but this is an important fondation to have for what’s coming next.</p>
 
 
 </section>

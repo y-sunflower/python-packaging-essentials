@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -38,10 +73,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f8cb7fe94b71c4ea6759b609738bfe9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -216,8 +251,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#note" id="toc-note" class="nav-link active" data-scroll-target="#note"><span class="header-section-number">10.1</span> note</a></li>
+  <li><a href="#pypi-python-package-index" id="toc-pypi-python-package-index" class="nav-link" data-scroll-target="#pypi-python-package-index"><span class="header-section-number">10.2</span> PyPI (Python Package Index)</a></li>
+  <li><a href="#pip-and-friends" id="toc-pip-and-friends" class="nav-link" data-scroll-target="#pip-and-friends"><span class="header-section-number">10.3</span> pip (and friends)</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/workflow/publish-to-pypi.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -242,8 +285,33 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>This page is a work in progress. You can see the current state of the project <a href="https://github.com/yellow-sunflower/python-packaging-essentials">here</a>.</p>
+<p><br> <br> <br> <br> <br></p>
+<section id="note" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="note"><span class="header-section-number">10.1</span> note</h2>
+<ul>
+<li>pyproject.toml to specify dependencies, python req, etc</li>
+</ul>
+</section>
+<section id="pypi-python-package-index" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="pypi-python-package-index"><span class="header-section-number">10.2</span> PyPI (Python Package Index)</h2>
+<p><a href="https://pypi.org">PyPI</a> is the default online repository for Python packages. This is where packages are stored so that others can find and install them.</p>
+<p>When you run:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install requests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’re downloading the <code>requests</code> package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.</p>
+</section>
+<section id="pip-and-friends" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="pip-and-friends"><span class="header-section-number">10.3</span> pip (and friends)</h2>
+<p><code>pip</code> is the tool used to install packages from PyPI. It’s simple and widely supported.</p>
+<p>Example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install numpy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>But when working with packages in Python, you need to take into account the package version. Maybe you need <code>numpy</code> <code>2.1.2</code> instead of <code>2.1.1</code> for your project.</p>
+<p>You can read more about this in the <a href="./handling-dependencies.html">handling dependencies article</a>, but in summary, it’s important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.</p>
+<p>Some newer tools are built around <code>pip</code> to offer additional features such as <strong>dependency management</strong> and <strong>better performance</strong>.</p>
+<p>One of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there’s a problem.</p>
+<p>Since 2024, the best tool available is called <a href="https://docs.astral.sh/uv/">uv</a>. It’s super easy to use, super fast and does everything you need, in one place, with one tool. It’s more of a Python project manager than a simple package installer.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -659,4 +727,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/workflow/publish-to-pypi.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/workflow/publish-to-pypi.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

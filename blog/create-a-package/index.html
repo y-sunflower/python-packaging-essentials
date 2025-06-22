@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -39,10 +39,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-485d01fc63b59abcd3ee1bf1e8e2748d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-f8cb7fe94b71c4ea6759b609738bfe9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -217,8 +217,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#should-i-create-a-package" id="toc-should-i-create-a-package" class="nav-link active" data-scroll-target="#should-i-create-a-package">Should I create a package?</a></li>
+  <li><a href="#is-it-hard" id="toc-is-it-hard" class="nav-link" data-scroll-target="#is-it-hard">Is it hard?</a></li>
+  <li><a href="#is-it-only-for-large-projects" id="toc-is-it-only-for-large-projects" class="nav-link" data-scroll-target="#is-it-only-for-large-projects">Is it only for large projects?</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -242,8 +250,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="should-i-create-a-package" class="level2">
+<h2 class="anchored" data-anchor-id="should-i-create-a-package">Should I create a package?</h2>
+<p>Before starting to create a package, it’s good to ask should you even create one. Because even if it’s not fundamentally complicated, it’s still some additional compared to not to.</p>
+<p>A good rule of thumb for this is to answer the question “Do I plan to reuse the code from this project elsewhere?”. If so, then it makes sense to make it a package.</p>
+<p>More generally, you can ask yourself whether you’re building a tool or using tools. A statistical analysis probably does not belong in a package, while functions to do statistics probably should.</p>
+<p>Also, note that it’s unlikely to regret making a Python project a package, while the opposite might happen more often. Packages, if well done, are usually more modular and better organized compared to non-package projects.</p>
+</section>
+<section id="is-it-hard" class="level2">
+<h2 class="anchored" data-anchor-id="is-it-hard">Is it hard?</h2>
+<p>Not really, especially if you take the time to read about it.</p>
+<p>Making a Python package is mostly about organizing your project in a specific, standardized way. There is not low-level computer science concepts that you should know, but rather respect a more or less large set of rules.</p>
+</section>
+<section id="is-it-only-for-large-projects" class="level2">
+<h2 class="anchored" data-anchor-id="is-it-only-for-large-projects">Is it only for large projects?</h2>
+<p>Not at all! Even if your project is 200 lines of code in a single file, it might make sense to make it a package. You can find a fun example <a href="https://github.com/koaning/smartfunc" target="_blank">here</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -662,4 +686,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/yellow-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
