@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
   push:
-    branches: main
+    branches: [main]
 
 name: Quarto Publish
 
@@ -23,9 +23,10 @@ jobs:
           enable-cache: true
 
       - name: Install the project
-        run: |
-          uv sync --all-groups
-          source .venv/bin/activate
+        run: uv sync --all-groups
+
+      - name: Activate virtual environment
+        run: source .venv/bin/activate
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
