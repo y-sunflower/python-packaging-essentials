@@ -48,7 +48,7 @@ Let’s look at a practical example to understand why these scripts are importan
 
 ## Unit testing
 
-> If you’re not familiar with unit testing, check out [this blog post](./unit-tests.html) first.
+> If you’re not familiar with unit testing, check out [this dedicated blog post](../code-quality/unit-tests.html).
 
 Suppose we have unit tests written with `pytest` in the `tests/` directory. We can now add a `unit-tests.yaml` file in `.github/workflows/` that looks like this:
 
