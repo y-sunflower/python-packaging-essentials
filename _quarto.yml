@@ -9,15 +9,17 @@ website:
 
 book:
   title: "Python Packaging Essentials"
-  description: "Practical guide that walks you through creating, organizing, testing, and publishing Python packages."
-  author: "Joseph Barbier"
-  date: today
+  subtitle: "Practical guide that walks you through creating, organizing, testing, and publishing Python packages."
   downloads: pdf
   license: MIT
-  repo-url: https://github.com/yellow-sunflower/python-packaging-essentials/
+  repo-url: https://github.com/y-sunflower/python-packaging-essentials/
   repo-branch: main
-  repo-actions: [edit, issue]
+  repo-actions: [source, edit, issue]
   search: true
+  sidebar:
+    tools:
+      - icon: github
+        href: https://github.com/y-sunflower/python-packagin-essentials
   chapters:
     - index.qmd
     - part: blog/create-a-package/index.qmd
@@ -36,6 +38,7 @@ book:
         - blog/workflow/github-actions.qmd
         - blog/workflow/pre-commit.qmd
         - blog/workflow/publish-to-pypi.qmd
+    - contributing.qmd
 
 format:
   html:

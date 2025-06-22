@@ -1,6 +1,3 @@
-
-
-
 ## Preface {.unnumbered}
 
 The aim of this site it to provide all the must known practices when it comes to create a Python package. It offers **multiple blog posts**, where each of them covers one topic with a few key points. The goal here is to empower anyone with just basic Python knowledge.
@@ -10,59 +7,6 @@ We'll go over concrete examples, use clear explanations, and try as much as poss
 ## Good to know {.unnumbered}
 
 - All blog posts are **independant**. Even if they follow some sort of order, it's perfectly fine to just look at what interests you.
-- This site is [open source](https://github.com/yellow-sunflower/python-packaging-essentials/) and in **continuous improvement**.  If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it's more than welcomed. It starts [here](#contributing).
+- This site is [open source](https://github.com/yellow-sunflower/python-packaging-essentials/) and in **continuous improvement**.  If you want to suggest an improvement (correct an error, improve an explanation, add an example or anything else), it's more than welcomed. It starts [here](./contributing.html).
 - You can download the **PDF** version of this site in the top left of the site / navigation bar.
 - This website is **not exhaustive** and does not aim to be. We aim to focus on the key points and refer to other resources for more specific topics.
-
-## Contributing {.unnumbered}
-
-### Set up environment
-
-In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads), [uv](https://docs.astral.sh/uv/getting-started/installation/) and [Quarto](https://quarto.org/) installed on your machine.
-
-- Fork the [Github repo](https://github.com/yellow-sunflower/python-packaging-essentials/)
-- Git clone it:
-
-```bash
-git clone https://github.com/YourUsername/python-packaging-essentials.git
-```
-
-- Create a new Git branch
-
-```bash
-git checkout -b branch-name
-```
-
-- Set up your environment
-
-::: {.panel-tabset}
-
-#### MacOS/Unix-like
-
-```bash
-uv python install
-uv sync
-source .venv/bin/activate
-```
-
-#### Windows
-
-```bash
-uv python install
-uv sync
-.venv\Scripts\activate
-```
-
-:::
-
-### Make changes
-
-Each blog post lives in a Quarto file (`.qmd`). It's a mix of markdown and chunk of code.
-
-You can preview locally your changes with:
-
-```bash
-quarto preview
-```
-
-If not done automatically, open your browser at [http://localhost:4000/](http://localhost:4000/)

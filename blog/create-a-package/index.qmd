@@ -2,22 +2,24 @@
 title: Create a package
 ---
 
+
 ## Should I create a package?
 
-Before starting to create a package, it's good to ask should you even create one. Because even if it's not fundamentally complicated, it's still some additional compared to not to.
+Before starting to create a package, it's good to ask if you should even create one. Because even if it's not fundamentally complicated, it's still some additional work compared to not doing so.
 
-A good rule of thumb for this is to answer the question "Do I plan to reuse the code from this project elsewhere?". If so, then it makes sense to make it a package.
+A good rule of thumb for this is to answer the question "Do I plan to reuse the code from this project elsewhere?" If so, then it makes sense to make it a package.
 
 More generally, you can ask yourself whether you're building a tool or using tools. A statistical analysis probably does not belong in a package, while functions to do statistics probably should.
 
-Also, note that it's unlikely to regret making a Python project a package, while the opposite might happen more often. Packages, if well done, are usually more modular and better organized compared to non-package projects.
+Also, note that it's unlikely you'll regret making a Python project a package, while the opposite might happen more often. Packages, if well done, are usually more modular and better organized compared to non-package projects.
 
 ## Is it hard?
 
 Not really, especially if you take the time to read about it.
 
-Making a Python package is mostly about organizing your project in a specific, standardized way. There is not low-level computer science concepts that you should know, but rather respect a more or less large set of rules.
+Making a Python package is mostly about organizing your project in a specific, standardized way. There are no low-level computer science concepts that you should know, but rather a more or less large set of rules to respect.
 
 ## Is it only for large projects?
 
 Not at all! Even if your project is 200 lines of code in a single file, it might make sense to make it a package. You can find a fun example [here](https://github.com/koaning/smartfunc){target="_blank"}.
+

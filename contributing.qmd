@@ -1,0 +1,54 @@
+
+
+## Contributing {.unnumbered}
+
+### Set up environment
+
+In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads), [uv](https://docs.astral.sh/uv/getting-started/installation/) and [Quarto](https://quarto.org/) installed on your machine.
+
+- Fork the [Github repo](https://github.com/yellow-sunflower/python-packaging-essentials/)
+- Git clone it:
+
+```bash
+git clone https://github.com/YourUsername/python-packaging-essentials.git
+```
+
+- Create a new Git branch
+
+```bash
+git checkout -b branch-name
+```
+
+- Set up your environment
+
+::: {.panel-tabset}
+
+#### MacOS/Unix-like
+
+```bash
+uv python install
+uv sync
+source .venv/bin/activate
+```
+
+#### Windows
+
+```bash
+uv python install
+uv sync
+.venv\Scripts\activate
+```
+
+:::
+
+### Make changes
+
+Each blog post lives in a Quarto file (`.qmd`). It's a mix of markdown and chunk of code.
+
+You can preview locally your changes with:
+
+```bash
+quarto preview
+```
+
+If not done automatically, open your browser at [http://localhost:4000/](http://localhost:4000/)
