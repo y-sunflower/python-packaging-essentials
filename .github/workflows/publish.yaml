@@ -31,6 +31,11 @@ jobs:
       - name: Install TinyTex
         run: quarto install tinytex
 
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Render and Publish
         run: |
           source .venv/bin/activate
