@@ -28,6 +28,9 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Install TinyTex
+        run: quarto install tinytex
+
       - name: Render and Publish
         run: |
           source .venv/bin/activate
