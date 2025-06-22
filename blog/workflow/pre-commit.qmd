@@ -96,6 +96,7 @@ uv run pre-commit install
 Now try editing a Python file (add spaces at the end of the file or change the formatting of something). Then try committing it:
 
 ```bash
+git add .pre-commit-config.yaml
 git commit -m "Test pre-commit"
 ```
 
@@ -122,7 +123,7 @@ If `pre-commit` fixes files automatically, it will ask you to re-stage them and 
 This means the hook fixed your files. Run:
 
 ```bash
-git add .
+git add -A
 git commit -m "message"
 ```
 

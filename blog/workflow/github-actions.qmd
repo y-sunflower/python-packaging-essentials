@@ -81,7 +81,7 @@ jobs:
           enable-cache: true
 
       - name: Install the project
-        run: uv sync --all-extras --dev
+        run: uv sync --all-groups
 
       - name: Run tests
         run: uv run pytest
@@ -92,7 +92,7 @@ What it does:
 When someone pushes a commit to a branch with an open pull request (as specified in the `on` section), this action will:
 
 - install [uv](https://docs.astral.sh/uv/) (a Python package manager)  
-- install the project dependencies using `uv sync --all-extras --dev`  
+- install the project dependencies using `uv sync --all-groups`  
 - run the test suite with `uv run pytest`  
 
 This runs across multiple Python versions (3.9 and 3.13) and operating systems (Windows, macOS, and Linux). That gives us 6 combinations in total (2 Python versions × 3 OSes).
@@ -160,7 +160,7 @@ jobs:
           enable-cache: true
 
       - name: Install the project
-        run: uv sync --all-extras --dev
+        run: uv sync --all-groups
 
       - name: Deploy MkDocs
         env:
@@ -173,7 +173,7 @@ What it does:
 When someone merges or pushes to the main branch, this action will:
 
 - install [uv](https://docs.astral.sh/uv/) (a Python package manager)  
-- install the project dependencies using `uv sync --all-extras --dev`  
+- install the project dependencies using `uv sync --all-groups`  
 - generate the entire documentation website with `uv run mkdocs gh-deploy --force`  
 - push the documentation website to the `gh-pages` branch on Github  
 
@@ -226,7 +226,7 @@ jobs:
           enable-cache: true
 
       - name: Install dependencies
-        run: uv sync --all-extras --dev
+        run: uv sync --all-groups
 
       - name: Check formatting
         run: uv run ruff format . --check
