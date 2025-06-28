@@ -2,4 +2,94 @@
 title: "Unit tests"
 ---
 
-This page is a work in progress. You can see the current state of the project [here](https://github.com/y-sunflower/python-packaging-essentials).
+This blog posts explain the interest of unit testing when developing a Python package. It's **not** meant as an in-depth tutorial about how to do unit tests, but rather an overview of what problem it solves and how is it relevant to Python packaging.
+
+## What is unit testing
+
+Unit testing is the practice of writing small, focused tests to verify that individual parts (units) of your code behave as expected. In the context of a Python package, unit tests help ensure that your functions, classes, and modules continue to work correctly as your code evolves.
+
+### Quick definition
+
+A *unit* is the smallest testable part of your application, typically a **single function**. A *unit test* checks if that function produces the correct output for a given input. These tests are automated and are typically run frequently during development.
+
+### Pytest
+
+[Pytest](https://pytest.org) is a popular testing framework in the Python ecosystem. It's known for its clean syntax, powerful features (like fixtures and parameterization), and ease of use. Pytest works with simple `assert` statements, so **you don’t need to learn a special API to start testing**.
+
+## Example with a simple function
+
+Let’s look at how unit tests work using a basic example.
+
+### Simple function
+
+Suppose you have a function that counts how many time there is the word "sunflower" in a string:
+
+```{.python filename="sunflower/count_sunflower_module.py"}
+import re
+
+def count_sunflowers(s):
+   s = re.sub(r"[^a-zA-Z\s]", "", s)  # Remove non-text characters
+   s = s.lower()                      # Convert to lowercase
+   n_sunflower = s.split().count("sunflower")
+   n_sunflowers = s.split().count("sunflowers")
+   return n_sunflower + n_sunflowers
+```
+
+### Simple test example and to run it
+
+A test is actually a function (or a class) that calls the function we want to test. This new function must
+
+- starts with `test_`
+- be in a file in the `tests/` directory in a file that starts with `test`
+
+For instance, our project could be organized as follow:
+
+```markdown
+sunflower/
+├── sunflower/
+│   ├── __init__.py
+│   └── count_sunflower_module.py
+├── tests/
+│   └── test_count_sunflower.py
+├── .venv/
+└── pyproject.toml
+```
+
+Our test function will verify if our original function **behaves as expected**. For example, we can test `count_sunflowers()` with the following test:
+
+```{.python filename="tests/test_count_sunflower.py"}
+import pytest
+from sunflower import count_sunflowers
+
+def test_count_sunflowers():
+    output = count_sunflowers("sunflower sunflower cake")
+    expected = 2
+    assert output == expected
+```
+
+To run the test, simply use the `pytest` command in the terminal:
+
+```bash
+pytest
+```
+
+If the result of `assert output == expected` is `True`, then pytest will tell us that everything's fine, otherwise an error message with details on where the error come from for debugging.
+
+## In real projects
+
+Unit testing becomes even more valuable as your project grows and others start using or contributing to it.
+
+### Backward compatibility
+
+Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.
+
+### CI
+
+Unit tests are often run automatically using Continuous Integration (CI) tools like GitHub Actions. Whenever someone pushes a commit or opens a pull request, the CI system runs the test suite to make sure nothing is broken. This reinforces trust in the codebase and speeds up development.
+
+> A dedicated blog post will cover GitHub Actions in more detail.
+
+### Collaborative work and external contributions
+
+Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers can make changes confidently and verify them with tests.
+

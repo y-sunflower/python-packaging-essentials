@@ -14,11 +14,8 @@ book:
   license: MIT
   repo-branch: main
   repo-actions: [source, edit, issue]
+  repo-url: https://github.com/y-sunflower/python-packaging-essentials
   search: true
-  sidebar:
-    tools:
-      - icon: github
-        href: https://github.com/y-sunflower/python-packagin-essentials
   chapters:
     - index.qmd
     - part: blog/create-a-package/index.qmd
