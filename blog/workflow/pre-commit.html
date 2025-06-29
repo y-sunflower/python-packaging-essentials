@@ -268,10 +268,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#tldr-what-is-pre-commit" id="toc-tldr-what-is-pre-commit" class="nav-link active" data-scroll-target="#tldr-what-is-pre-commit"><span class="header-section-number">9.1</span> TLDR: What is <code>pre-commit</code>?</a></li>
-  <li><a href="#how-it-looks" id="toc-how-it-looks" class="nav-link" data-scroll-target="#how-it-looks"><span class="header-section-number">9.2</span> How it looks</a></li>
-  <li><a href="#how-to-set-up" id="toc-how-to-set-up" class="nav-link" data-scroll-target="#how-to-set-up"><span class="header-section-number">9.3</span> How to set up</a></li>
-  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq"><span class="header-section-number">9.4</span> FAQ</a></li>
+  <li><a href="#tldr-what-is-pre-commit" id="toc-tldr-what-is-pre-commit" class="nav-link active" data-scroll-target="#tldr-what-is-pre-commit">TLDR: What is <code>pre-commit</code>?</a></li>
+  <li><a href="#how-it-looks" id="toc-how-it-looks" class="nav-link" data-scroll-target="#how-it-looks">How it looks</a></li>
+  <li><a href="#how-to-set-up" id="toc-how-to-set-up" class="nav-link" data-scroll-target="#how-to-set-up">How to set up</a></li>
+  <li><a href="#faq" id="toc-faq" class="nav-link" data-scroll-target="#faq">FAQ</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/workflow/pre-commit.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/workflow/pre-commit.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -301,8 +301,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>This post assumes you’re already using Git and are familiar with what commits are. It also requires using <a href="https://docs.astral.sh/uv/" target="_blank">uv</a>.</p>
 </blockquote>
-<section id="tldr-what-is-pre-commit" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="tldr-what-is-pre-commit"><span class="header-section-number">9.1</span> TLDR: What is <code>pre-commit</code>?</h2>
+<section id="tldr-what-is-pre-commit" class="level2">
+<h2 class="anchored" data-anchor-id="tldr-what-is-pre-commit">TLDR: What is <code>pre-commit</code>?</h2>
 <p><code>pre-commit</code> is a framework for managing and running “hooks”, which are just scripts defined in a <code>.pre-commit-config.yaml</code> file that run at specific points in the Git lifecycle. The most common is the <code>pre-commit</code> hook, which runs <strong>before</strong> a commit is created.</p>
 <p>The point of using pre-commit hooks is to prevent your codebase from including unwanted things, such as unformatted code, oversized files, print statements, and so on.</p>
 <p>Here’s what makes <code>pre-commit</code> awesome:</p>
@@ -316,8 +316,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>It integrates with CI</strong> – you can run <code>pre-commit</code> in CI to make sure everyone follows the same rules</li>
 </ul>
 </section>
-<section id="how-it-looks" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="how-it-looks"><span class="header-section-number">9.2</span> How it looks</h2>
+<section id="how-it-looks" class="level2">
+<h2 class="anchored" data-anchor-id="how-it-looks">How it looks</h2>
 <p>Here is a pre-commit hook that:</p>
 <ul>
 <li>checks if our code is both linted and formatted<br>
@@ -336,8 +336,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This will run each time we run <code>git commit</code>. If our code is not perfectly linted and formatted, it will prevent the commit and lint/format it (if possible).</p>
 <p>Once our code is fixed, we can re-run <code>git add</code> and <code>git commit</code>, and it will accept our commit, which we can then push.</p>
 </section>
-<section id="how-to-set-up" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="how-to-set-up"><span class="header-section-number">9.3</span> How to set up</h2>
+<section id="how-to-set-up" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-set-up">How to set up</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">1. Configuration</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">2. Install</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">3. Commit</a></li></ul>
 <div class="tab-content">
@@ -389,8 +389,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="faq" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="faq"><span class="header-section-number">9.4</span> FAQ</h2>
+<section id="faq" class="level2">
+<h2 class="anchored" data-anchor-id="faq">FAQ</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">“Files were modified by this hook”</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">“Hook failed”</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-3" role="tab" aria-controls="tabset-2-3" aria-selected="false">“Nothing happens when I commit”</a></li></ul>
 <div class="tab-content">

@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -228,8 +263,20 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#how-to-name-your-package" id="toc-how-to-name-your-package" class="nav-link active" data-scroll-target="#how-to-name-your-package">How to name your package</a>
+  <ul class="collapse">
+  <li><a href="#constraints" id="toc-constraints" class="nav-link" data-scroll-target="#constraints">Constraints</a></li>
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best Practices</a></li>
+  </ul></li>
+  <li><a href="#how-to-name-files" id="toc-how-to-name-files" class="nav-link" data-scroll-target="#how-to-name-files">How to name files</a></li>
+  <li><a href="#what-is-the-__all__-variable" id="toc-what-is-the-__all__-variable" class="nav-link" data-scroll-target="#what-is-the-__all__-variable">What is the <code>__all__</code> variable</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/bonus/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/bonus/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -253,8 +300,96 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="how-to-name-your-package" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-name-your-package">How to name your package</h2>
+<p>Yes, creating a good Python package name is both an art and a bit of a science. There <strong>are constraints</strong> you should follow, and some <strong>best practices</strong> that can help your package stand out and be easy to use.</p>
+<section id="constraints" class="level3">
+<h3 class="anchored" data-anchor-id="constraints">Constraints</h3>
+<ul>
+<li><strong>Lowercase only</strong>: Package names should be all lowercase.</li>
+<li><strong>No special characters or spaces</strong>: Use only letters, numbers, and underscores or dashes (<code>a-z</code>, <code>0-9</code>, <code>_</code>, <code>-</code>).</li>
+<li><strong>Can’t conflict with standard library modules</strong>: Avoid names like <code>json</code>, <code>os</code>, <code>email</code>, etc.</li>
+<li><strong>Must be unique on PyPI</strong>: Check if the name is available: <a href="https://pypi.org/">https://pypi.org/</a></li>
+<li><strong>Max length</strong>: There’s no strict limit, but practical limits (about 50 characters) make sense.</li>
+<li><strong>Underscores vs Dashes</strong>:
+<ul>
+<li>Use dashes (<code>-</code>) in the <strong>distribution name</strong> (<code>setup.py</code> or <code>pyproject.toml</code>).</li>
+<li>Use underscores (<code>_</code>) or no separator at all in <strong>importable module names</strong>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="best-practices" class="level3">
+<h3 class="anchored" data-anchor-id="best-practices">Best Practices</h3>
+<ul>
+<li><strong>Short &amp; memorable</strong>: Easier for users to type and remember.</li>
+<li><strong>Descriptive but concise</strong>: Reflect what the package does.
+<ul>
+<li>Good: <code>requests</code>, <code>black</code>, <code>httpx</code></li>
+<li>Bad: <code>jdhfhc</code>, <code>my_cool_package</code>, <code>python_toolkit_2023_version_final</code></li>
+</ul></li>
+<li><strong>Avoid generic terms</strong> unless paired cleverly: <code>data</code>, <code>utils</code>, <code>tools</code>, etc.</li>
+<li><strong>Avoid abbreviations</strong> unless well-known.</li>
+<li><strong>Check for conflicts</strong>: Google the name and check on GitHub too, not just PyPI.</li>
+<li><strong>Consider branding</strong>: If it becomes popular, the name matters.</li>
+</ul>
+</section>
+</section>
+<section id="how-to-name-files" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-name-files">How to name files</h2>
+<p>Having good filenames is mostly useful for having a clear and consistent project architecture. There are some best practices to follow:</p>
+<ul>
+<li>use lowercase only</li>
+<li>avoid spaces and odd characters</li>
+<li>keep it short</li>
+<li>use underscores “<code>_</code>”</li>
+</ul>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Bad file names</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Good file names</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="sourceCode" id="cb1"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my file.py</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>Myfile.py</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>myFile.py</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>my@file.py</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>my-file.py</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>this-file-does-this-and-that.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_file.py</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>myfile.py</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-the-__all__-variable" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-the-__all__-variable">What is the <code>__all__</code> variable</h2>
+<p>The <code>__all__</code> variable in Python lives in the <code>__init__.py</code> file and is used to control <strong>what gets imported</strong> when someone uses <code>from my_package import *</code>. It should be defined at the module level as a list of strings, where each string is the name of a symbol—like a function, class, or variable—that you want to make publicly available.</p>
+<p>If <code>__all__</code> is present, only those names listed will be imported during wildcard imports. If it’s not defined, Python will import all names that don’t start with an underscore by default.</p>
+<p>For example, consider a file called <code>my_module.py</code>:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>my_package/my_module.py</strong></pre>
+</div>
+<div class="sourceCode" id="cb3" data-filename="my_package/my_module.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cool_function():</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"This is public"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CoolClass:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>And our <code>__init__.py</code> file:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>my_package/__init__.py</strong></pre>
+</div>
+<div class="sourceCode" id="cb4" data-filename="my_package/__init__.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> .my_module <span class="im">import</span> cool_function, CoolClass</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">__all__</span> <span class="op">=</span> [<span class="st">"cool_function"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now if a user does <code>from my_package import *</code>, only <code>cool_function</code> will be available. Attempting to use <code>CoolClass</code> will raise a <code>NameError</code>.</p>
+<p>It’s also important to have in mind that, most of the time, it’s highly discouraged to use <code>from my_package import *</code> as it does not explicit what is actually imported. Interestingly, it’s even <a href="https://www.youtube.com/watch?v=8ZPIkDInKRM&amp;ab_channel=marimo" target="_blank">not allowed in marimo notebooks</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -673,4 +808,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/bonus/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/bonus/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/bonus/index.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/bonus/index.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

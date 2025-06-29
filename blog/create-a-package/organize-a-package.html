@@ -268,9 +268,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#add-main-python-project-files" id="toc-add-main-python-project-files" class="nav-link active" data-scroll-target="#add-main-python-project-files"><span class="header-section-number">2.1</span> Add main Python project files</a></li>
-  <li><a href="#add-an-internal-function" id="toc-add-an-internal-function" class="nav-link" data-scroll-target="#add-an-internal-function"><span class="header-section-number">2.2</span> Add an internal function</a></li>
-  <li><a href="#final-organization" id="toc-final-organization" class="nav-link" data-scroll-target="#final-organization"><span class="header-section-number">2.3</span> Final organization</a></li>
+  <li><a href="#add-main-python-project-files" id="toc-add-main-python-project-files" class="nav-link active" data-scroll-target="#add-main-python-project-files">Add main Python project files</a></li>
+  <li><a href="#add-an-internal-function" id="toc-add-an-internal-function" class="nav-link" data-scroll-target="#add-an-internal-function">Add an internal function</a></li>
+  <li><a href="#final-organization" id="toc-final-organization" class="nav-link" data-scroll-target="#final-organization">Final organization</a></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/create-a-package/organize-a-package.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/organize-a-package.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
@@ -326,8 +326,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="va">__all__</span> <span class="op">=</span> [<span class="st">"count_sunflowers"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="add-main-python-project-files" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="add-main-python-project-files"><span class="header-section-number">2.1</span> Add main Python project files</h2>
+<section id="add-main-python-project-files" class="level2">
+<h2 class="anchored" data-anchor-id="add-main-python-project-files">Add main Python project files</h2>
 <p>Next, we need to create a few essential files at the root of the project.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page"><code>pyproject.toml</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><code>LICENSE</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false"><code>.git/</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false"><code>.gitignore</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false"><code>.venv/</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-6-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-6" role="tab" aria-controls="tabset-1-6" aria-selected="false"><code>README.md</code></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-7-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-7" role="tab" aria-controls="tabset-1-7" aria-selected="false"><code>sandbox.py</code></a></li></ul>
@@ -484,8 +484,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>├── sandbox.py</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="add-an-internal-function" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="add-an-internal-function"><span class="header-section-number">2.2</span> Add an internal function</h2>
+<section id="add-an-internal-function" class="level2">
+<h2 class="anchored" data-anchor-id="add-an-internal-function">Add an internal function</h2>
 <p>When creating a package, it is very practical to create functions that we will use internally: inside the package itself.</p>
 <p>If we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let’s name this function <code>_clean_string()</code> and place it in a new file: <code>other_module.py</code>.</p>
 <div class="code-with-filename">
@@ -521,8 +521,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb11"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sunflower.other_module <span class="im">import</span> _clean_string</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>But as you can see from the <a href="./writing-documentation.html">documentation blog post</a>, we won’t have or create documentation on these functions, so they’re unlikely to find it anyway.</p>
 </section>
-<section id="final-organization" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="final-organization"><span class="header-section-number">2.3</span> Final organization</h2>
+<section id="final-organization" class="level2">
+<h2 class="anchored" data-anchor-id="final-organization">Final organization</h2>
 <p>After all these steps, our package now looks like this:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>

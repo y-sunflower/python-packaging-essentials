@@ -268,21 +268,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-unit-testing" id="toc-what-is-unit-testing" class="nav-link active" data-scroll-target="#what-is-unit-testing"><span class="header-section-number">4.1</span> What is unit testing</a>
+  <li><a href="#what-is-unit-testing" id="toc-what-is-unit-testing" class="nav-link active" data-scroll-target="#what-is-unit-testing">What is unit testing</a>
   <ul class="collapse">
-  <li><a href="#quick-definition" id="toc-quick-definition" class="nav-link" data-scroll-target="#quick-definition"><span class="header-section-number">4.1.1</span> Quick definition</a></li>
-  <li><a href="#pytest" id="toc-pytest" class="nav-link" data-scroll-target="#pytest"><span class="header-section-number">4.1.2</span> Pytest</a></li>
+  <li><a href="#quick-definition" id="toc-quick-definition" class="nav-link" data-scroll-target="#quick-definition">Quick definition</a></li>
+  <li><a href="#pytest" id="toc-pytest" class="nav-link" data-scroll-target="#pytest">Pytest</a></li>
   </ul></li>
-  <li><a href="#example-with-a-simple-function" id="toc-example-with-a-simple-function" class="nav-link" data-scroll-target="#example-with-a-simple-function"><span class="header-section-number">4.2</span> Example with a simple function</a>
+  <li><a href="#example-with-a-simple-function" id="toc-example-with-a-simple-function" class="nav-link" data-scroll-target="#example-with-a-simple-function">Example with a simple function</a>
   <ul class="collapse">
-  <li><a href="#simple-function" id="toc-simple-function" class="nav-link" data-scroll-target="#simple-function"><span class="header-section-number">4.2.1</span> Simple function</a></li>
-  <li><a href="#simple-test-example-and-to-run-it" id="toc-simple-test-example-and-to-run-it" class="nav-link" data-scroll-target="#simple-test-example-and-to-run-it"><span class="header-section-number">4.2.2</span> Simple test example and to run it</a></li>
+  <li><a href="#simple-function" id="toc-simple-function" class="nav-link" data-scroll-target="#simple-function">Simple function</a></li>
+  <li><a href="#simple-test-example-and-to-run-it" id="toc-simple-test-example-and-to-run-it" class="nav-link" data-scroll-target="#simple-test-example-and-to-run-it">Simple test example and to run it</a></li>
   </ul></li>
-  <li><a href="#in-real-projects" id="toc-in-real-projects" class="nav-link" data-scroll-target="#in-real-projects"><span class="header-section-number">4.3</span> In real projects</a>
+  <li><a href="#in-real-projects" id="toc-in-real-projects" class="nav-link" data-scroll-target="#in-real-projects">In real projects</a>
   <ul class="collapse">
-  <li><a href="#backward-compatibility" id="toc-backward-compatibility" class="nav-link" data-scroll-target="#backward-compatibility"><span class="header-section-number">4.3.1</span> Backward compatibility</a></li>
-  <li><a href="#ci" id="toc-ci" class="nav-link" data-scroll-target="#ci"><span class="header-section-number">4.3.2</span> CI</a></li>
-  <li><a href="#collaborative-work-and-external-contributions" id="toc-collaborative-work-and-external-contributions" class="nav-link" data-scroll-target="#collaborative-work-and-external-contributions"><span class="header-section-number">4.3.3</span> Collaborative work and external contributions</a></li>
+  <li><a href="#backward-compatibility" id="toc-backward-compatibility" class="nav-link" data-scroll-target="#backward-compatibility">Backward compatibility</a></li>
+  <li><a href="#ci" id="toc-ci" class="nav-link" data-scroll-target="#ci">CI</a></li>
+  <li><a href="#collaborative-work-and-external-contributions" id="toc-collaborative-work-and-external-contributions" class="nav-link" data-scroll-target="#collaborative-work-and-external-contributions">Collaborative work and external contributions</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/code-quality/unit-tests.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/code-quality/unit-tests.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -311,28 +311,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>This blog post explains the interest of unit testing when developing a Python package. It’s <strong>not</strong> meant as an in-depth tutorial about how to do unit tests, but rather an overview of what problem it solves and how it is relevant to Python packaging.</p>
 <p>If you want to learn how to do unit testing, the best place to start is the <a href="https://docs.pytest.org/en/stable/" target="_blank">official documentation</a>.</p>
-<section id="what-is-unit-testing" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="what-is-unit-testing"><span class="header-section-number">4.1</span> What is unit testing</h2>
+<section id="what-is-unit-testing" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-unit-testing">What is unit testing</h2>
 <p>Unit testing is the practice of writing small, focused tests to verify that individual parts (units) of your code behave as expected. In the context of a Python package, unit tests help ensure that your functions, classes, and modules continue to work correctly as your code evolves.</p>
-<section id="quick-definition" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="quick-definition"><span class="header-section-number">4.1.1</span> Quick definition</h3>
+<section id="quick-definition" class="level3">
+<h3 class="anchored" data-anchor-id="quick-definition">Quick definition</h3>
 <p>A <em>unit</em> is the smallest testable part of your application, typically a <strong>single function</strong>. A <em>unit test</em> checks if that function produces the correct output for a given input. These tests are automated and are typically run frequently during development.</p>
 </section>
-<section id="pytest" class="level3" data-number="4.1.2">
-<h3 data-number="4.1.2" class="anchored" data-anchor-id="pytest"><span class="header-section-number">4.1.2</span> Pytest</h3>
+<section id="pytest" class="level3">
+<h3 class="anchored" data-anchor-id="pytest">Pytest</h3>
 <p><a href="https://pytest.org">Pytest</a> is a popular testing framework in the Python ecosystem. It’s known for its clean syntax, powerful features (like fixtures and parameterization), and ease of use. Pytest works with simple <code>assert</code> statements, so <strong>you don’t need to learn a special API to start testing</strong>.</p>
 </section>
 </section>
-<section id="example-with-a-simple-function" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="example-with-a-simple-function"><span class="header-section-number">4.2</span> Example with a simple function</h2>
+<section id="example-with-a-simple-function" class="level2">
+<h2 class="anchored" data-anchor-id="example-with-a-simple-function">Example with a simple function</h2>
 <p>Let’s look at how unit tests work using a basic example. We assume that we have a package named <code>sunflower</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>│   └── __init__.py</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="simple-function" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="simple-function"><span class="header-section-number">4.2.1</span> Simple function</h3>
+<section id="simple-function" class="level3">
+<h3 class="anchored" data-anchor-id="simple-function">Simple function</h3>
 <p>Suppose you have a function that counts how many times the word “sunflower” appears in a string:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -348,8 +348,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> n_sunflower <span class="op">+</span> n_sunflowers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="simple-test-example-and-to-run-it" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="simple-test-example-and-to-run-it"><span class="header-section-number">4.2.2</span> Simple test example and to run it</h3>
+<section id="simple-test-example-and-to-run-it" class="level3">
+<h3 class="anchored" data-anchor-id="simple-test-example-and-to-run-it">Simple test example and to run it</h3>
 <p>A test is actually a function (or a class) that calls the function we want to test. This new function must</p>
 <ul>
 <li>start with <code>test_</code></li>
@@ -382,21 +382,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If the result of <code>assert output == expected</code> is <code>True</code>, then pytest will tell us that everything’s fine, otherwise an error message with details on where the error comes from for debugging.</p>
 </section>
 </section>
-<section id="in-real-projects" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="in-real-projects"><span class="header-section-number">4.3</span> In real projects</h2>
+<section id="in-real-projects" class="level2">
+<h2 class="anchored" data-anchor-id="in-real-projects">In real projects</h2>
 <p>Unit testing becomes even more valuable as your project grows and others start using or contributing to it.</p>
-<section id="backward-compatibility" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="backward-compatibility"><span class="header-section-number">4.3.1</span> Backward compatibility</h3>
+<section id="backward-compatibility" class="level3">
+<h3 class="anchored" data-anchor-id="backward-compatibility">Backward compatibility</h3>
 <p>Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.</p>
 <p>For example, let’s say we modify our <code>count_sunflowers()</code> function in order to make it 2x faster. We don’t want to change anything from the user point of view, it should just be faster.</p>
 </section>
-<section id="ci" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="ci"><span class="header-section-number">4.3.2</span> CI</h3>
+<section id="ci" class="level3">
+<h3 class="anchored" data-anchor-id="ci">CI</h3>
 <p>Unit tests are often run automatically using Continuous Integration (CI) tools like GitHub Actions. Whenever someone pushes a commit or opens a pull request, the CI system runs the test suite to make sure nothing is broken. This reinforces trust in the codebase and speeds up development.</p>
 <p>There is a <a href="./../workflow/github-actions">dedicated blog post</a> that covers GitHub Actions in more detail.</p>
 </section>
-<section id="collaborative-work-and-external-contributions" class="level3" data-number="4.3.3">
-<h3 data-number="4.3.3" class="anchored" data-anchor-id="collaborative-work-and-external-contributions"><span class="header-section-number">4.3.3</span> Collaborative work and external contributions</h3>
+<section id="collaborative-work-and-external-contributions" class="level3">
+<h3 class="anchored" data-anchor-id="collaborative-work-and-external-contributions">Collaborative work and external contributions</h3>
 <p>Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers can make changes confidently and verify them with tests.</p>
 <p><br><br></p>
 <p>To learn more about how and why to write unit tests, check out the <a href="https://docs.pytest.org/en/stable/" target="_blank">official documentation</a>.</p>

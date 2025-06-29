@@ -268,20 +268,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#specify-dependencies" id="toc-specify-dependencies" class="nav-link active" data-scroll-target="#specify-dependencies"><span class="header-section-number">3.1</span> Specify dependencies</a></li>
-  <li><a href="#avoiding-dependencies" id="toc-avoiding-dependencies" class="nav-link" data-scroll-target="#avoiding-dependencies"><span class="header-section-number">3.2</span> Avoiding dependencies</a></li>
-  <li><a href="#controlling-the-versions" id="toc-controlling-the-versions" class="nav-link" data-scroll-target="#controlling-the-versions"><span class="header-section-number">3.3</span> Controlling the versions</a>
+  <li><a href="#specify-dependencies" id="toc-specify-dependencies" class="nav-link active" data-scroll-target="#specify-dependencies">Specify dependencies</a></li>
+  <li><a href="#avoiding-dependencies" id="toc-avoiding-dependencies" class="nav-link" data-scroll-target="#avoiding-dependencies">Avoiding dependencies</a></li>
+  <li><a href="#controlling-the-versions" id="toc-controlling-the-versions" class="nav-link" data-scroll-target="#controlling-the-versions">Controlling the versions</a>
   <ul class="collapse">
-  <li><a href="#set-the-minimum-version-required" id="toc-set-the-minimum-version-required" class="nav-link" data-scroll-target="#set-the-minimum-version-required"><span class="header-section-number">3.3.1</span> Set the minimum version required…</a></li>
-  <li><a href="#test-your-code" id="toc-test-your-code" class="nav-link" data-scroll-target="#test-your-code"><span class="header-section-number">3.3.2</span> … test your code…</a></li>
-  <li><a href="#and-be-convenient" id="toc-and-be-convenient" class="nav-link" data-scroll-target="#and-be-convenient"><span class="header-section-number">3.3.3</span> … and be convenient</a></li>
+  <li><a href="#set-the-minimum-version-required" id="toc-set-the-minimum-version-required" class="nav-link" data-scroll-target="#set-the-minimum-version-required">Set the minimum version required…</a></li>
+  <li><a href="#test-your-code" id="toc-test-your-code" class="nav-link" data-scroll-target="#test-your-code">… test your code…</a></li>
+  <li><a href="#and-be-convenient" id="toc-and-be-convenient" class="nav-link" data-scroll-target="#and-be-convenient">… and be convenient</a></li>
   </ul></li>
-  <li><a href="#breaking-changes" id="toc-breaking-changes" class="nav-link" data-scroll-target="#breaking-changes"><span class="header-section-number">3.4</span> Breaking changes</a></li>
-  <li><a href="#required-optional-and-dev-dependencies" id="toc-required-optional-and-dev-dependencies" class="nav-link" data-scroll-target="#required-optional-and-dev-dependencies"><span class="header-section-number">3.5</span> Required, Optional and Dev dependencies</a>
+  <li><a href="#breaking-changes" id="toc-breaking-changes" class="nav-link" data-scroll-target="#breaking-changes">Breaking changes</a></li>
+  <li><a href="#required-optional-and-dev-dependencies" id="toc-required-optional-and-dev-dependencies" class="nav-link" data-scroll-target="#required-optional-and-dev-dependencies">Required, Optional and Dev dependencies</a>
   <ul class="collapse">
-  <li><a href="#required" id="toc-required" class="nav-link" data-scroll-target="#required"><span class="header-section-number">3.5.1</span> Required</a></li>
-  <li><a href="#optional-dependencies" id="toc-optional-dependencies" class="nav-link" data-scroll-target="#optional-dependencies"><span class="header-section-number">3.5.2</span> Optional dependencies</a></li>
-  <li><a href="#dev-dependencies" id="toc-dev-dependencies" class="nav-link" data-scroll-target="#dev-dependencies"><span class="header-section-number">3.5.3</span> Dev dependencies</a></li>
+  <li><a href="#required" id="toc-required" class="nav-link" data-scroll-target="#required">Required</a></li>
+  <li><a href="#optional-dependencies" id="toc-optional-dependencies" class="nav-link" data-scroll-target="#optional-dependencies">Optional dependencies</a></li>
+  <li><a href="#dev-dependencies" id="toc-dev-dependencies" class="nav-link" data-scroll-target="#dev-dependencies">Dev dependencies</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/create-a-package/handling-dependencies.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/create-a-package/handling-dependencies.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
@@ -310,8 +310,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Dependencies are the external Python packages your code needs in order to work, such as <code>requests</code>, <code>numpy</code>, or <code>pandas</code>.</p>
 <p>Here we’ll focus on using <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> to handle dependencies, as it’s currently the best tool for this out there (it’s fast and fairly easy to use, especially if you know <code>pip</code>).</p>
-<section id="specify-dependencies" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="specify-dependencies"><span class="header-section-number">3.1</span> Specify dependencies</h2>
+<section id="specify-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="specify-dependencies">Specify dependencies</h2>
 <p>For example, let’s say we have this function in our package:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -362,8 +362,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>If we add other dependencies, they will be added to the <code>dependencies</code> list.</p>
 </section>
-<section id="avoiding-dependencies" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="avoiding-dependencies"><span class="header-section-number">3.2</span> Avoiding dependencies</h2>
+<section id="avoiding-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="avoiding-dependencies">Avoiding dependencies</h2>
 <p>In general, we want to <strong>avoid</strong> having too many dependencies. Why is that? Because when we install a package, we need to install its dependencies too, as well as the dependencies of those packages, and so on.</p>
 <p>The issue with this is that it adds a lot complexity quickly and increase the risk of having <strong>conflicts</strong>.</p>
 <p>For example, one package might need a version of <code>numpy</code> before <code>&lt;2.0.0</code>, while another need a version above or equal to <code>&gt;=2.2.0</code>. This kind of situation can quickly arise if not careful when adding too many dependencies, and it’s usually a nightmare to resolve.</p>
@@ -378,8 +378,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>can’t you just code what it does yourself? If you only need a single function, go check their source code on Github and see if it’s easy to do on your side (and ensure their License allow you to copy the code too).</li>
 </ul>
 </section>
-<section id="controlling-the-versions" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="controlling-the-versions"><span class="header-section-number">3.3</span> Controlling the versions</h2>
+<section id="controlling-the-versions" class="level2">
+<h2 class="anchored" data-anchor-id="controlling-the-versions">Controlling the versions</h2>
 <p>What’s the difference between <code>numpy</code> <code>2.1.0</code> and <code>numpy</code> <code>2.0.0</code>? Well, many things, but for example, in <code>numpy</code> <code>2.0.0</code>, the <code>np.unstack()</code> function doesn’t exist as it’s a new one from <code>numpy</code> <code>2.1.0</code>.</p>
 <p>If our package relies on <code>np.unstack()</code> in one of our functions, we <strong>can’t</strong> let people install any <code>numpy</code> version when installing our package. We need to ensure people install this version: <code>numpy&gt;=2.1.0</code>. If we translate it, it means <em>any version of <code>numpy</code> above or equal to <code>2.1.0</code></em>. Let’s see some other examples.</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -405,20 +405,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Note that for each of those, the package resolver will always try to install the latest version it can depending on the other dependencies. If a package requires <code>numpy&lt;=2.1.0</code>, other packages <strong>must</strong> include <code>numpy</code> <code>2.1.0</code> for it to work.</p>
 <p>At this point, you might ask, <strong>how do I know</strong> which versions of each dependencies are required for my package? Well, as far as I know, there is no easy answer to this, but there are ways to ensure you don’t get unexpected behaviors.</p>
-<section id="set-the-minimum-version-required" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="set-the-minimum-version-required"><span class="header-section-number">3.3.1</span> Set the minimum version required…</h3>
+<section id="set-the-minimum-version-required" class="level3">
+<h3 class="anchored" data-anchor-id="set-the-minimum-version-required">Set the minimum version required…</h3>
 <p>For each of your dependencies, set in your <code>pyproject.toml</code> the minimum version required. With <a href="https://docs.astral.sh/uv/">uv</a>, you can run the following to install a specific version:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install numpy==2.0.0</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <blockquote class="blockquote">
 <p>Warning: the command above will install a specific version of <code>numpy</code>, but will not change the requirements in <code>pyproject.toml</code>. Use <code>uv add</code> if you want to change them.</p>
 </blockquote>
 </section>
-<section id="test-your-code" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="test-your-code"><span class="header-section-number">3.3.2</span> … test your code…</h3>
+<section id="test-your-code" class="level3">
+<h3 class="anchored" data-anchor-id="test-your-code">… test your code…</h3>
 <p>You have to test that your code works as expected on those versions. The best way to do that is <strong>unit testing</strong>, and it’s the point of the <a href="./unit-tests.html">next blog post</a>.</p>
 </section>
-<section id="and-be-convenient" class="level3" data-number="3.3.3">
-<h3 data-number="3.3.3" class="anchored" data-anchor-id="and-be-convenient"><span class="header-section-number">3.3.3</span> … and be convenient</h3>
+<section id="and-be-convenient" class="level3">
+<h3 class="anchored" data-anchor-id="and-be-convenient">… and be convenient</h3>
 <blockquote class="blockquote">
 <p>Dependening on whether you’re planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We’ll assume you want to distribute it at the end.</p>
 </blockquote>
@@ -426,18 +426,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>If we take our example from before, we know that we need at least <code>numpy==2.1.0</code> for our package to work, but we also know that <strong>any numpy version above works too</strong>. For this reason, we set <code>numpy&gt;=2.1.0</code> instead of <code>numpy==2.1.0</code> to allow a broader range of possibility.</p>
 </section>
 </section>
-<section id="breaking-changes" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="breaking-changes"><span class="header-section-number">3.4</span> Breaking changes</h2>
+<section id="breaking-changes" class="level2">
+<h2 class="anchored" data-anchor-id="breaking-changes">Breaking changes</h2>
 <p>By default, when installing our package, it will try to find the latest <code>numpy</code> version that satisfies the requirements.</p>
 <p>But, you might say there’s a risk it will break on a new <code>numpy</code> version? Yes, <strong>it absolutely does</strong>. And that’s exactly why we said earlier why we wanted to avoid having too many dependencies and use stable ones only.</p>
 <p>The good thing with packages like <code>numpy</code> is that it’s one of the most important Python package and one of its core component. They <strong>can’t</strong> make breaking changes on any significant feature. When they want to do it, they usually add warnings like this: <em>“The function xxx is deprecated and will be removed in a future version, please use yyy instead?”</em>.</p>
 <p>But, if you want to be sure you don’t get breaking changes, set the maximum version of the dependencies, with things like <code>numpy&lt;=2.2.0</code>. This will ensure it’s safe, but this also means you’ll need to manually update it as new versions come out.</p>
 </section>
-<section id="required-optional-and-dev-dependencies" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="required-optional-and-dev-dependencies"><span class="header-section-number">3.5</span> Required, Optional and Dev dependencies</h2>
+<section id="required-optional-and-dev-dependencies" class="level2">
+<h2 class="anchored" data-anchor-id="required-optional-and-dev-dependencies">Required, Optional and Dev dependencies</h2>
 <p>When working with dependencies, it’s useful to differentiate between three main types: required, optional, and development dependencies. Each serves a different purpose in your package.</p>
-<section id="required" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="required"><span class="header-section-number">3.5.1</span> Required</h3>
+<section id="required" class="level3">
+<h3 class="anchored" data-anchor-id="required">Required</h3>
 <p>Required dependencies are the ones we’ve been discussing so far - packages that your code absolutely needs to function properly. These go in the <code>dependencies</code> list in your <code>pyproject.toml</code>.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -450,8 +450,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="op">]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="optional-dependencies" class="level3" data-number="3.5.2">
-<h3 data-number="3.5.2" class="anchored" data-anchor-id="optional-dependencies"><span class="header-section-number">3.5.2</span> Optional dependencies</h3>
+<section id="optional-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="optional-dependencies">Optional dependencies</h3>
 <p>Optional dependencies are packages that enhance your code but aren’t strictly necessary for core functionality. For example, if your data processing package works with CSV files by default but can also handle Excel files with an additional dependency.</p>
 <p>You can specify these in your <code>pyproject.toml</code> using the <code>[project.optional-dependencies]</code> section:</p>
 <div class="code-with-filename">
@@ -542,8 +542,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="dev-dependencies" class="level3" data-number="3.5.3">
-<h3 data-number="3.5.3" class="anchored" data-anchor-id="dev-dependencies"><span class="header-section-number">3.5.3</span> Dev dependencies</h3>
+<section id="dev-dependencies" class="level3">
+<h3 class="anchored" data-anchor-id="dev-dependencies">Dev dependencies</h3>
 <p>Development dependencies are packages you need only when developing your package, not when using it. These include testing frameworks, documentation generators, linters, and similar tools.</p>
 <p>Specify these in your <code>pyproject.toml</code> like this:</p>
 <div class="code-with-filename">
