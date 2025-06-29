@@ -13,7 +13,7 @@ The site is live [here](https://y-sunflower.github.io/python-packaging-essential
 | Intro to packaging    | Create a package | ✅    |
 | Organize a package    | Create a package | ✅    |
 | Handling dependencies | Create a package | ✅    |
-| Unit tests            | Code quality     | ❌    |
+| Unit tests            | Code quality     | ✅    |
 | Writing documentation | Code quality     | ❌    |
 | Errors and warnings   | Code quality     | ❌    |
 | API design            | Code quality     | ❌    |

@@ -1,3 +1,90 @@
 ---
 title: Bonus
 ---
+
+## How to name your package
+
+Yes, creating a good Python package name is both an art and a bit of a science. There **are constraints** you should follow, and some **best practices** that can help your package stand out and be easy to use.
+
+### Constraints
+
+- **Lowercase only**: Package names should be all lowercase.
+- **No special characters or spaces**: Use only letters, numbers, and underscores or dashes (`a-z`, `0-9`, `_`, `-`).
+- **Can't conflict with standard library modules**: Avoid names like `json`, `os`, `email`, etc.
+- **Must be unique on PyPI**: Check if the name is available: [https://pypi.org/](https://pypi.org/)
+- **Max length**: There’s no strict limit, but practical limits (about 50 characters) make sense.
+- **Underscores vs Dashes**:
+   - Use dashes (`-`) in the **distribution name** (`setup.py` or `pyproject.toml`).
+   - Use underscores (`_`) or no separator at all in **importable module names**.
+
+### Best Practices
+
+- **Short & memorable**: Easier for users to type and remember.
+- **Descriptive but concise**: Reflect what the package does.
+  * Good: `requests`, `black`, `httpx`
+  * Bad: `jdhfhc`, `my_cool_package`, `python_toolkit_2023_version_final`
+- **Avoid generic terms** unless paired cleverly: `data`, `utils`, `tools`, etc.
+- **Avoid abbreviations** unless well-known.
+- **Check for conflicts**: Google the name and check on GitHub too, not just PyPI.
+- **Consider branding**: If it becomes popular, the name matters.
+
+
+## How to name files
+
+Having good filenames is mostly useful for having a clear and consistent project architecture. There are some best practices to follow:
+
+- use lowercase only
+- avoid spaces and odd characters
+- keep it short
+- use underscores "`_`"
+
+::: {.panel-tabset}
+
+### Bad file names
+
+```txt
+my file.py
+Myfile.py
+myFile.py
+my@file.py
+my-file.py
+this-file-does-this-and-that.py
+```
+
+### Good file names
+
+```txt
+my_file.py
+myfile.py
+```
+
+:::
+
+
+## What is the `__all__` variable
+
+The `__all__` variable in Python lives in the `__init__.py` file and is used to control **what gets imported** when someone uses `from my_package import *`. It should be defined at the module level as a list of strings, where each string is the name of a symbol—like a function, class, or variable—that you want to make publicly available.
+
+If `__all__` is present, only those names listed will be imported during wildcard imports. If it's not defined, Python will import all names that don’t start with an underscore by default.
+
+For example, consider a file called `my_module.py`:
+
+```{.python filename="my_package/my_module.py"}
+def cool_function():
+    return "This is public"
+
+class CoolClass:
+    pass
+```
+
+And our `__init__.py` file:
+
+```{.python filename="my_package/__init__.py"}
+from .my_module import cool_function, CoolClass
+
+__all__ = ["cool_function"]
+```
+
+Now if a user does `from my_package import *`, only `cool_function` will be available. Attempting to use `CoolClass` will raise a `NameError`.
+
+It's also important to have in mind that, most of the time, it's highly discouraged to use `from my_package import *` as it does not explicit what is actually imported. Interestingly, it's even [not allowed in marimo notebooks](https://www.youtube.com/watch?v=8ZPIkDInKRM&ab_channel=marimo){target="_blank"}.

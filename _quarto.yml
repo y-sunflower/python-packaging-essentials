@@ -39,6 +39,7 @@ book:
 
 format:
   html:
+    number-depth: 1
     css: styles.css
     theme:
       - cosmo
