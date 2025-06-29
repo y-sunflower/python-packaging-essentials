@@ -309,7 +309,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This blog posts explain the interest of unit testing when developing a Python package. It’s <strong>not</strong> meant as an in-depth tutorial about how to do unit tests, but rather an overview of what problem it solves and how is it relevant to Python packaging.</p>
+<p>This blog post explains the interest of unit testing when developing a Python package. It’s <strong>not</strong> meant as an in-depth tutorial about how to do unit tests, but rather an overview of what problem it solves and how it is relevant to Python packaging.</p>
+<p>If you want to learn how to do unit testing, the best place to start is the <a href="https://docs.pytest.org/en/stable/" target="_blank">official documentation</a>.</p>
 <section id="what-is-unit-testing" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="what-is-unit-testing"><span class="header-section-number">4.1</span> What is unit testing</h2>
 <p>Unit testing is the practice of writing small, focused tests to verify that individual parts (units) of your code behave as expected. In the context of a Python package, unit tests help ensure that your functions, classes, and modules continue to work correctly as your code evolves.</p>
@@ -324,7 +325,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="example-with-a-simple-function" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="example-with-a-simple-function"><span class="header-section-number">4.2</span> Example with a simple function</h2>
-<p>Let’s look at how unit tests work using a basic example.</p>
+<p>Let’s look at how unit tests work using a basic example. We assume that we have a package named <code>sunflower</code>:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>│   └── __init__.py</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="simple-function" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="simple-function"><span class="header-section-number">4.2.1</span> Simple function</h3>
 <p>Suppose you have a function that counts how many time there is the word “sunflower” in a string:</p>
@@ -332,14 +338,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="code-with-filename-file">
 <pre><strong>sunflower/count_sunflower_module.py</strong></pre>
 </div>
-<div class="sourceCode" id="cb1" data-filename="sunflower/count_sunflower_module.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_sunflowers(s):</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> re.sub(<span class="vs">r"</span><span class="pp">[^a-zA-Z</span><span class="dv">\s</span><span class="pp">]</span><span class="vs">"</span>, <span class="st">""</span>, s)  <span class="co"># Remove non-text characters</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> s.lower()                      <span class="co"># Convert to lowercase</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   n_sunflower <span class="op">=</span> s.split().count(<span class="st">"sunflower"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>   n_sunflowers <span class="op">=</span> s.split().count(<span class="st">"sunflowers"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> n_sunflower <span class="op">+</span> n_sunflowers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2" data-filename="sunflower/count_sunflower_module.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_sunflowers(s):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> re.sub(<span class="vs">r"</span><span class="pp">[^a-zA-Z</span><span class="dv">\s</span><span class="pp">]</span><span class="vs">"</span>, <span class="st">""</span>, s)  <span class="co"># Remove non-text characters</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> s.lower()                      <span class="co"># Convert to lowercase</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>   n_sunflower <span class="op">=</span> s.split().count(<span class="st">"sunflower"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>   n_sunflowers <span class="op">=</span> s.split().count(<span class="st">"sunflowers"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> n_sunflower <span class="op">+</span> n_sunflowers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="simple-test-example-and-to-run-it" class="level3" data-number="4.2.2">
@@ -350,29 +356,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>be in a file in the <code>tests/</code> directory in a file that starts with <code>test</code></li>
 </ul>
 <p>For instance, our project could be organized as follow:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>│   ├── __init__.py</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>│   └── count_sunflower_module.py</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>├── tests/</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>│   └── test_count_sunflower.py</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>│   ├── __init__.py</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>│   └── count_sunflower_module.py</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>├── tests/</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>│   └── test_count_sunflower.py</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Our test function will verify if our original function <strong>behaves as expected</strong>. For example, we can test <code>count_sunflowers()</code> with the following test:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>tests/test_count_sunflower.py</strong></pre>
 </div>
-<div class="sourceCode" id="cb3" data-filename="tests/test_count_sunflower.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytest</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sunflower <span class="im">import</span> count_sunflowers</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_count_sunflowers():</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> count_sunflowers(<span class="st">"sunflower sunflower cake"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> output <span class="op">==</span> expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-filename="tests/test_count_sunflower.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytest</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sunflower <span class="im">import</span> count_sunflowers</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_count_sunflowers():</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> count_sunflowers(<span class="st">"sunflower sunflower cake"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> output <span class="op">==</span> expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To run the test, simply use the <code>pytest</code> command in the terminal:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If the result of <code>assert output == expected</code> is <code>True</code>, then pytest will tell us that everything’s fine, otherwise an error message with details on where the error come from for debugging.</p>
 </section>
 </section>
@@ -382,17 +388,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="backward-compatibility" class="level3" data-number="4.3.1">
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="backward-compatibility"><span class="header-section-number">4.3.1</span> Backward compatibility</h3>
 <p>Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.</p>
+<p>For example, let’s say we modify our <code>count_sunflowers()</code> function in order to make 2x faster. We don’t want to change anything from the user point of view, it should be just be faster.</p>
 </section>
 <section id="ci" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="ci"><span class="header-section-number">4.3.2</span> CI</h3>
 <p>Unit tests are often run automatically using Continuous Integration (CI) tools like GitHub Actions. Whenever someone pushes a commit or opens a pull request, the CI system runs the test suite to make sure nothing is broken. This reinforces trust in the codebase and speeds up development.</p>
-<blockquote class="blockquote">
-<p>A dedicated blog post will cover GitHub Actions in more detail.</p>
-</blockquote>
+<p>There is a <a href="./../workflow/github-actions">dedicated blog post</a> that covers GitHub Actions in more detail.</p>
 </section>
 <section id="collaborative-work-and-external-contributions" class="level3" data-number="4.3.3">
 <h3 data-number="4.3.3" class="anchored" data-anchor-id="collaborative-work-and-external-contributions"><span class="header-section-number">4.3.3</span> Collaborative work and external contributions</h3>
 <p>Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers can make changes confidently and verify them with tests.</p>
+<p><br><br></p>
+<p>To learn more about how and why to write unit tests, check out the <a href="https://docs.pytest.org/en/stable/" target="_blank">official documentation</a>.</p>
 
 
 </section>
