@@ -99,7 +99,7 @@ my_package/
 
 ### `my_module.py`
 
-```python
+```{.python filename="package_name/my_module.py"}
 def say_hello(name):
    message = f"Hello {name}"
    print(message)
@@ -107,7 +107,7 @@ def say_hello(name):
 
 ### `__init__.py`
 
-```py
+```{.python filename="package_name/__init__.py"}
 from .my_module import say_hello
 
 __all__ = ["say_hello"]

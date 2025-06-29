@@ -37,7 +37,7 @@ This will automatically add `numpy` to our `pyproject.toml`.
 
 ### Before
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project]
 name = "mypackage"
 version = "0.1.0"
@@ -49,7 +49,7 @@ dependencies = []
 
 ### After
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project]
 name = "mypackage"
 version = "0.1.0"
@@ -170,7 +170,7 @@ When working with dependencies, it's useful to differentiate between three main 
 
 Required dependencies are the ones we've been discussing so far - packages that your code absolutely needs to function properly. These go in the `dependencies` list in your `pyproject.toml`.
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project]
 dependencies = [
     "numpy>=2.1.0",
@@ -185,7 +185,7 @@ Optional dependencies are packages that enhance your code but aren't strictly ne
 You can specify these in your `pyproject.toml` using the `[project.optional-dependencies]` section:
 
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project.optional-dependencies]
 excel = ["openpyxl>=3.1.0"]
 plot = ["matplotlib>=3.7.0", "plotly>=5.23.0"]
@@ -264,7 +264,7 @@ This will add `matplotlib` to the `plot` section in the optional dependencies in
 
 ### Before
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project]
 name = "mypackage"
 version = "0.1.0"
@@ -276,7 +276,7 @@ dependencies = []
 
 ### After
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project]
 name = "mypackage"
 version = "0.1.0"
@@ -297,7 +297,7 @@ Development dependencies are packages you need only when developing your package
 
 Specify these in your `pyproject.toml` like this:
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0.0",

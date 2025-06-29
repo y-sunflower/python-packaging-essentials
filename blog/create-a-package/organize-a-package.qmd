@@ -17,7 +17,7 @@ To learn about this structure and why we need a `__init__.py` file, check out th
 
 We'll also assume that `my_module.py` looks like this:
 
-```py
+```{.python filename="sunflower/my_module.py"}
 import re
 
 def count_sunflowers(s):
@@ -30,7 +30,7 @@ def count_sunflowers(s):
 
 The `__init__.py` file look like this:
 
-```py
+```{.python filename="sunflower/__init__.py"}
 from .my_module import count_sunflowers
 
 __all__ = ["count_sunflowers"]
@@ -48,7 +48,7 @@ All the package metadata. It will contain a lot of useful information when we wa
 
 Here is a simple version of this file:
 
-```toml
+```{.toml filename="pyproject.toml"}
 [project]
 name = "sunflower"
 description = "Create pretty sunflowers"
@@ -96,7 +96,7 @@ It is specific to each project, but you can find out more at [choosealicence.com
 
 Here is an example of the most common licence: the MIT licence.
 
-```txt
+```{.txt filename="LICENSE"}
 Copyright (c) 2025 Your Name
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -130,7 +130,7 @@ A file in which each line describes one or more files/directories that are not e
 
 It is very likely that __you will not see it__ outside your code editor, as most operating systems (Windows, MacOS, etc.) hide files/directories that start with `.`, but that doesn't matter.
 
-```txt
+```{.txt filename=".gitignore"}
 # Python-generated files
 __pycache__/
 *.py[oc]
@@ -173,7 +173,7 @@ A markdown file that describes the project, gives advice on how to use it, insta
 
 For example, it could be something like this:
 
-```md
+```{.md filename="README.md"}
 # sunflower: my cool Python package
 
 Welcome to the homepage of the `sunflower` project.
@@ -211,7 +211,7 @@ When creating a package, it is very practical to create functions that we will u
 
 If we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let's name this function `_clean_string()` and place it in a new file: `other_module.py`.
 
-```py
+```{.python filename="sunflower/other_module.py"}
 import re
 
 def _clean_string(s):
@@ -222,7 +222,7 @@ def _clean_string(s):
 
 Our code in `my_module.py` should now become:
 
-```py
+```{.python filename="sunflower/my_module.py"}
 from .other_module import _clean_string
 
 def count_sunflowers(s):

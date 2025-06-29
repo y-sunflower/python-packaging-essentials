@@ -2,7 +2,9 @@
 title: "Unit tests"
 ---
 
-This blog posts explain the interest of unit testing when developing a Python package. It's **not** meant as an in-depth tutorial about how to do unit tests, but rather an overview of what problem it solves and how is it relevant to Python packaging.
+This blog post explains the interest of unit testing when developing a Python package. It's **not** meant as an in-depth tutorial about how to do unit tests, but rather an overview of what problem it solves and how it is relevant to Python packaging.
+
+If you want to learn how to do unit testing, the best place to start is the [official documentation](https://docs.pytest.org/en/stable/){target="_blank"}.
 
 ## What is unit testing
 
@@ -18,7 +20,16 @@ A *unit* is the smallest testable part of your application, typically a **single
 
 ## Example with a simple function
 
-Let’s look at how unit tests work using a basic example.
+Let’s look at how unit tests work using a basic example. We assume that we have a package named `sunflower`:
+
+
+```markdown
+sunflower/
+├── sunflower/
+│   └── __init__.py
+├── .venv/
+└── pyproject.toml
+```
 
 ### Simple function
 
@@ -83,13 +94,18 @@ Unit testing becomes even more valuable as your project grows and others start u
 
 Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.
 
+For example, let's say we modify our `count_sunflowers()` function in order to make 2x faster. We don't want to change anything from the user point of view, it should be just be faster.
+
 ### CI
 
 Unit tests are often run automatically using Continuous Integration (CI) tools like GitHub Actions. Whenever someone pushes a commit or opens a pull request, the CI system runs the test suite to make sure nothing is broken. This reinforces trust in the codebase and speeds up development.
 
-> A dedicated blog post will cover GitHub Actions in more detail.
+There is a [dedicated blog post](./../workflow/github-actions) that covers GitHub Actions in more detail.
 
 ### Collaborative work and external contributions
 
 Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers can make changes confidently and verify them with tests.
 
+<br><br>
+
+To learn more about how and why to write unit tests, check out the [official documentation](https://docs.pytest.org/en/stable/){target="_blank"}.
