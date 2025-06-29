@@ -333,7 +333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="simple-function" class="level3" data-number="4.2.1">
 <h3 data-number="4.2.1" class="anchored" data-anchor-id="simple-function"><span class="header-section-number">4.2.1</span> Simple function</h3>
-<p>Suppose you have a function that counts how many time there is the word “sunflower” in a string:</p>
+<p>Suppose you have a function that counts how many times the word “sunflower” appears in a string:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>sunflower/count_sunflower_module.py</strong></pre>
@@ -352,10 +352,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="simple-test-example-and-to-run-it"><span class="header-section-number">4.2.2</span> Simple test example and to run it</h3>
 <p>A test is actually a function (or a class) that calls the function we want to test. This new function must</p>
 <ul>
-<li>starts with <code>test_</code></li>
+<li>start with <code>test_</code></li>
 <li>be in a file in the <code>tests/</code> directory in a file that starts with <code>test</code></li>
 </ul>
-<p>For instance, our project could be organized as follow:</p>
+<p>For instance, our project could be organized as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>│   ├── __init__.py</span>
@@ -379,7 +379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>To run the test, simply use the <code>pytest</code> command in the terminal:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>If the result of <code>assert output == expected</code> is <code>True</code>, then pytest will tell us that everything’s fine, otherwise an error message with details on where the error come from for debugging.</p>
+<p>If the result of <code>assert output == expected</code> is <code>True</code>, then pytest will tell us that everything’s fine, otherwise an error message with details on where the error comes from for debugging.</p>
 </section>
 </section>
 <section id="in-real-projects" class="level2" data-number="4.3">
@@ -388,7 +388,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="backward-compatibility" class="level3" data-number="4.3.1">
 <h3 data-number="4.3.1" class="anchored" data-anchor-id="backward-compatibility"><span class="header-section-number">4.3.1</span> Backward compatibility</h3>
 <p>Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.</p>
-<p>For example, let’s say we modify our <code>count_sunflowers()</code> function in order to make 2x faster. We don’t want to change anything from the user point of view, it should be just be faster.</p>
+<p>For example, let’s say we modify our <code>count_sunflowers()</code> function in order to make it 2x faster. We don’t want to change anything from the user point of view, it should just be faster.</p>
 </section>
 <section id="ci" class="level3" data-number="4.3.2">
 <h3 data-number="4.3.2" class="anchored" data-anchor-id="ci"><span class="header-section-number">4.3.2</span> CI</h3>
