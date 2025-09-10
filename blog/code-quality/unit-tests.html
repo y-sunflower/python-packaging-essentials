@@ -254,6 +254,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../python-package-template.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python package template</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../contributing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Contributing</span></a>
   </div>
@@ -329,8 +335,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>│   └── __init__.py</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="simple-function" class="level3">
 <h3 class="anchored" data-anchor-id="simple-function">Simple function</h3>
 <p>Suppose you have a function that counts how many times the word “sunflower” appears in a string:</p>
@@ -362,8 +367,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>│   └── count_sunflower_module.py</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>├── tests/</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>│   └── test_count_sunflower.py</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>├── .venv/</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Our test function will verify if our original function <strong>behaves as expected</strong>. For example, we can test <code>count_sunflowers()</code> with the following test:</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
@@ -388,7 +392,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="backward-compatibility" class="level3">
 <h3 class="anchored" data-anchor-id="backward-compatibility">Backward compatibility</h3>
 <p>Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.</p>
-<p>For example, let’s say we modify our <code>count_sunflowers()</code> function in order to make it 2x faster. We don’t want to change anything from the user point of view, it should just be faster.</p>
+<p>For example, let’s say we modify our <code>count_sunflowers()</code> function in order to make it 2x faster. <strong>This change should not make anything different</strong> from the user point of view, it should just be faster.</p>
 </section>
 <section id="ci" class="level3">
 <h3 class="anchored" data-anchor-id="ci">CI</h3>
@@ -397,7 +401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="collaborative-work-and-external-contributions" class="level3">
 <h3 class="anchored" data-anchor-id="collaborative-work-and-external-contributions">Collaborative work and external contributions</h3>
-<p>Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers can make changes confidently and verify them with tests.</p>
+<p>Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers <strong>can make changes confidently</strong> and verify them with tests.</p>
 <p><br><br></p>
 <p>To learn more about how and why to write unit tests, check out the <a href="https://docs.pytest.org/en/stable/" target="_blank">official documentation</a>.</p>
 
