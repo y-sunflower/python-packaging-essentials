@@ -4,7 +4,7 @@ title: "Handling dependencies"
 
 Dependencies are the external Python packages your code needs in order to work, such as `requests`, `numpy`, or `pandas`.
 
-Here we'll focus on using [uv](https://docs.astral.sh/uv/){target="_blank"} to handle dependencies, as it's currently the best tool for this out there (it's fast and fairly easy to use, especially if you know `pip`).
+Here we'll focus on using [uv](https://docs.astral.sh/uv/){target="_blank"} to handle dependencies, as it's currently the best tool for this out there (it's fast and fairly easy to use, especially if you know `pip` or other package manager like `Cargo`.).
 
 ## Specify dependencies
 
@@ -21,7 +21,7 @@ def normalize(array):
 
 When people want to use our function, they **need** to have `numpy` installed for it to work, otherwise it will raise a `ModuleNotFoundError` on their machine.
 
-So in order to ensure is `numpy` installed, we set `numpy` as a dependency of our package. This means that every time someone install our package, they will also install `numpy`.
+So in order to ensure that this does not happen, we need to tell Python to also install `numpy` when installing our package. In practice, we say that we set `numpy` as a **dependency** of our package. This means that every time someone install our package, they will also install `numpy`.
 
 The dependencies of a package are listed in the `pyproject.toml` file. If you don't know what that is, check out [organizing a package](./organize-a-package.html).
 
@@ -63,7 +63,7 @@ dependencies = [
 
 :::
 
-If we add other dependencies, they will be added to the `dependencies` list.
+From now on, numpy will also be installed when users install our package. If we add other dependencies, they will be added to the "dependencies" list: we can have as many dependencies as we want, but we want to avoid that.
 
 ## Avoiding dependencies
 
@@ -125,7 +125,7 @@ uv pip install numpy
 
 :::
 
-Note that for each of those, the package resolver will always try to install the latest version it can depending on the other dependencies. If a package requires `numpy<=2.1.0`, other packages **must** include `numpy` `2.1.0` for it to work.
+Note that for each of those, the package manager will always try to install the latest version it can depending on the other dependencies. If a package requires `numpy<=2.1.0`, other packages **must** include `numpy` `2.1.0` for it to work.
 
 At this point, you might ask, **how do I know** which versions of each dependencies are required for my package? Well, as far as I know, there is no easy answer to this, but there are ways to ensure you don't get unexpected behaviors.
 
@@ -146,7 +146,7 @@ You have to test that your code works as expected on those versions. The best wa
 
 ### ... and be convenient
 
-> Dependening on whether you're planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We'll assume you want to distribute it at the end.
+> Depending on whether you're planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We'll assume you want to distribute it at the end.
 
 When your package goaled is to be installed by other people, you want to be convenient. By that I mean **not being too restrictive**.
 
@@ -250,6 +250,10 @@ def read_file(filename):
             )
 ```
 
+::: {.callout-important}
+It is **required** here to place `import` inside the function, because otherwise a `ModuleNotFoundError` error will be generated on the user's machine, even when importing a function with only optional dependencies..
+:::
+
 This will give your users a **clear and meaningful error message** that they can resolve very quickly. This kind of thing exist for the same reason we're talking about in this article: trying to minimize the number of dependencies (especially the unused ones!).
 
 In order to add package to your optional dependencies, you can run:
@@ -319,3 +323,4 @@ uv sync --all-groups
 ```
 
 
+The next section is about [code quality](../code-quality/) in your package.

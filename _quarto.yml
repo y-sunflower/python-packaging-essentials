@@ -4,9 +4,6 @@ project:
   preview:
     port: 4000
 
-website:
-  google-analytics: "G-XXXXXXXX"
-
 book:
   title: "Python Packaging Essentials"
   subtitle: "Practical guide that walks you through creating, organizing, testing, and publishing Python packages."
@@ -42,7 +39,8 @@ format:
     number-depth: 1
     css: styles.css
     theme:
-      - cosmo
-      - brand
+      light:
+        - cosmo
+        - brand
   pdf:
     documentclass: scrreprt

@@ -24,6 +24,8 @@ from my_package import something
 
 Without it, Python treats the directory `my_package/` as a regular directory, **not something it can import from**.
 
+> Note that this is not always true, but it does not matter here. See [namespace packages](https://packaging.python.org/en/latest/guides/packaging-namespace-packages/){target="_blank"}.
+
 
 
 ## Package vs Module vs Library
@@ -34,7 +36,7 @@ These terms get thrown around a lot. Here's the quick breakdown:
 - **Package**: A directory with an `__init__.py`, possibly containing multiple modules (e.g., multiple files)
 - **Library**: A more general programming term and refers to a bundle of code that can be used ([source](https://www.reddit.com/r/Python/comments/weycrc/comment/iiqy6fi/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button){target="_blank"})
 
-Library and package most of the time refer to the same thing. All packages are libraries, the opposite is not true. For the sake of simplicity, it's ok to consider them "equivalent", even though we're are mostly interested in packages in practice.
+Library and package most of the time refer to the same thing. All packages are libraries, the opposite is not true. For the sake of simplicity, **it's ok to consider them "equivalent"**, even though we're are mostly interested in packages in practice.
 
 Now, let's create the smallest Python package possible.
 
@@ -105,6 +107,8 @@ def say_hello(name):
    print(message)
 ```
 
+Here we define the main function of our package.
+
 ### `__init__.py`
 
 ```{.python filename="package_name/__init__.py"}
@@ -113,13 +117,14 @@ from .my_module import say_hello
 __all__ = ["say_hello"]
 ```
 
+Without the `__init__.py` file, we wouldn't be able to use `from my_package import say_hello` and would have to use `from my_package.my_module import say_hello`, which isn't the best syntax (but sometimes it can be!).
 :::
 
 ## Use our package
 
-Now, how do we use our package, from a user point of view?
+Untile now, we were from the package developer side, but how do we use our package, from a user point of view?
 
-For this, you'll need to have [uv](https://docs.astral.sh/uv/){target="_blank"} installed.
+For this, you'll need to have [uv](https://docs.astral.sh/uv/){target="_blank"} installed (not mandatory, but it makes things much easier).
 
 Then we'll need to run a command in our terminal at `Desktop/my_package/`:
 
@@ -144,4 +149,6 @@ say_hello("Julia")
 > Hello Julia
 
 
-And now we have a fully functional Python package! This is just the beginning, but this is an important fondation to have for what's coming next.
+And now we have a **fully functional Python package**! This is just the beginning, but this is an important fondation to have for what's coming next.
+
+Next, we need to [organize the package](./organize-a-package.html), particularly to get an overview of all the files we need (most of which are not Python files).

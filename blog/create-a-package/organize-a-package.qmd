@@ -38,13 +38,15 @@ __all__ = ["count_sunflowers"]
 
 ## Add main Python project files
 
-Next, we need to create a few essential files at the root of the project.
+Next, we need to create a few essential files at the root of the project. As you can see, most of them are not Python files, but they are still very important.
 
 ::: {.panel-tabset}
 
 ### `pyproject.toml`
 
-All the package metadata. It will contain a lot of useful information when we want to distribute this PyPI package so that everyone can install it easily. Don't worry too much about all of its content.
+All the metadata for the package. This is essentially your package's identifier, which contains a lot of useful information when we want to distribute a package so that anyone can easily install it.
+
+For example, it contains information about the license (what are users allowed to do with our package?), dependencies (what packages does our package need?), and lots of other metadata about the package (author(s), version, description, etc.).
 
 Here is a simple version of this file:
 
@@ -207,7 +209,7 @@ sunflower/
 
 ## Add an internal function
 
-When creating a package, it is very practical to create functions that we will use internally: inside the package itself.
+When creating a package, it is very useful to create functions that we will use internally: within the package itself, but which are not intended for users of the package.
 
 If we go back to our previous example, we might want to have a separate function that takes a string and cleans it up by removing non-text characters and putting it in lower case. Let's name this function `_clean_string()` and place it in a new file: `other_module.py`.
 
@@ -263,3 +265,7 @@ sunflower/
 ├── sandbox.py
 └── pyproject.toml
 ```
+
+We now have a basic but fairly robust file organization in our package. Now, if we want to continue improving our package, everything will happen directly in the `sunflower/sunflower` directory.
+
+The next step is to [handle dependencies](./handling-dependencies.html), i.e., identify and specify the packages needed to use our package.

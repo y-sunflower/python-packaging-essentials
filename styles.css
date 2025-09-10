@@ -38,12 +38,8 @@ a:not(.sidebar a):not(header a):not(.nav-item a):not(.nav-page a)::after {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 3px;
+  height: 2px;
   background-color: var(--primary-color);
   transition: all 0.3s ease;
   z-index: -1; /* goes behind text */
-}
-
-a:not(.sidebar a):not(header a):not(.nav-item a):not(.nav-page a):hover::after {
-  height: 80%; /* increased thickness */
 }
