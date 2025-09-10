@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.34">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-48fb113fea7c09ade55c8c495d57f66a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-23102fe0f0b5b1a9f09cc09ebcc8fe5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -309,7 +309,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Dependencies are the external Python packages your code needs in order to work, such as <code>requests</code>, <code>numpy</code>, or <code>pandas</code>.</p>
-<p>Here we’ll focus on using <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> to handle dependencies, as it’s currently the best tool for this out there (it’s fast and fairly easy to use, especially if you know <code>pip</code>).</p>
+<p>Here we’ll focus on using <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> to handle dependencies, as it’s currently the best tool for this out there (it’s fast and fairly easy to use, especially if you know <code>pip</code> or other package manager like <code>Cargo</code>.).</p>
 <section id="specify-dependencies" class="level2">
 <h2 class="anchored" data-anchor-id="specify-dependencies">Specify dependencies</h2>
 <p>For example, let’s say we have this function in our package:</p>
@@ -320,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>   max_val <span class="op">=</span> np.<span class="bu">max</span>(array)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> (array <span class="op">-</span> min_val) <span class="op">/</span> (max_val <span class="op">-</span> min_val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>When people want to use our function, they <strong>need</strong> to have <code>numpy</code> installed for it to work, otherwise it will raise a <code>ModuleNotFoundError</code> on their machine.</p>
-<p>So in order to ensure is <code>numpy</code> installed, we set <code>numpy</code> as a dependency of our package. This means that every time someone install our package, they will also install <code>numpy</code>.</p>
+<p>So in order to ensure that this does not happen, we need to tell Python to also install <code>numpy</code> when installing our package. In practice, we say that we set <code>numpy</code> as a <strong>dependency</strong> of our package. This means that every time someone install our package, they will also install <code>numpy</code>.</p>
 <p>The dependencies of a package are listed in the <code>pyproject.toml</code> file. If you don’t know what that is, check out <a href="./organize-a-package.html">organizing a package</a>.</p>
 <p>With <a href="https://docs.astral.sh/uv/" target="_blank">uv</a>, we just have to run:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add numpy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -360,7 +360,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>If we add other dependencies, they will be added to the <code>dependencies</code> list.</p>
+<p>From now on, numpy will also be installed when users install our package. If we add other dependencies, they will be added to the “dependencies” list: we can have as many dependencies as we want, but we want to avoid that.</p>
 </section>
 <section id="avoiding-dependencies" class="level2">
 <h2 class="anchored" data-anchor-id="avoiding-dependencies">Avoiding dependencies</h2>
@@ -403,7 +403,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>Note that for each of those, the package resolver will always try to install the latest version it can depending on the other dependencies. If a package requires <code>numpy&lt;=2.1.0</code>, other packages <strong>must</strong> include <code>numpy</code> <code>2.1.0</code> for it to work.</p>
+<p>Note that for each of those, the package manager will always try to install the latest version it can depending on the other dependencies. If a package requires <code>numpy&lt;=2.1.0</code>, other packages <strong>must</strong> include <code>numpy</code> <code>2.1.0</code> for it to work.</p>
 <p>At this point, you might ask, <strong>how do I know</strong> which versions of each dependencies are required for my package? Well, as far as I know, there is no easy answer to this, but there are ways to ensure you don’t get unexpected behaviors.</p>
 <section id="set-the-minimum-version-required" class="level3">
 <h3 class="anchored" data-anchor-id="set-the-minimum-version-required">Set the minimum version required…</h3>
@@ -420,7 +420,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="and-be-convenient" class="level3">
 <h3 class="anchored" data-anchor-id="and-be-convenient">… and be convenient</h3>
 <blockquote class="blockquote">
-<p>Dependening on whether you’re planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We’ll assume you want to distribute it at the end.</p>
+<p>Depending on whether you’re planning on distributing your package (e.g., put it on PyPI and allow other people to install it) or not, you might want to do different things here. We’ll assume you want to distribute it at the end.</p>
 </blockquote>
 <p>When your package goaled is to be installed by other people, you want to be convenient. By that I mean <strong>not being too restrictive</strong>.</p>
 <p>If we take our example from before, we know that we need at least <code>numpy==2.1.0</code> for our package to work, but we also know that <strong>any numpy version above works too</strong>. For this reason, we set <code>numpy&gt;=2.1.0</code> instead of <code>numpy==2.1.0</code> to allow a broader range of possibility.</p>
@@ -501,6 +501,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Excel support requires 'openpyxl'. "</span></span>
 <span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Install with 'pip install mypackage[excel]'"</span></span>
 <span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is <strong>required</strong> here to place <code>import</code> inside the function, because otherwise a <code>ModuleNotFoundError</code> error will be generated on the user’s machine, even when importing a function with only optional dependencies..</p>
+</div>
+</div>
 <p>This will give your users a <strong>clear and meaningful error message</strong> that they can resolve very quickly. This kind of thing exist for the same reason we’re talking about in this article: trying to minimize the number of dependencies (especially the unused ones!).</p>
 <p>In order to add package to your optional dependencies, you can run:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add matplotlib <span class="at">--optional</span> plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -561,6 +574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode" id="cb21"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add ruff <span class="at">--dev</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Developers working on your package can install all optional dependencies as well as dev dependencies with:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> sync <span class="at">--all-groups</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The next section is about <a href="../code-quality/">code quality</a> in your package.</p>
 
 
 </section>

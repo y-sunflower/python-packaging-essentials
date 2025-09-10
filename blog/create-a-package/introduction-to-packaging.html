@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.7.34">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-48fb113fea7c09ade55c8c495d57f66a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-23102fe0f0b5b1a9f09cc09ebcc8fe5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -309,6 +309,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Even if it’s an empty file, it’s important: it allows you to import parts of your code like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> my_package <span class="im">import</span> something</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Without it, Python treats the directory <code>my_package/</code> as a regular directory, <strong>not something it can import from</strong>.</p>
+<blockquote class="blockquote">
+<p>Note that this is not always true, but it does not matter here. See <a href="https://packaging.python.org/en/latest/guides/packaging-namespace-packages/" target="_blank">namespace packages</a>.</p>
+</blockquote>
 </section>
 <section id="package-vs-module-vs-library" class="level2">
 <h2 class="anchored" data-anchor-id="package-vs-module-vs-library">Package vs Module vs Library</h2>
@@ -318,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Package</strong>: A directory with an <code>__init__.py</code>, possibly containing multiple modules (e.g., multiple files)</li>
 <li><strong>Library</strong>: A more general programming term and refers to a bundle of code that can be used (<a href="https://www.reddit.com/r/Python/comments/weycrc/comment/iiqy6fi/?utm_source=share&amp;utm_medium=web3x&amp;utm_name=web3xcss&amp;utm_term=1&amp;utm_content=share_button" target="_blank">source</a>)</li>
 </ul>
-<p>Library and package most of the time refer to the same thing. All packages are libraries, the opposite is not true. For the sake of simplicity, it’s ok to consider them “equivalent”, even though we’re are mostly interested in packages in practice.</p>
+<p>Library and package most of the time refer to the same thing. All packages are libraries, the opposite is not true. For the sake of simplicity, <strong>it’s ok to consider them “equivalent”</strong>, even though we’re are mostly interested in packages in practice.</p>
 <p>Now, let’s create the smallest Python package possible.</p>
 </section>
 <section id="initialize-the-directory" class="level2">
@@ -334,7 +337,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Not reusable code</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Reusable code</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<div id="21e38d42" class="cell" data-execution_count="1">
+<div id="d1771995" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>name <span class="op">=</span> <span class="st">"Joseph"</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -345,13 +348,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>This code does something: it prints a message.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div id="c972b090" class="cell" data-execution_count="2">
+<div id="bfdb8ce9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> say_hello(name):</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The code above does ‘nothing’. The only thing it does is create a function object that will be stored in memory. I can now call it and it will execute some code. For example:</p>
-<div id="bfbfc5f6" class="cell" data-execution_count="3">
+<div id="7213fe08" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>say_hello(<span class="st">"Joseph"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello Joseph</code></pre>
@@ -381,6 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>   message <span class="op">=</span> <span class="ss">f"Hello </span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">"</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>   <span class="bu">print</span>(message)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Here we define the main function of our package.</p>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <div class="code-with-filename">
@@ -391,14 +395,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="va">__all__</span> <span class="op">=</span> [<span class="st">"say_hello"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Without the <code>__init__.py</code> file, we wouldn’t be able to use <code>from my_package import say_hello</code> and would have to use <code>from my_package.my_module import say_hello</code>, which isn’t the best syntax (but sometimes it can be!).</p>
 </div>
 </div>
 </div>
 </section>
 <section id="use-our-package" class="level2">
 <h2 class="anchored" data-anchor-id="use-our-package">Use our package</h2>
-<p>Now, how do we use our package, from a user point of view?</p>
-<p>For this, you’ll need to have <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> installed.</p>
+<p>Untile now, we were from the package developer side, but how do we use our package, from a user point of view?</p>
+<p>For this, you’ll need to have <a href="https://docs.astral.sh/uv/" target="_blank">uv</a> installed (not mandatory, but it makes things much easier).</p>
 <p>Then we’ll need to run a command in our terminal at <code>Desktop/my_package/</code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> init</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv</span>
@@ -414,7 +419,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>Hello Julia</p>
 </blockquote>
-<p>And now we have a fully functional Python package! This is just the beginning, but this is an important fondation to have for what’s coming next.</p>
+<p>And now we have a <strong>fully functional Python package</strong>! This is just the beginning, but this is an important fondation to have for what’s coming next.</p>
+<p>Next, we need to <a href="./organize-a-package.html">organize the package</a>, particularly to get an overview of all the files we need (most of which are not Python files).</p>
 
 
 </section>
