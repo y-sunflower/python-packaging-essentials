@@ -32,6 +32,7 @@ book:
         - blog/workflow/pre-commit.qmd
         - blog/workflow/publish-to-pypi.qmd
     - blog/bonus/index.qmd
+    - python-package-template.qmd
     - contributing.qmd
 
 format:

@@ -1,0 +1,9 @@
+## Python package template {.unnumbered}
+
+As long as the website you're currently at, we made a **Python package template**. It's basically a Github repo with everything pre-defined: metadata, documentation, CI/CD, pre-commit, etc.
+
+
+
+You can find it [here](https://github.com/y-sunflower/python-package-template).
+
+It relies almost entirely on all the principles described on this website, which are primarily designed to enable users to quickly start working in a clean environment for their package.

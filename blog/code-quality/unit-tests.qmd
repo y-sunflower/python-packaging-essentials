@@ -27,7 +27,6 @@ Let’s look at how unit tests work using a basic example. We assume that we hav
 sunflower/
 ├── sunflower/
 │   └── __init__.py
-├── .venv/
 └── pyproject.toml
 ```
 
@@ -62,7 +61,6 @@ sunflower/
 │   └── count_sunflower_module.py
 ├── tests/
 │   └── test_count_sunflower.py
-├── .venv/
 └── pyproject.toml
 ```
 
@@ -94,7 +92,7 @@ Unit testing becomes even more valuable as your project grows and others start u
 
 Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.
 
-For example, let's say we modify our `count_sunflowers()` function in order to make it 2x faster. We don't want to change anything from the user point of view, it should just be faster.
+For example, let's say we modify our `count_sunflowers()` function in order to make it 2x faster. **This change should not make anything different** from the user point of view, it should just be faster.
 
 ### CI
 
@@ -104,7 +102,7 @@ There is a [dedicated blog post](./../workflow/github-actions) that covers GitHu
 
 ### Collaborative work and external contributions
 
-Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers can make changes confidently and verify them with tests.
+Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers **can make changes confidently** and verify them with tests.
 
 <br><br>
 
