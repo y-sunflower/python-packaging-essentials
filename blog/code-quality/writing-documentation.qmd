@@ -6,26 +6,26 @@ title: "Writing documentation"
 
 The documentation of a package is the very first, and often only, thing that people will see about your package.
 
-One of the goal of software documentation is to reduce as much as possible the efforts requires for people to be able to use your project. And for this reason, documentation is as much important as the actual code in your package.
+One of the goals of software documentation is to reduce as much as possible the effort required for people to be able to use your project. And for this reason, documentation is as important as the actual code in your package.
 
-Ideally, you want your documentation your documentation to be separated in different categories:
+Ideally, you want your documentation to be separated into different categories:
 
 - Tutorials
-- How-to guides
+- How to guides
 - Explanation
 - Reference
 
-This is entirely based on the [Diátaxis framework](https://diataxis.fr/):
+This is entirely based on the [Diátaxis framework](https://diataxis.fr/){target="_blank"}:
 
-[![](../../img/diataxis.webp)](https://diataxis.fr/)
+[![](../../img/diataxis.webp)](https://diataxis.fr/){target="_blank"}
 
-> Here we will not go in-depth on the Dataxis framework, because the original website is already very complete. We will more focus on technical tools to build great documentation.
+Here we will not go in depth on the Diátaxis framework, because the original website is already very complete. We will focus more on technical tools to build great documentation.
 
 ## Building a website with `mkdocs material`
 
-The very first thing is, your packaged **needs** a website. Nobody on earth will browse the source code of your project to understand how to use it. Fortunately for us, you need almost zero web development skills to create a documentation website, thanks to tools like [mkdocs](https://www.mkdocs.org/) or [sphinx](https://www.sphinx-doc.org/en/master/).
+The very first thing is, your package **needs** a website. Nobody on earth will browse the source code of your project to understand how to use it. Fortunately for us, you need almost zero web development skills to create a documentation website, thanks to tools like [mkdocs](https://www.mkdocs.org/){target="_blank"} or [sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}.
 
-Here we'll use [mkdocs material](https://squidfunk.github.io/mkdocs-material/), which is a super-charged version of [mkdocs](https://www.mkdocs.org/). It allows to write markdown and generate a super clean static[^1] website.
+Here we will use [mkdocs material](https://squidfunk.github.io/mkdocs-material/){target="_blank"}, which is a super charged version of [mkdocs](https://www.mkdocs.org/){target="_blank"}. It allows writing markdown and generating a super clean static[^1] website.
 
 ### Configuration of `mkdocs material`
 
@@ -39,13 +39,13 @@ uv add --dev mkdocs-material
 The `--dev` flag tells uv to add this dependency to the "dev" dependencies (only required for package developers, not users). For more information on this topic, see the blog post [on handling dependencies](../create-a-package/handling-dependencies.html).
 :::
 
-- Then, we create a `mkdocs.yaml` file at the root of the project. The most basic content of it should be:
+* Then, we create a `mkdocs.yaml` file at the root of the project. The most basic content of it should be:
 
 ```yaml
 site_name: Name of your package
 ```
 
-- Finally, we create a `docs/` directory and a `docs/index.md` file. Write something in markdown in `docs/index.md` such as:
+* Finally, we create a `docs/` directory and a `docs/index.md` file. Write something in markdown in `docs/index.md` such as:
 
 ```md
 ## My package
@@ -55,13 +55,13 @@ This is the homepage of my **super cool** package.
 
 ## Preview our website
 
-Before deploying our website (make it actually visible by other people over the internet), we want to preview it. This just means serving a local server that shows how it'll look on other people browsers. For this, we run:
+Before deploying our website (making it actually visible to other people over the internet), we want to preview it. This just means serving a local server that shows how it will look on other people's browsers. For this, we run:
 
 ```bash
 uv run mkdocs preview
 ```
 
-Then, it should displays something like this:
+Then, it should display something like this:
 
 ```
 INFO    -  Building documentation...
@@ -72,11 +72,11 @@ INFO    -  [14:24:40] Serving on http://127.0.0.1:8000/
 INFO    -  [14:24:42] Browser connected: http://127.0.0.1:8000/
 ```
 
-Open the displayed url (here it's `http://127.0.0.1:8000/`) in your browser to preview the website.
+Open the displayed url (here it is `http://127.0.0.1:8000/`) in your browser to preview the website.
 
-## Mutliple page website
+## Multiple page website
 
-Right now, our website has a single main page. Even though we almost never need hundreds of pages, it makes sense to have many pages, especially to follow the [Diátaxis framework](https://diataxis.fr/) mentionned before.
+Right now, our website has a single main page. Even though we almost never need hundreds of pages, it makes sense to have many pages, especially to follow the [Diátaxis framework](https://diataxis.fr/){target="_blank"} mentioned before.
 
 For instance, let's configure our website to have 3 pages. We change our `mkdocs.yaml` file to this:
 
@@ -95,31 +95,31 @@ We also need to add 2 new files (with any kind of markdown content inside): `doc
 
 ## Building reference documentation
 
-For the moment, we saw how to make a website using plain markdown, but we haven't really talked about how to document our code. 
+For the moment, we saw how to make a website using plain markdown, but we have not really talked about how to document our code.
 
-Documentation is here to describe what source code does. But the code will inevitably **change over time**, and you want to make sure that documentation, especially "reference" documentation, is always up-to-date with that.
+Documentation is here to describe what source code does. But the code will inevitably **change over time**, and you want to make sure that documentation, especially "reference" documentation, is always up to date with that.
 
-Reference documentation is the documentation of all classes, functions, arguments of your package. With `mkdocs-material` (and some plugins), we can **automatically** generate pages that will read our source code, collect all arguments, their types and their docstrings (we'll see what that is).
+Reference documentation is the documentation of all classes, functions, and arguments of your package. With `mkdocs-material` (and some plugins), we can **automatically** generate pages that will read our source code, collect all arguments, their types, and their docstrings (we will see what that is).
 
-That means every time we change our source code (Python files), our **documentation website changes accordingly**. This is amazing because we don't have to worry about updating this part of the documentation.
+That means every time we change our source code (Python files), our **documentation website changes accordingly**. This is amazing because we do not have to worry about updating this part of the documentation.
 
 ### Docstrings
 
-The previous is based on parsing **Python docstrings**. Docstrings are triple-quote strings that are at the very top of a function definition, and are meant to describe **what a function does** and **what the arguments are supposed to do**. In practice, it looks like this:
+The previous is based on parsing **Python docstrings**. Docstrings are triple quote strings that are at the very top of a function definition, and are meant to describe **what a function does** and **what the arguments are supposed to do**. In practice, it looks like this:
 
 ```python
 import re
 
 def count_sunflowers(s: str) -> int:
    """
-   Count the total occurence of the "sunflower" word,
+   Count the total occurrence of the "sunflower" word,
    including both singular and plural cases.
 
    Arguments:
-      s: A string where you want to count occurences.
+      s: A string where you want to count occurrences.
 
    Returns:
-      The total occurence of the word(s) sunflower(s).
+      The total occurrence of the word(s) sunflower(s).
 
    Examples:
 
@@ -132,7 +132,7 @@ def count_sunflowers(s: str) -> int:
       ```
 
    Notes:
-      This is case insencitive.
+      This is case insensitive.
    """
    s = re.sub(r"[^a-zA-Z\s]", "", s)
    s = s.lower()
@@ -141,7 +141,7 @@ def count_sunflowers(s: str) -> int:
    return n_sunflower + n_sunflowers
 ```
 
-Docstrings usually start with an overview of what does the function, and then with a description of argument(s) and what it returns. It's also relevant to add example usages right after.
+Docstrings usually start with an overview of what the function does, and then with a description of the argument(s) and what it returns. It is also relevant to add example usages right after.
 
 ### Adding reference documentation in `mkdocs-material`
 
@@ -177,16 +177,16 @@ Inside `docs/reference/count_sunflowers.md`, we put:
 
 Then, when previewing our website, we can see that there is a reference section with the content of our previous docstring, super well formatted.
 
-We don't have to re-write the name of the arguments and so on thanks to this. The source code become the only source of truth in our package, which ensures consistency and reduces a lot manual work.
+We do not have to rewrite the name of the arguments and so on thanks to this. The source code becomes the only source of truth in our package, which ensures consistency and reduces a lot of manual work.
 
 ## Advanced customization
 
-`mkdocs-material` has a ton of super cool customization options, that you often can configure with just one line in your `mkdocs.yaml` file. It's recommended to browse the [official website](https://squidfunk.github.io/mkdocs-material/) for this purpose.
+`mkdocs-material` has a ton of super cool customization options, that you can often configure with just one line in your `mkdocs.yaml` file. It is recommended to browse the [official website](https://squidfunk.github.io/mkdocs-material/){target="_blank"} for this purpose.
 
-If you're interested in a pre-made configuration template, check out the [Python package template](../../python-package-template.html).
+If you are interested in a pre made configuration template, check out the [Python package template](../../python-package-template.html).
 
 ## How to deploy the website
 
-The easiest (and recommended way) of deploying your website is to use [Github Actions](../workflow/github-actions.html). This is not particularly hard, and everything you need to know about what you can do with it (not only deploy websites!) is in a [dedicated blog post](../workflow/github-actions.html).
+The easiest (and recommended way) of deploying your website is to use [Github Actions](../workflow/github-actions.html). This is not particularly hard, and everything you need to know about what you can do with it (not only deploy websites) is in a [dedicated blog post](../workflow/github-actions.html).
 
-[^1]: A static website is a set of pages that always look the same to everyone (no server-side code).
+[^1]: A static website is a set of pages that always look the same to everyone (no server side code).
