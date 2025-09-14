@@ -10,22 +10,32 @@ One of the goals of software documentation is to reduce as much as possible the 
 
 Ideally, you want your documentation to be separated into different categories:
 
-- Tutorials
-- How to guides
-- Explanation
-- Reference
+- Tutorials: step-by-step introductions with a focus on learning
+- How to guides: solve specific, focused problems
+- Explanation: deeper context and reasoning about concepts
+- Reference: complete, factual list of functions, classes, and arguments in your package
 
 This is entirely based on the [Diátaxis framework](https://diataxis.fr/){target="_blank"}:
 
 [![](../../img/diataxis.webp)](https://diataxis.fr/){target="_blank"}
 
-Here we will not go in depth on the Diátaxis framework, because the original website is already very complete. We will focus more on technical tools to build great documentation.
+We won't go into detail here about *what to write in the documentation* (that's the role of the [Diátaxis framework](https://diataxis.fr/){target="_blank"}), but rather *how to write the documentation*, *deploy it automatically*, and *ensure it's always up to date*.
+
+But to give you some concrete and useful advice, here are a few key habits that will help you create better documentation:
+
+- Always start with examples: people understand things much better when they are presented in context rather than in explanations.
+- Try to have a narrative: what is your key point? What concept are you trying to explain? Can't we make it simpler?
+- Don't focus too much on the "how" (the underlying workings of your package), but rather on the "why" (the concrete problem it solves).
 
 ## Building a website with `mkdocs material`
 
 The very first thing is, your package **needs** a website. Nobody on earth will browse the source code of your project to understand how to use it. Fortunately for us, you need almost zero web development skills to create a documentation website, thanks to tools like [mkdocs](https://www.mkdocs.org/){target="_blank"} or [sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}.
 
 Here we will use [mkdocs material](https://squidfunk.github.io/mkdocs-material/){target="_blank"}, which is a super charged version of [mkdocs](https://www.mkdocs.org/){target="_blank"}. It allows writing markdown and generating a super clean static[^1] website.
+
+:::{.callout-note}
+Please note that we **don't have to** use `mkdocs material` over another documentation framework. Other amazing options such as [sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}, [pdoc](https://pdoc.dev/){target="_blank"} or [quartodoc](https://github.com/machow/quartodoc){target="_blank"} (among others) exist.
+:::
 
 ### Configuration of `mkdocs material`
 
@@ -178,6 +188,10 @@ Inside `docs/reference/count_sunflowers.md`, we put:
 Then, when previewing our website, we can see that there is a reference section with the content of our previous docstring, super well formatted.
 
 We do not have to rewrite the name of the arguments and so on thanks to this. The source code becomes the only source of truth in our package, which ensures consistency and reduces a lot of manual work.
+
+:::{.callout-caution}
+Reference documentation is a very important part of documentation, but it is not exhaustive. It is important that you also add tutorials, guides, and explanations, as suggested in the [Diátaxis framework](https://diataxis.fr/){target="_blank"}. You can place them in their own directories to allow users to easily navigate your website.
+:::
 
 ## Advanced customization
 
