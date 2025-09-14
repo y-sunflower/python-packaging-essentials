@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.8.24">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -34,14 +69,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="../../blog/code-quality/unit-tests.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-c8ad9e5dbd60b7b70b38521ab19b7da4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-23102fe0f0b5b1a9f09cc09ebcc8fe5b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-d58359eb3ecc31d3bec1ed479c2cbb3a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -96,7 +132,9 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      </a>
     <div class="sidebar-title mb-0 py-0">
       <a href="../../">Python Packaging Essentials</a> 
         <div class="sidebar-tools-main">
@@ -234,8 +272,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#goal-of-documentation" id="toc-goal-of-documentation" class="nav-link active" data-scroll-target="#goal-of-documentation">Goal of documentation</a></li>
+  <li><a href="#building-a-website-with-mkdocs-material" id="toc-building-a-website-with-mkdocs-material" class="nav-link" data-scroll-target="#building-a-website-with-mkdocs-material">Building a website with <code>mkdocs material</code></a>
+  <ul class="collapse">
+  <li><a href="#configuration-of-mkdocs-material" id="toc-configuration-of-mkdocs-material" class="nav-link" data-scroll-target="#configuration-of-mkdocs-material">Configuration of <code>mkdocs material</code></a></li>
+  </ul></li>
+  <li><a href="#preview-our-website" id="toc-preview-our-website" class="nav-link" data-scroll-target="#preview-our-website">Preview our website</a></li>
+  <li><a href="#multiple-page-website" id="toc-multiple-page-website" class="nav-link" data-scroll-target="#multiple-page-website">Multiple page website</a></li>
+  <li><a href="#building-reference-documentation" id="toc-building-reference-documentation" class="nav-link" data-scroll-target="#building-reference-documentation">Building reference documentation</a>
+  <ul class="collapse">
+  <li><a href="#docstrings" id="toc-docstrings" class="nav-link" data-scroll-target="#docstrings">Docstrings</a></li>
+  <li><a href="#adding-reference-documentation-in-mkdocs-material" id="toc-adding-reference-documentation-in-mkdocs-material" class="nav-link" data-scroll-target="#adding-reference-documentation-in-mkdocs-material">Adding reference documentation in <code>mkdocs-material</code></a></li>
+  </ul></li>
+  <li><a href="#advanced-customization" id="toc-advanced-customization" class="nav-link" data-scroll-target="#advanced-customization">Advanced customization</a></li>
+  <li><a href="#how-to-deploy-the-website" id="toc-how-to-deploy-the-website" class="nav-link" data-scroll-target="#how-to-deploy-the-website">How to deploy the website</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/code-quality/writing-documentation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/code-quality/writing-documentation.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -259,9 +316,197 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This page is a work in progress. You can see the current state of the project <a href="https://github.com/y-sunflower/python-packaging-essentials">here</a>.</p>
+<section id="goal-of-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="goal-of-documentation">Goal of documentation</h2>
+<p>The documentation of a package is the very first, and often only, thing that people will see about your package.</p>
+<p>One of the goals of software documentation is to reduce as much as possible the effort required for people to be able to use your project. And for this reason, documentation is as important as the actual code in your package.</p>
+<p>Ideally, you want your documentation to be separated into different categories:</p>
+<ul>
+<li>Tutorials: step-by-step introductions with a focus on learning</li>
+<li>How to guides: solve specific, focused problems</li>
+<li>Explanation: deeper context and reasoning about concepts</li>
+<li>Reference: complete, factual list of functions, classes, and arguments in your package</li>
+</ul>
+<p>This is entirely based on the <a href="https://diataxis.fr/" target="_blank">Diátaxis framework</a>:</p>
+<p><a href="https://diataxis.fr/" target="_blank"><img src="../../img/diataxis.png" class="img-fluid"></a></p>
+<p>We won’t go into detail here about <em>what to write in the documentation</em> (that’s the role of the <a href="https://diataxis.fr/" target="_blank">Diátaxis framework</a>), but rather <em>how to write the documentation</em>, <em>deploy it automatically</em>, and <em>ensure it’s always up to date</em>.</p>
+<p>But to give you some concrete and useful advice, here are a few key habits that will help you create better documentation:</p>
+<ul>
+<li>Always start with examples: people understand things much better when they are presented in context rather than in explanations.</li>
+<li>Try to have a narrative: what is your key point? What concept are you trying to explain? Can’t we make it simpler?</li>
+<li>Don’t focus too much on the “how” (the underlying workings of your package), but rather on the “why” (the concrete problem it solves).</li>
+</ul>
+</section>
+<section id="building-a-website-with-mkdocs-material" class="level2">
+<h2 class="anchored" data-anchor-id="building-a-website-with-mkdocs-material">Building a website with <code>mkdocs material</code></h2>
+<p>The very first thing is, your package <strong>needs</strong> a website. Nobody on earth will browse the source code of your project to understand how to use it. Fortunately for us, you need almost zero web development skills to create a documentation website, thanks to tools like <a href="https://www.mkdocs.org/" target="_blank">mkdocs</a> or <a href="https://www.sphinx-doc.org/en/master/" target="_blank">sphinx</a>.</p>
+<p>Here we will use <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">mkdocs material</a>, which is a super charged version of <a href="https://www.mkdocs.org/" target="_blank">mkdocs</a>. It allows writing markdown and generating a super clean static<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> website.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Please note that we <strong>don’t have to</strong> use <code>mkdocs material</code> over another documentation framework. Other amazing options such as <a href="https://www.sphinx-doc.org/en/master/" target="_blank">sphinx</a>, <a href="https://pdoc.dev/" target="_blank">pdoc</a> or <a href="https://github.com/machow/quartodoc" target="_blank">quartodoc</a> (among others) exist.</p>
+</div>
+</div>
+<section id="configuration-of-mkdocs-material" class="level3">
+<h3 class="anchored" data-anchor-id="configuration-of-mkdocs-material">Configuration of <code>mkdocs material</code></h3>
+<ul>
+<li>First, we install <code>mkdocs material</code> with:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add <span class="at">--dev</span> mkdocs-material</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>--dev</code> flag tells uv to add this dependency to the “dev” dependencies (only required for package developers, not users). For more information on this topic, see the blog post <a href="../create-a-package/handling-dependencies.html">on handling dependencies</a>.</p>
+</div>
+</div>
+<ul>
+<li>Then, we create a <code>mkdocs.yaml</code> file at the root of the project. The most basic content of it should be:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">site_name</span><span class="kw">:</span><span class="at"> Name of your package</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Finally, we create a <code>docs/</code> directory and a <code>docs/index.md</code> file. Write something in markdown in <code>docs/index.md</code> such as:</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## My package</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>This is the homepage of my **super cool** package.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="preview-our-website" class="level2">
+<h2 class="anchored" data-anchor-id="preview-our-website">Preview our website</h2>
+<p>Before deploying our website (making it actually visible to other people over the internet), we want to preview it. This just means serving a local server that shows how it will look on other people’s browsers. For this, we run:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> run mkdocs preview</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, it should display something like this:</p>
+<pre><code>INFO    -  Building documentation...
+INFO    -  Cleaning site directory
+INFO    -  Documentation built in 0.04 seconds
+INFO    -  [14:24:40] Watching paths for changes: 'docs', 'mkdocs.yml'
+INFO    -  [14:24:40] Serving on http://127.0.0.1:8000/
+INFO    -  [14:24:42] Browser connected: http://127.0.0.1:8000/</code></pre>
+<p>Open the displayed url (here it is <code>http://127.0.0.1:8000/</code>) in your browser to preview the website.</p>
+</section>
+<section id="multiple-page-website" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-page-website">Multiple page website</h2>
+<p>Right now, our website has a single main page. Even though we almost never need hundreds of pages, it makes sense to have many pages, especially to follow the <a href="https://diataxis.fr/" target="_blank">Diátaxis framework</a> mentioned before.</p>
+<p>For instance, let’s configure our website to have 3 pages. We change our <code>mkdocs.yaml</code> file to this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">site_name</span><span class="kw">:</span><span class="at"> Name of your package</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nav</span><span class="kw">:</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> index.md</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> examples.md</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> about.md</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>We also need to add 2 new files (with any kind of markdown content inside): <code>docs/examples.md</code> and <code>docs/about.md</code>.</p>
+<p><code>mkdocs-material</code> will automatically create a navigation bar that allows visitors to go to specific pages.</p>
+</section>
+<section id="building-reference-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="building-reference-documentation">Building reference documentation</h2>
+<p>For the moment, we saw how to make a website using plain markdown, but we have not really talked about how to document our code.</p>
+<p>Documentation is here to describe what source code does. But the code will inevitably <strong>change over time</strong>, and you want to make sure that documentation, especially “reference” documentation, is always up to date with that.</p>
+<p>Reference documentation is the documentation of all classes, functions, and arguments of your package. With <code>mkdocs-material</code> (and some plugins), we can <strong>automatically</strong> generate pages that will read our source code, collect all arguments, their types, and their docstrings (we will see what that is).</p>
+<p>That means every time we change our source code (Python files), our <strong>documentation website changes accordingly</strong>. This is amazing because we do not have to worry about updating this part of the documentation.</p>
+<section id="docstrings" class="level3">
+<h3 class="anchored" data-anchor-id="docstrings">Docstrings</h3>
+<p>The previous is based on parsing <strong>Python docstrings</strong>. Docstrings are triple quote strings that are at the very top of a function definition, and are meant to describe <strong>what a function does</strong> and <strong>what the arguments are supposed to do</strong>. In practice, it looks like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_sunflowers(s: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>   <span class="co">"""</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">   Count the total occurrence of the "sunflower" word,</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">   including both singular and plural cases.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">   Arguments:</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">      s: A string where you want to count occurrences.</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">   Returns:</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">      The total occurrence of the word(s) sunflower(s).</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">   Examples:</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">      ```python</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">      from my_package import count_sunflowers</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">      count_sunflowers("sunflower are beautiful") # outputs 1</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">      count_sunflowers("what a beautiful day")    # outputs 0</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">      count_sunflowers("sunflowers sunflower")    # outputs 2</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">      ```</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">   Notes:</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">      This is case insensitive.</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">   """</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> re.sub(<span class="vs">r"</span><span class="pp">[^a-zA-Z</span><span class="dv">\s</span><span class="pp">]</span><span class="vs">"</span>, <span class="st">""</span>, s)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> s.lower()</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>   n_sunflower <span class="op">=</span> s.split().count(<span class="st">"sunflower"</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>   n_sunflowers <span class="op">=</span> s.split().count(<span class="st">"sunflowers"</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> n_sunflower <span class="op">+</span> n_sunflowers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Docstrings usually start with an overview of what the function does, and then with a description of the argument(s) and what it returns. It is also relevant to add example usages right after.</p>
+</section>
+<section id="adding-reference-documentation-in-mkdocs-material" class="level3">
+<h3 class="anchored" data-anchor-id="adding-reference-documentation-in-mkdocs-material">Adding reference documentation in <code>mkdocs-material</code></h3>
+<p>In order to parse our source code, we need to install the <code>mkdocstrings-python</code> plugin with:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> add <span class="at">--dev</span> mkdocstrings-python</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, we create a <code>docs/reference/</code> directory and our <code>mkdocs.yaml</code> becomes:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">site_name</span><span class="kw">:</span><span class="at"> Name of your package</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nav</span><span class="kw">:</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> index.md</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> example.md</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> about.md</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">Reference</span><span class="kw">:</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> reference/count_sunflowers.md</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plugins</span><span class="kw">:</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> mkdocstrings</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Inside <code>docs/reference/count_sunflowers.md</code>, we put:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode md code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Count sunflowers</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>::: package_name.count_sunflowers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, when previewing our website, we can see that there is a reference section with the content of our previous docstring, super well formatted.</p>
+<p>We do not have to rewrite the name of the arguments and so on thanks to this. The source code becomes the only source of truth in our package, which ensures consistency and reduces a lot of manual work.</p>
+<div class="callout callout-style-default callout-caution callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Caution
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Reference documentation is a very important part of documentation, but it is not exhaustive. It is important that you also add tutorials, guides, and explanations, as suggested in the <a href="https://diataxis.fr/" target="_blank">Diátaxis framework</a>. You can place them in their own directories to allow users to easily navigate your website.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="advanced-customization" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-customization">Advanced customization</h2>
+<p><code>mkdocs-material</code> has a ton of super cool customization options, that you can often configure with just one line in your <code>mkdocs.yaml</code> file. It is recommended to browse the <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">official website</a> for this purpose.</p>
+<p>If you are interested in a pre made configuration template, check out the <a href="../../python-package-template.html">Python package template</a>.</p>
+</section>
+<section id="how-to-deploy-the-website" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-deploy-the-website">How to deploy the website</h2>
+<p>The easiest (and recommended way) of deploying your website is to use <a href="../workflow/github-actions.html">Github Actions</a>. This is not particularly hard, and everything you need to know about what you can do with it (not only deploy websites) is in a <a href="../workflow/github-actions.html">dedicated blog post</a>.</p>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>A static website is a set of pages that always look the same to everyone (no server side code).<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -315,13 +560,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -680,4 +926,4 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/code-quality/writing-documentation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/code-quality/writing-documentation.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/code-quality/writing-documentation.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/code-quality/writing-documentation.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

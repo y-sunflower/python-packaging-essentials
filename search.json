@@ -285,7 +285,95 @@
     "href": "blog/code-quality/writing-documentation.html",
     "title": "5  Writing documentation",
     "section": "",
-    "text": "This page is a work in progress. You can see the current state of the project here.",
+    "text": "Goal of documentation\nThe documentation of a package is the very first, and often only, thing that people will see about your package.\nOne of the goals of software documentation is to reduce as much as possible the effort required for people to be able to use your project. And for this reason, documentation is as important as the actual code in your package.\nIdeally, you want your documentation to be separated into different categories:\nThis is entirely based on the Diátaxis framework:\nWe won’t go into detail here about what to write in the documentation (that’s the role of the Diátaxis framework), but rather how to write the documentation, deploy it automatically, and ensure it’s always up to date.\nBut to give you some concrete and useful advice, here are a few key habits that will help you create better documentation:",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#goal-of-documentation",
+    "href": "blog/code-quality/writing-documentation.html#goal-of-documentation",
+    "title": "5  Writing documentation",
+    "section": "",
+    "text": "Tutorials: step-by-step introductions with a focus on learning\nHow to guides: solve specific, focused problems\nExplanation: deeper context and reasoning about concepts\nReference: complete, factual list of functions, classes, and arguments in your package\n\n\n\n\n\n\nAlways start with examples: people understand things much better when they are presented in context rather than in explanations.\nTry to have a narrative: what is your key point? What concept are you trying to explain? Can’t we make it simpler?\nDon’t focus too much on the “how” (the underlying workings of your package), but rather on the “why” (the concrete problem it solves).",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#building-a-website-with-mkdocs-material",
+    "href": "blog/code-quality/writing-documentation.html#building-a-website-with-mkdocs-material",
+    "title": "5  Writing documentation",
+    "section": "Building a website with mkdocs material",
+    "text": "Building a website with mkdocs material\nThe very first thing is, your package needs a website. Nobody on earth will browse the source code of your project to understand how to use it. Fortunately for us, you need almost zero web development skills to create a documentation website, thanks to tools like mkdocs or sphinx.\nHere we will use mkdocs material, which is a super charged version of mkdocs. It allows writing markdown and generating a super clean static1 website.\n\n\n\n\n\n\nNote\n\n\n\nPlease note that we don’t have to use mkdocs material over another documentation framework. Other amazing options such as sphinx, pdoc or quartodoc (among others) exist.\n\n\n\nConfiguration of mkdocs material\n\nFirst, we install mkdocs material with:\n\nuv add --dev mkdocs-material\n\n\n\n\n\n\nNote\n\n\n\nThe --dev flag tells uv to add this dependency to the “dev” dependencies (only required for package developers, not users). For more information on this topic, see the blog post on handling dependencies.\n\n\n\nThen, we create a mkdocs.yaml file at the root of the project. The most basic content of it should be:\n\nsite_name: Name of your package\n\nFinally, we create a docs/ directory and a docs/index.md file. Write something in markdown in docs/index.md such as:\n\n## My package\n\nThis is the homepage of my **super cool** package.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#preview-our-website",
+    "href": "blog/code-quality/writing-documentation.html#preview-our-website",
+    "title": "5  Writing documentation",
+    "section": "Preview our website",
+    "text": "Preview our website\nBefore deploying our website (making it actually visible to other people over the internet), we want to preview it. This just means serving a local server that shows how it will look on other people’s browsers. For this, we run:\nuv run mkdocs preview\nThen, it should display something like this:\nINFO    -  Building documentation...\nINFO    -  Cleaning site directory\nINFO    -  Documentation built in 0.04 seconds\nINFO    -  [14:24:40] Watching paths for changes: 'docs', 'mkdocs.yml'\nINFO    -  [14:24:40] Serving on http://127.0.0.1:8000/\nINFO    -  [14:24:42] Browser connected: http://127.0.0.1:8000/\nOpen the displayed url (here it is http://127.0.0.1:8000/) in your browser to preview the website.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#multiple-page-website",
+    "href": "blog/code-quality/writing-documentation.html#multiple-page-website",
+    "title": "5  Writing documentation",
+    "section": "Multiple page website",
+    "text": "Multiple page website\nRight now, our website has a single main page. Even though we almost never need hundreds of pages, it makes sense to have many pages, especially to follow the Diátaxis framework mentioned before.\nFor instance, let’s configure our website to have 3 pages. We change our mkdocs.yaml file to this:\nsite_name: Name of your package\n\nnav:\n  - index.md\n  - examples.md\n  - about.md\nWe also need to add 2 new files (with any kind of markdown content inside): docs/examples.md and docs/about.md.\nmkdocs-material will automatically create a navigation bar that allows visitors to go to specific pages.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#building-reference-documentation",
+    "href": "blog/code-quality/writing-documentation.html#building-reference-documentation",
+    "title": "5  Writing documentation",
+    "section": "Building reference documentation",
+    "text": "Building reference documentation\nFor the moment, we saw how to make a website using plain markdown, but we have not really talked about how to document our code.\nDocumentation is here to describe what source code does. But the code will inevitably change over time, and you want to make sure that documentation, especially “reference” documentation, is always up to date with that.\nReference documentation is the documentation of all classes, functions, and arguments of your package. With mkdocs-material (and some plugins), we can automatically generate pages that will read our source code, collect all arguments, their types, and their docstrings (we will see what that is).\nThat means every time we change our source code (Python files), our documentation website changes accordingly. This is amazing because we do not have to worry about updating this part of the documentation.\n\nDocstrings\nThe previous is based on parsing Python docstrings. Docstrings are triple quote strings that are at the very top of a function definition, and are meant to describe what a function does and what the arguments are supposed to do. In practice, it looks like this:\nimport re\n\ndef count_sunflowers(s: str) -&gt; int:\n   \"\"\"\n   Count the total occurrence of the \"sunflower\" word,\n   including both singular and plural cases.\n\n   Arguments:\n      s: A string where you want to count occurrences.\n\n   Returns:\n      The total occurrence of the word(s) sunflower(s).\n\n   Examples:\n\n      ```python\n      from my_package import count_sunflowers\n\n      count_sunflowers(\"sunflower are beautiful\") # outputs 1\n      count_sunflowers(\"what a beautiful day\")    # outputs 0\n      count_sunflowers(\"sunflowers sunflower\")    # outputs 2\n      ```\n\n   Notes:\n      This is case insensitive.\n   \"\"\"\n   s = re.sub(r\"[^a-zA-Z\\s]\", \"\", s)\n   s = s.lower()\n   n_sunflower = s.split().count(\"sunflower\")\n   n_sunflowers = s.split().count(\"sunflowers\")\n   return n_sunflower + n_sunflowers\nDocstrings usually start with an overview of what the function does, and then with a description of the argument(s) and what it returns. It is also relevant to add example usages right after.\n\n\nAdding reference documentation in mkdocs-material\nIn order to parse our source code, we need to install the mkdocstrings-python plugin with:\nuv add --dev mkdocstrings-python\nThen, we create a docs/reference/ directory and our mkdocs.yaml becomes:\nsite_name: Name of your package\n\nnav:\n  - index.md\n  - example.md\n  - about.md\n  - Reference:\n      - reference/count_sunflowers.md\n\nplugins:\n  - mkdocstrings\nInside docs/reference/count_sunflowers.md, we put:\n## Count sunflowers\n\n::: package_name.count_sunflowers\nThen, when previewing our website, we can see that there is a reference section with the content of our previous docstring, super well formatted.\nWe do not have to rewrite the name of the arguments and so on thanks to this. The source code becomes the only source of truth in our package, which ensures consistency and reduces a lot of manual work.\n\n\n\n\n\n\nCaution\n\n\n\nReference documentation is a very important part of documentation, but it is not exhaustive. It is important that you also add tutorials, guides, and explanations, as suggested in the Diátaxis framework. You can place them in their own directories to allow users to easily navigate your website.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#advanced-customization",
+    "href": "blog/code-quality/writing-documentation.html#advanced-customization",
+    "title": "5  Writing documentation",
+    "section": "Advanced customization",
+    "text": "Advanced customization\nmkdocs-material has a ton of super cool customization options, that you can often configure with just one line in your mkdocs.yaml file. It is recommended to browse the official website for this purpose.\nIf you are interested in a pre made configuration template, check out the Python package template.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#how-to-deploy-the-website",
+    "href": "blog/code-quality/writing-documentation.html#how-to-deploy-the-website",
+    "title": "5  Writing documentation",
+    "section": "How to deploy the website",
+    "text": "How to deploy the website\nThe easiest (and recommended way) of deploying your website is to use Github Actions. This is not particularly hard, and everything you need to know about what you can do with it (not only deploy websites) is in a dedicated blog post.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
+    "objectID": "blog/code-quality/writing-documentation.html#footnotes",
+    "href": "blog/code-quality/writing-documentation.html#footnotes",
+    "title": "5  Writing documentation",
+    "section": "",
+    "text": "A static website is a set of pages that always look the same to everyone (no server side code).↩︎",
     "crumbs": [
       "Code quality",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
@@ -318,7 +406,7 @@
     "href": "blog/workflow/github-actions.html",
     "title": "8  Github Actions",
     "section": "",
-    "text": "TLDR: Github Actions\nHaving a package implies several things, most importantly:\nIn this post, we’ll walk through 3 essential Github Actions you need in your workflow when developing Python packages.\nGithub Actions are scripts that perform tasks (pretty much anything you want) when specific “events” occur. You can do a lot with them, but here we’ll focus on practical use cases for developing a Python package.\nThese scripts live in the .github/workflows/ directory and are written as yaml files. For instance, a Python package named “sunflower” with two different Github Actions might be organized like this:\nOn certain “events” (as defined in those scripts), unit-tests.yaml and code-format.yaml will be triggered.\nThe events we care about here are:w\nLet’s look at a practical example to understand why these scripts are important.",
+    "text": "TLDR: Github Actions\nHaving a package implies several things, most importantly:\nIn this post, we’ll walk through 3 essential Github Actions you need in your workflow when developing Python packages.\nGithub Actions are scripts that perform tasks (pretty much anything you want) when specific “events” occur. You can do a lot with them, but here we’ll focus on practical use cases for developing a Python package.\nThese scripts live in the .github/workflows/ directory and are written as yaml files. For instance, a Python package named “sunflower” with two different Github Actions might be organized like this:\nOn certain “events” (as defined in those scripts), unit-tests.yaml and code-format.yaml will be triggered.\nThe events we care about here are:\nLet’s look at a practical example to understand why these scripts are important.",
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
@@ -351,7 +439,7 @@
     "href": "blog/workflow/github-actions.html#create-and-deploy-documentation",
     "title": "8  Github Actions",
     "section": "Create and deploy documentation",
-    "text": "Create and deploy documentation\n\nThere’s a dedicated blog post on generating and deploying documentation for your package. Check it out here.\n\nLet’s say we’ve created our documentation website with mkdocs. We then add a deploy-site.yaml file in .github/workflows/.\nSince generating the documentation website creates a large number of files, it’s not ideal to store them in version control. But how do we deploy it to Github Pages if it’s not in version control? That’s where Github Actions come in!\nNow, let’s take a look at the following Github Action script:\nname: ci\n\non:\n  push:\n    branches: [main]\n\npermissions:\n  contents: write\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Configure Git Credentials\n        run: |\n          git config user.name github-actions[bot]\n          git config user.email 41898282+github-actions[bot]@users.noreply.github.com\n      - uses: actions/setup-python@v5\n        with:\n          python-version: 3.x\n      - run: echo \"cache_id=$(date --utc '+%V')\" &gt;&gt; $GITHUB_ENV\n      - uses: actions/cache@v4\n        with:\n          key: mkdocs-material-${{ env.cache_id }}\n          path: .cache\n          restore-keys: |\n            mkdocs-material-\n\n      - name: Install uv\n        uses: astral-sh/setup-uv@v5\n\n      - name: Enable caching\n        uses: astral-sh/setup-uv@v5\n        with:\n          enable-cache: true\n\n      - name: Install the project\n        run: uv sync --all-groups\n\n      - name: Deploy MkDocs\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n        run: uv run mkdocs gh-deploy --force\nWhat it does:\nWhen someone merges or pushes to the main branch, this action will:\n\ninstall uv (a Python package manager)\n\ninstall the project dependencies using uv sync --all-groups\n\ngenerate the entire documentation website with uv run mkdocs gh-deploy --force\n\npush the documentation website to the gh-pages branch on Github\n\nWith this setup, assuming our website is deployed to Github Pages using the gh-pages branch, the documentation site is deployed automatically whenever a pull request is opened or we merge/push to the main branch. All without keeping the auto-generated files in version control.\nThis also removes all manual work related to building and deploying the documentation, as it’s now fully automated through this Github Action.",
+    "text": "Create and deploy documentation\n\nThere’s a dedicated blog post on how to write documentation for your package. Check it out here.\n\nLet’s say we’ve created our documentation website with mkdocs. We then add a deploy-site.yaml file in .github/workflows/.\nSince generating the documentation website creates a large number of files, it’s not ideal to store them in version control. But how do we deploy it to Github Pages if it’s not in version control? That’s where Github Actions come in!\nNow, let’s take a look at the following Github Action script:\nname: ci\n\non:\n  push:\n    branches: [main]\n\npermissions:\n  contents: write\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Configure Git Credentials\n        run: |\n          git config user.name github-actions[bot]\n          git config user.email 41898282+github-actions[bot]@users.noreply.github.com\n      - uses: actions/setup-python@v5\n        with:\n          python-version: 3.x\n      - run: echo \"cache_id=$(date --utc '+%V')\" &gt;&gt; $GITHUB_ENV\n      - uses: actions/cache@v4\n        with:\n          key: mkdocs-material-${{ env.cache_id }}\n          path: .cache\n          restore-keys: |\n            mkdocs-material-\n\n      - name: Install uv\n        uses: astral-sh/setup-uv@v5\n\n      - name: Enable caching\n        uses: astral-sh/setup-uv@v5\n        with:\n          enable-cache: true\n\n      - name: Install the project\n        run: uv sync --all-groups\n\n      - name: Deploy MkDocs\n        env:\n          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}\n        run: uv run mkdocs gh-deploy --force\nWhat it does:\nWhen someone merges or pushes to the main branch, this action will:\n\ninstall uv (a Python package manager)\n\ninstall the project dependencies using uv sync --all-groups\n\ngenerate the entire documentation website with uv run mkdocs gh-deploy --force\n\npush the documentation website to the gh-pages branch on Github\n\nWith this setup, assuming our website is deployed to Github Pages using the gh-pages branch, the documentation site is deployed automatically whenever a pull request is opened or we merge/push to the main branch. All without keeping the auto-generated files in version control.\nThis also removes all manual work related to building and deploying the documentation, as it’s now fully automated through this Github Action.",
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
@@ -369,11 +457,11 @@
     ]
   },
   {
-    "objectID": "blog/workflow/github-actions.html#faq",
-    "href": "blog/workflow/github-actions.html#faq",
+    "objectID": "blog/workflow/github-actions.html#qa",
+    "href": "blog/workflow/github-actions.html#qa",
     "title": "8  Github Actions",
-    "section": "FAQ",
-    "text": "FAQ\n\nI didn’t understand certain thingsWhere does the code run?Can I run it on my machine?\n\n\nGithub Actions is one of those things where you need to try it yourself to get the full picture. I recommend creating a basic Python package with documentation and tests, then testing the examples provided to see how they work.\n\n\nWhen a Github Action is triggered, Github sets up a clean VM (virtual machine) to run your workflow. There are limits on usage, but they’re quite generous before you’ll need to enter your credit card details.\n\n\nYes, you can! Thanks to a project called act. In short, it uses Docker to run your Github Actions in the correct context.",
+    "section": "Q&A",
+    "text": "Q&A\n\nI didn’t understand certain thingsWhere does the code run?Can I run it on my machine?\n\n\nGithub Actions is one of those things where you need to try it yourself to get the full picture. I recommend creating a basic Python package with documentation and tests, then testing the examples provided to see how they work.\n\n\nWhen a Github Action is triggered, Github sets up a clean VM (virtual machine) to run your workflow. There are limits on usage, but they’re quite generous before you’ll need to enter your credit card details.\n\n\nYes, you can! Thanks to a project called act. In short, it uses Docker to run your Github Actions in the correct context.",
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>Github Actions</span>"
@@ -533,7 +621,7 @@
     "href": "contributing.html",
     "title": "Contributing",
     "section": "",
-    "text": "Set up environment\nIn order to follow the steps below, you’ll need to have both Git, uv and Quarto installed on your machine.\n\nFork the Github repo\nGit clone it:\n\ngit clone https://github.com/YourUsername/python-packaging-essentials.git\n\nCreate a new Git branch\n\ngit checkout -b branch-name\n\nSet up your environment\n\n\nMacOS/Unix-likeWindows\n\n\nuv python install\nuv sync\nsource .venv/bin/activate\n\n\nuv python install\nuv sync\n.venv\\Scripts\\activate\n\n\n\n\n\nMake changes\nEach blog post lives in a Quarto file (.qmd). It’s a mix of markdown and chunk of code.\nYou can preview locally your changes with:\nquarto preview\nIf not done automatically, open your browser at http://localhost:4000/",
+    "text": "Set up environment\nIn order to follow the steps below, you’ll need to have Git, uv and Quarto installed on your machine.\n\nFork the Github repo\nGit clone it:\n\ngit clone https://github.com/YourUsername/python-packaging-essentials.git\n\nCreate a new Git branch\n\ngit checkout -b branch-name\n\nSet up your environment\n\n\nMacOS/Unix-likeWindows\n\n\nuv python install\nuv sync\nsource .venv/bin/activate\n\n\nuv python install\nuv sync\n.venv\\Scripts\\activate\n\n\n\n\n\nMake changes\nEach blog post lives in a Quarto file (.qmd). It’s a mix of markdown and chunk of code.\nYou can preview locally your changes with:\nquarto preview\nIf not done automatically, open your browser at http://localhost:4000/",
     "crumbs": [
       "Contributing"
     ]
