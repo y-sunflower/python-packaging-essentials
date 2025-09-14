@@ -116,10 +116,10 @@ def count_sunflowers(s: str) -> int:
    including both singular and plural cases.
 
    Arguments:
-      - s: A string where you want to count occurences.
+      s: A string where you want to count occurences.
 
    Returns:
-      - The total occurence of the word(s) sunflower(s).
+      The total occurence of the word(s) sunflower(s).
 
    Examples:
 
@@ -127,8 +127,8 @@ def count_sunflowers(s: str) -> int:
       from my_package import count_sunflowers
 
       count_sunflowers("sunflower are beautiful") # outputs 1
-      count_sunflowers("what a beautiful day") # outputs 0
-      count_sunflowers("sunflowers sunflower") # outputs 2
+      count_sunflowers("what a beautiful day")    # outputs 0
+      count_sunflowers("sunflowers sunflower")    # outputs 2
       ```
 
    Notes:
@@ -167,7 +167,7 @@ plugins:
   - mkdocstrings
 ```
 
-Inside `reference/count_sunflowers.md`, we put:
+Inside `docs/reference/count_sunflowers.md`, we put:
 
 ```md
 ## Count sunflowers
@@ -175,10 +175,18 @@ Inside `reference/count_sunflowers.md`, we put:
 ::: package_name.count_sunflowers
 ```
 
-Then, when previewing our website, we can see that there is a reference section with (for the moment) the content of our previous docstring, super well formatted.
+Then, when previewing our website, we can see that there is a reference section with the content of our previous docstring, super well formatted.
 
 We don't have to re-write the name of the arguments and so on thanks to this. The source code become the only source of truth in our package, which ensures consistency and reduces a lot manual work.
 
 ## Advanced customization
+
+`mkdocs-material` has a ton of super cool customization options, that you often can configure with just one line in your `mkdocs.yaml` file. It's recommended to browse the [official website](https://squidfunk.github.io/mkdocs-material/) for this purpose.
+
+If you're interested in a pre-made configuration template, check out the [Python package template](../../python-package-template.html).
+
+## How to deploy the website
+
+The easiest (and recommended way) of deploying your website is to use [Github Actions](../workflow/github-actions.html). This is not particularly hard, and everything you need to know about what you can do with it (not only deploy websites!) is in a [dedicated blog post](../workflow/github-actions.html).
 
 [^1]: A static website is a set of pages that always look the same to everyone (no server-side code).

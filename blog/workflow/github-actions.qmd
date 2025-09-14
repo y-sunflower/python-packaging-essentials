@@ -39,7 +39,7 @@ sunflower/
 
 On certain "events" (as defined in those scripts), `unit-tests.yaml` and `code-format.yaml` will be triggered.
 
-The events we care about here are:w
+The events we care about here are:
 
 - Opening a pull request  
 - Merging or pushing to the main branch  
@@ -113,7 +113,7 @@ In this example, we used just two Python versions and one set of dependencies, b
 
 ## Create and deploy documentation
 
-> There’s a dedicated blog post on generating and deploying documentation for your package. Check it out [here](./writing-documentation.html).
+> There’s a dedicated blog post on how to write documentation for your package. Check it out [here](../code-quality/writing-documentation.html).
 
 Let’s say we’ve created our documentation website with `mkdocs`. We then add a `deploy-site.yaml` file in `.github/workflows/`.
 
@@ -249,7 +249,7 @@ This ensures that all code added to the codebase is well-formatted and adheres t
 
 > Note that there's an additional way to enforce this called `pre-commit`, and there’s a [dedicated blog post](./pre-commit.html) on it.
 
-## FAQ
+## Q&A
 
 ::: {.panel-tabset}
 
