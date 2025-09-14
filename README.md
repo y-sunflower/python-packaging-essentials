@@ -14,7 +14,7 @@ The site is live [here](https://y-sunflower.github.io/python-packaging-essential
 | Organize a package    | Create a package | ✅    |
 | Handling dependencies | Create a package | ✅    |
 | Unit tests            | Code quality     | ✅    |
-| Writing documentation | Code quality     | ❌    |
+| Writing documentation | Code quality     | ✅    |
 | Errors and warnings   | Code quality     | ❌    |
 | API design            | Code quality     | ❌    |
 | Github Actions        | Workflow         | ✅    |
@@ -28,7 +28,7 @@ The site is live [here](https://y-sunflower.github.io/python-packaging-essential
 
 ### Set up environment
 
-In order to follow the steps below, you'll need to have both [Git](https://git-scm.com/downloads), [uv](https://docs.astral.sh/uv/getting-started/installation/) and [Quarto](https://quarto.org/) installed on your machine.
+In order to follow the steps below, you'll need to have [Git](https://git-scm.com/downloads), [uv](https://docs.astral.sh/uv/getting-started/installation/) and [Quarto](https://quarto.org/) installed on your machine.
 
 - Fork the [Github repo](https://github.com/yellow-sunflower/python-packaging-essentials/)
 - Git clone it:
