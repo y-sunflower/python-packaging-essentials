@@ -17,7 +17,7 @@ Ideally, you want your documentation to be separated into different categories:
 
 This is entirely based on the [Diátaxis framework](https://diataxis.fr/){target="_blank"}:
 
-[![](../../img/diataxis.webp)](https://diataxis.fr/){target="_blank"}
+[![](../../img/diataxis.png)](https://diataxis.fr/){target="_blank"}
 
 We won't go into detail here about *what to write in the documentation* (that's the role of the [Diátaxis framework](https://diataxis.fr/){target="_blank"}), but rather *how to write the documentation*, *deploy it automatically*, and *ensure it's always up to date*.
 
