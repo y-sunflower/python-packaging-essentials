@@ -251,7 +251,7 @@ def read_file(filename):
 ```
 
 ::: {.callout-important}
-It is **required** here to place `import` inside the function, because otherwise a `ModuleNotFoundError` error will be generated on the user's machine, even when importing a function with only optional dependencies..
+It is **required** here to place `import` inside the function, because otherwise a `ModuleNotFoundError` error will be generated on the user's machine, even when importing a function without optional dependencies.
 :::
 
 This will give your users a **clear and meaningful error message** that they can resolve very quickly. This kind of thing exist for the same reason we're talking about in this article: trying to minimize the number of dependencies (especially the unused ones!).
