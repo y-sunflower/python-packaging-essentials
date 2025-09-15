@@ -19,6 +19,8 @@ Not really, especially if you take the time to read about it.
 
 Making a Python package is mostly about organizing your project in a specific, standardized way. There are no low-level computer science concepts that you should know, but rather a more or less large set of rules to respect.
 
+Note that the emphasis here is on best practices for developing high-quality software under the best conditions. Much of what you learn while developing Python packages will also help you become a better programmer in general.
+
 ## Is it only for large projects?
 
 Not at all! Even if your project is 200 lines of code in a single file, it might make sense to make it a package. You can find a fun example [here](https://github.com/koaning/smartfunc){target="_blank"}.

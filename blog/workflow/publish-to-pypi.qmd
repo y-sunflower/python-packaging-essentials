@@ -2,19 +2,6 @@
 title: "Publish to PyPI"
 ---
 
-This page is a work in progress. You can see the current state of the project [here](https://github.com/y-sunflower/python-packaging-essentials).
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## note
-
-- pyproject.toml to specify dependencies, python req, etc
-
 ## PyPI (Python Package Index)
 
 [PyPI](https://pypi.org) is the default online repository for Python packages. This is where packages are stored so that others can find and install them.
@@ -28,22 +15,45 @@ pip install requests
 You’re downloading the `requests` package from PyPI. More specifically, you’re downloading the package's distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.
 
 
-## pip (and friends)
+## You don't need PyPI
 
-`pip` is the tool used to install packages from PyPI. It’s simple and widely supported.
+If you're here to learn how to publish a Python package to PyPI, **you're in the right place**.
 
-Example:
+But first, it's important that you become aware of the following facts:
+
+- you don't need PyPI to allow anyone in the world to `pip install` your package
+- adding your package to PyPI takes a namespace name forever ([related and interesting blog post](https://koaning.io/posts/uvx-pattern-for-two-tiers-of-open-work/))
+- it's a bit complicated to upload your package the clean way
+
+### `pip install` without PyPI
+
+If you're package is on Github (it should) and is open source, then people can super easily install it with:
 
 ```bash
-pip install numpy
+pip install git+https://github.com/github_username/repository_name.git
 ```
 
-But when working with packages in Python, you need to take into account the package version. Maybe you need `numpy` `2.1.2` instead of `2.1.1` for your project.
+::: {.panel-tabset}
 
-You can read more about this in the [handling dependencies article](./handling-dependencies.html), but in summary, it's important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.
+### Pros
 
-Some newer tools are built around `pip` to offer additional features such as **dependency management** and **better performance**.
+- No extra work
+- Updates automatically when you push changes
 
-One of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there's a problem.
+### Cons
 
-Since 2024, the best tool available is called [uv](https://docs.astral.sh/uv/). It's super easy to use, super fast and does everything you need, in one place, with one tool. It's more of a Python project manager than a simple package installer.
+- Managing dependencies is harder (for users)
+- You don't have a clean `pip install package_name`
+
+:::
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+## note
+
+- pyproject.toml to specify dependencies, python req, etc
+
