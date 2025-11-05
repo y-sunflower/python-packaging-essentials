@@ -2,6 +2,10 @@
 title: "Publish to PyPI"
 ---
 
+> This blog post in a work in progress.
+
+<br><br><br>
+
 ## PyPI (Python Package Index)
 
 [PyPI](https://pypi.org) is the default online repository for Python packages. This is where packages are stored so that others can find and install them.
