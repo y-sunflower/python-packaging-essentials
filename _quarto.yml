@@ -31,7 +31,10 @@ book:
         - blog/workflow/github-actions.qmd
         - blog/workflow/pre-commit.qmd
         - blog/workflow/publish-to-pypi.qmd
-    - blog/bonus/index.qmd
+    - part: blog/bonus/index.qmd
+      chapters:
+        - blog/bonus/miscellaneous.qmd
+        - blog/bonus/makefile.qmd
     - python-package-template.qmd
     - contributing.qmd
 
