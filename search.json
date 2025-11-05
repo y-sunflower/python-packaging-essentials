@@ -34,7 +34,7 @@
     "href": "blog/create-a-package/index.html#is-it-hard",
     "title": "Create a package",
     "section": "Is it hard?",
-    "text": "Is it hard?\nNot really, especially if you take the time to read about it.\nMaking a Python package is mostly about organizing your project in a specific, standardized way. There are no low-level computer science concepts that you should know, but rather a more or less large set of rules to respect.",
+    "text": "Is it hard?\nNot really, especially if you take the time to read about it.\nMaking a Python package is mostly about organizing your project in a specific, standardized way. There are no low-level computer science concepts that you should know, but rather a more or less large set of rules to respect.\nNote that the emphasis here is on best practices for developing high-quality software under the best conditions. Much of what you learn while developing Python packages will also help you become a better programmer in general.",
     "crumbs": [
       "Create a package"
     ]
@@ -230,7 +230,7 @@
     "href": "blog/create-a-package/handling-dependencies.html#required-optional-and-dev-dependencies",
     "title": "3  Handling dependencies",
     "section": "Required, Optional and Dev dependencies",
-    "text": "Required, Optional and Dev dependencies\nWhen working with dependencies, it’s useful to differentiate between three main types: required, optional, and development dependencies. Each serves a different purpose in your package.\n\nRequired\nRequired dependencies are the ones we’ve been discussing so far - packages that your code absolutely needs to function properly. These go in the dependencies list in your pyproject.toml.\n\n\npyproject.toml\n\n[project]\ndependencies = [\n    \"numpy&gt;=2.1.0\",\n    \"pandas&gt;=2.0.0\",\n]\n\n\n\nOptional dependencies\nOptional dependencies are packages that enhance your code but aren’t strictly necessary for core functionality. For example, if your data processing package works with CSV files by default but can also handle Excel files with an additional dependency.\nYou can specify these in your pyproject.toml using the [project.optional-dependencies] section:\n\n\npyproject.toml\n\n[project.optional-dependencies]\nexcel = [\"openpyxl&gt;=3.1.0\"]\nplot = [\"matplotlib&gt;=3.7.0\", \"plotly&gt;=5.23.0\"]\n\nThis lets users install only what they need:\n\nmypackagemypackage[excel]mypackage[plot]mypackage[excel,plot]\n\n\nInstall your package required dependencies only:\nuv pip install mypackage\n\n\nInstall your package required dependencies as well openpyxl:\nuv pip install \"mypackage[excel]\"\n\n\nInstall your package required dependencies as well matplotlib and plotly:\nuv pip install \"mypackage[plot]\"\n\n\nInstall with all optional dependencies:\nuv pip install \"mypackage[excel,plot]\"\n\n\n\nIn your code, you’ll need to handle cases where optional dependencies aren’t installed:\ndef read_file(filename):\n    if filename.endswith('.csv'):\n        # Core functionality\n        import pandas as pd\n        return pd.read_csv(filename)\n    elif filename.endswith('.xlsx'):\n        try:\n            # Optional functionality\n            import openpyxl\n            import pandas as pd\n            return pd.read_excel(filename)\n        except ImportError:\n            raise ImportError(\n                \"Excel support requires 'openpyxl'. \"\n                \"Install with 'pip install mypackage[excel]'\"\n            )\n\n\n\n\n\n\nImportant\n\n\n\nIt is required here to place import inside the function, because otherwise a ModuleNotFoundError error will be generated on the user’s machine, even when importing a function with only optional dependencies..\n\n\nThis will give your users a clear and meaningful error message that they can resolve very quickly. This kind of thing exist for the same reason we’re talking about in this article: trying to minimize the number of dependencies (especially the unused ones!).\nIn order to add package to your optional dependencies, you can run:\nuv add matplotlib --optional plot\nThis will add matplotlib to the plot section in the optional dependencies in your pyproject.toml.\n\nBeforeAfter\n\n\n\n\npyproject.toml\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = []\n\n\n\n\n\npyproject.toml\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = []\n\n[project.optional-dependencies]\nplot = [\"matplotlib&gt;=3.7.0\"]\n\n\n\n\n\n\nDev dependencies\nDevelopment dependencies are packages you need only when developing your package, not when using it. These include testing frameworks, documentation generators, linters, and similar tools.\nSpecify these in your pyproject.toml like this:\n\n\npyproject.toml\n\n[project.optional-dependencies]\ndev = [\n    \"pytest&gt;=7.0.0\",\n    \"ruff&gt;=0.11.5\",\n    \"sphinx&gt;=7.0.0\",\n]\n\nIn order to add a package to your dev dependencies, you can run:\nuv add ruff --dev\nDevelopers working on your package can install all optional dependencies as well as dev dependencies with:\nuv sync --all-groups\nThe next section is about code quality in your package.",
+    "text": "Required, Optional and Dev dependencies\nWhen working with dependencies, it’s useful to differentiate between three main types: required, optional, and development dependencies. Each serves a different purpose in your package.\n\nRequired\nRequired dependencies are the ones we’ve been discussing so far - packages that your code absolutely needs to function properly. These go in the dependencies list in your pyproject.toml.\n\n\npyproject.toml\n\n[project]\ndependencies = [\n    \"numpy&gt;=2.1.0\",\n    \"pandas&gt;=2.0.0\",\n]\n\n\n\nOptional dependencies\nOptional dependencies are packages that enhance your code but aren’t strictly necessary for core functionality. For example, if your data processing package works with CSV files by default but can also handle Excel files with an additional dependency.\nYou can specify these in your pyproject.toml using the [project.optional-dependencies] section:\n\n\npyproject.toml\n\n[project.optional-dependencies]\nexcel = [\"openpyxl&gt;=3.1.0\"]\nplot = [\"matplotlib&gt;=3.7.0\", \"plotly&gt;=5.23.0\"]\n\nThis lets users install only what they need:\n\nmypackagemypackage[excel]mypackage[plot]mypackage[excel,plot]\n\n\nInstall your package required dependencies only:\nuv pip install mypackage\n\n\nInstall your package required dependencies as well openpyxl:\nuv pip install \"mypackage[excel]\"\n\n\nInstall your package required dependencies as well matplotlib and plotly:\nuv pip install \"mypackage[plot]\"\n\n\nInstall with all optional dependencies:\nuv pip install \"mypackage[excel,plot]\"\n\n\n\nIn your code, you’ll need to handle cases where optional dependencies aren’t installed:\ndef read_file(filename):\n    if filename.endswith('.csv'):\n        # Core functionality\n        import pandas as pd\n        return pd.read_csv(filename)\n    elif filename.endswith('.xlsx'):\n        try:\n            # Optional functionality\n            import openpyxl\n            import pandas as pd\n            return pd.read_excel(filename)\n        except ImportError:\n            raise ImportError(\n                \"Excel support requires 'openpyxl'. \"\n                \"Install with 'pip install mypackage[excel]'\"\n            )\n\n\n\n\n\n\nImportant\n\n\n\nIt is required here to place import inside the function, because otherwise a ModuleNotFoundError error will be generated on the user’s machine, even when importing a function without optional dependencies.\n\n\nThis will give your users a clear and meaningful error message that they can resolve very quickly. This kind of thing exist for the same reason we’re talking about in this article: trying to minimize the number of dependencies (especially the unused ones!).\nIn order to add package to your optional dependencies, you can run:\nuv add matplotlib --optional plot\nThis will add matplotlib to the plot section in the optional dependencies in your pyproject.toml.\n\nBeforeAfter\n\n\n\n\npyproject.toml\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = []\n\n\n\n\n\npyproject.toml\n\n[project]\nname = \"mypackage\"\nversion = \"0.1.0\"\ndescription = \"Add your description here\"\nreadme = \"README.md\"\nrequires-python = \"&gt;=3.13\"\ndependencies = []\n\n[project.optional-dependencies]\nplot = [\"matplotlib&gt;=3.7.0\"]\n\n\n\n\n\n\nDev dependencies\nDevelopment dependencies are packages you need only when developing your package, not when using it. These include testing frameworks, documentation generators, linters, and similar tools.\nSpecify these in your pyproject.toml like this:\n\n\npyproject.toml\n\n[project.optional-dependencies]\ndev = [\n    \"pytest&gt;=7.0.0\",\n    \"ruff&gt;=0.11.5\",\n    \"sphinx&gt;=7.0.0\",\n]\n\nIn order to add a package to your dev dependencies, you can run:\nuv add ruff --dev\nDevelopers working on your package can install all optional dependencies as well as dev dependencies with:\nuv sync --all-groups\nThe next section is about code quality in your package.",
     "crumbs": [
       "Create a package",
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Handling dependencies</span>"
@@ -347,11 +347,22 @@
     ]
   },
   {
+    "objectID": "blog/code-quality/writing-documentation.html#advanced-configuration",
+    "href": "blog/code-quality/writing-documentation.html#advanced-configuration",
+    "title": "5  Writing documentation",
+    "section": "Advanced configuration",
+    "text": "Advanced configuration\nFor a large projects, our mkdocs-material configuration file could look like this:\nsite_name: Name of your package\n\nnav:\n  - index.md                                   # main page of your website\n  - contributing.md                            # contributing guide\n  - Tutorials:                                 # tutorials\n      - tutorials/get_started.md\n      - tutorials/more_complex_usage.md\n  - Guides:                                    # guides blog post\n      - guide/first_guide.md\n      - guide/second_guide.md\n  - Reference:                                 # reference documentation\n      - reference/some_function.md\n      - reference/another_function.md\n\nplugins:\n  - mkdocstrings\nOur package would then have the following structure:\nmy_package/\n├── my_package/\n│   ├── __init__.py\n│   ├── my_module.py\n│   └── other_module.py\n├── docs/\n│   ├── index.md\n│   ├── contributing.md\n│   ├── reference/\n│   ├── guides/\n│   └── tutorials/\n├── .git/\n├── .venv/\n├── mkdocs.yaml\n├── .gitignore\n├── README.md\n├── LICENSE\n└── pyproject.toml\nThis is of course just a very simple example and can be very different.",
+    "crumbs": [
+      "Code quality",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
+    ]
+  },
+  {
     "objectID": "blog/code-quality/writing-documentation.html#advanced-customization",
     "href": "blog/code-quality/writing-documentation.html#advanced-customization",
     "title": "5  Writing documentation",
     "section": "Advanced customization",
-    "text": "Advanced customization\nmkdocs-material has a ton of super cool customization options, that you can often configure with just one line in your mkdocs.yaml file. It is recommended to browse the official website for this purpose.\nIf you are interested in a pre made configuration template, check out the Python package template.",
+    "text": "Advanced customization\nSo far, we’ve written some simple Markdown code, but you can change many other things: set a different theme, use pretty user interface elements, add code snippets, and so on.\nmkdocs-material has a ton of super cool customization options, that you can often configure with just one line in your mkdocs.yaml file. It is recommended to browse the official website for this purpose.\nIf you are interested in a pre made configuration template, check out the Python package template.",
     "crumbs": [
       "Code quality",
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Writing documentation</span>"
@@ -527,18 +538,7 @@
     "href": "blog/workflow/publish-to-pypi.html",
     "title": "10  Publish to PyPI",
     "section": "",
-    "text": "note\nThis page is a work in progress. You can see the current state of the project here.",
-    "crumbs": [
-      "Workflow",
-      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
-    ]
-  },
-  {
-    "objectID": "blog/workflow/publish-to-pypi.html#note",
-    "href": "blog/workflow/publish-to-pypi.html#note",
-    "title": "10  Publish to PyPI",
-    "section": "",
-    "text": "pyproject.toml to specify dependencies, python req, etc",
+    "text": "PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. This is where packages are stored so that others can find and install them.\nWhen you run:\nYou’re downloading the requests package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.",
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
@@ -548,62 +548,88 @@
     "objectID": "blog/workflow/publish-to-pypi.html#pypi-python-package-index",
     "href": "blog/workflow/publish-to-pypi.html#pypi-python-package-index",
     "title": "10  Publish to PyPI",
-    "section": "PyPI (Python Package Index)",
-    "text": "PyPI (Python Package Index)\nPyPI is the default online repository for Python packages. This is where packages are stored so that others can find and install them.\nWhen you run:\npip install requests\nYou’re downloading the requests package from PyPI. More specifically, you’re downloading the package’s distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.",
+    "section": "",
+    "text": "pip install requests",
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
     ]
   },
   {
-    "objectID": "blog/workflow/publish-to-pypi.html#pip-and-friends",
-    "href": "blog/workflow/publish-to-pypi.html#pip-and-friends",
+    "objectID": "blog/workflow/publish-to-pypi.html#you-dont-need-pypi",
+    "href": "blog/workflow/publish-to-pypi.html#you-dont-need-pypi",
     "title": "10  Publish to PyPI",
-    "section": "pip (and friends)",
-    "text": "pip (and friends)\npip is the tool used to install packages from PyPI. It’s simple and widely supported.\nExample:\npip install numpy\nBut when working with packages in Python, you need to take into account the package version. Maybe you need numpy 2.1.2 instead of 2.1.1 for your project.\nYou can read more about this in the handling dependencies article, but in summary, it’s important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.\nSome newer tools are built around pip to offer additional features such as dependency management and better performance.\nOne of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there’s a problem.\nSince 2024, the best tool available is called uv. It’s super easy to use, super fast and does everything you need, in one place, with one tool. It’s more of a Python project manager than a simple package installer.",
+    "section": "You don’t need PyPI",
+    "text": "You don’t need PyPI\nIf you’re here to learn how to publish a Python package to PyPI, you’re in the right place.\nBut it’s important that you become aware of the following facts:\n\nyou don’t need PyPI to allow anyone in the world to pip install your package\nadding your package to PyPI takes a namespace name forever (related and interesting blog post)\nit’s a bit complicated to upload your package the clean way\n\n\npip install without PyPI\nIf you’re package is on Github/Gitlab (it should) and is open source, then people can super easily install it with:\npip install git+https://github.com/github_username/repository_name.git\n\nProsCons\n\n\n\nNo extra work\nUpdates automatically when you push changes\n\n\n\n\nManaging dependencies is harder (for users)\nYou don’t have a clean pip install package_name\n\n\n\n\nThe main reason behind using PyPI is that it simplifies a lot package versionning (installing a specific version of a package) and you’re sure of what you’re getting, while a Github repo might just disappear one day.\nIf your project is just a toy project, with no clear versionning of and actual maintenance, you probably shouldn’t put it on PyPI.",
     "crumbs": [
       "Workflow",
       "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
     ]
   },
   {
-    "objectID": "blog/bonus/index.html",
-    "href": "blog/bonus/index.html",
-    "title": "11  Bonus",
+    "objectID": "blog/workflow/publish-to-pypi.html#before-distributing",
+    "href": "blog/workflow/publish-to-pypi.html#before-distributing",
+    "title": "10  Publish to PyPI",
+    "section": "Before distributing",
+    "text": "Before distributing\nBefore putting your package on PyPI, we need to make sure it checks all the valid boxes.\n\nDependencies\n\n\n\n\n\n\nNote\n\n\n\nIf you haven’t already, check out the handling dependencies blog post, which is an important pre-requisite.\n\n\nEverything that is inside your pyproject.toml defines what will be used for your package once on PyPI. Fields like name or author will be displayed on the PyPI page (example of the PyPI page of scikit-learn).\nBut more importantly, the dependencies and Python version required will be used from this file. If you don’t know if things are missing/invalid from your pyproject.toml, check out the official guide.\n\n\nSecurity\nWhen distributing your package, security is critical. Since an installed package can execute arbitrary code, everything that we decide to put on PyPI should be clear.\nRules to follow absolutely:\n\nKeep source in sync: The code on PyPI should match the code on GitHub (or any other public repo). Users trust that what they download is the same as what’s publicly visible. Avoid “hidden” changes that only exist in the PyPI release.\nStrong authentication: Use a strong, unique password for your PyPI account and enable two-factor authentication (2FA). PyPI now requires 2FA for maintainers of critical projects, and it’s a good habit for all packages. Avoid relying on “trusted publisher” features until you fully understand them.",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
+    ]
+  },
+  {
+    "objectID": "blog/workflow/publish-to-pypi.html#distributing-to-pypi",
+    "href": "blog/workflow/publish-to-pypi.html#distributing-to-pypi",
+    "title": "10  Publish to PyPI",
+    "section": "Distributing to PyPI",
+    "text": "Distributing to PyPI\nDistributing to PyPI means multiple things:\n\nbuilding your package\nuploading that build to PyPI servers\n\n\nBuild\nWhen we talk about building a package, we mean taking your source code and metadata (from pyproject.toml, README.md, etc.) and transforming them into distribution artifacts.\nThere are two main types of distributions:\n\nSource distribution (sdist) → a tarball (.tar.gz) containing your source code.\nBuilt distribution (wheel) → a pre-built archive (.whl) that can be installed faster because it doesn’t require building on the user’s machine.\n\nHaving a proper build step matters because:\n\nit ensures reproducibility (everyone installing your package gets the same artifact)\nit avoids shipping incomplete or broken files\nit decouples packaging from distribution (you can build once and upload anywhere)\n\nIn practice, we don’t want to build the package manually, and for this we’ll use trust publishing.\n\n\nPublishing\nOnce you have your built artifacts, the next step is uploading them to PyPI. Historically (and probably still a lot today), this has been done with twine:\ntwine upload dist/*\nThis is still valid, but it requires you to handle credentials (API tokens) locally.\nThe modern, recommended approach is to use trusted publishing — where PyPI integrates directly with GitHub Actions, GitLab CI, or other CI/CD providers. This way, you don’t store secrets at all, and only builds coming from your repository can publish under your package name.\nHere we’ll use Github Actions (check out the dedicated blog post), and in particular the following script:\n# This is taken from\n# https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/#the-whole-ci-cd-workflow\n# but with the following differences\n# - removed the TestPyPI part\n# - instead of `on: push`, we have `tags` in there too\n\nname: Publish Python 🐍 distribution 📦 to PyPI\n\non:\n  push:\n    tags:\n      - \"v[0-9]+.[0-9]+.[0-9]+*\"\n\njobs:\n  build:\n    name: Build distribution 📦\n    runs-on: ubuntu-latest\n\n    steps:\n      - uses: actions/checkout@v4\n        with:\n          persist-credentials: false\n      - name: Set up Python\n        uses: actions/setup-python@v5\n        with:\n          python-version: \"3.x\"\n      - name: Install pypa/build\n        run: python3 -m pip install build --user\n      - name: Build a binary wheel and a source tarball\n        run: python3 -m build\n      - name: Store the distribution packages\n        uses: actions/upload-artifact@v4\n        with:\n          name: python-package-distributions\n          path: dist/\n\n  publish-to-pypi:\n    name: &gt;-\n      Publish Python 🐍 distribution 📦 to PyPI\n    if: startsWith(github.ref, 'refs/tags/') # only publish to PyPI on tag pushes\n    needs:\n      - build\n    runs-on: ubuntu-latest\n    environment:\n      name: pypi\n      url: https://pypi.org/p/pytest-cov\n    permissions:\n      id-token: write # IMPORTANT: mandatory for trusted publishing\n\n    steps:\n      - name: Download all the dists\n        uses: actions/download-artifact@v4\n        with:\n          name: python-package-distributions\n          path: dist/\n      - name: Publish distribution 📦 to PyPI\n        uses: pypa/gh-action-pypi-publish@release/v1\n\n  github-release:\n    name: &gt;-\n      Sign the Python 🐍 distribution 📦 with Sigstore\n      and upload them to GitHub Release\n    needs:\n      - publish-to-pypi\n    runs-on: ubuntu-latest\n    permissions:\n      contents: write # IMPORTANT: mandatory for making GitHub Releases\n      id-token: write # IMPORTANT: mandatory for sigstore\n    steps:\n      - name: Download all the dists\n        uses: actions/download-artifact@v4\n        with:\n          name: python-package-distributions\n          path: dist/\n      - name: Sign the dists with Sigstore\n        uses: sigstore/gh-action-sigstore-python@v3.0.0\n        with:\n          inputs: &gt;-\n            ./dist/*.tar.gz\n            ./dist/*.whl\n      - name: Create GitHub Release\n        env:\n          GITHUB_TOKEN: ${{ github.token }}\n        run: &gt;-\n          gh release create\n          \"$GITHUB_REF_NAME\"\n          --repo \"$GITHUB_REPOSITORY\"\n          --notes \"\"\n      - name: Upload artifact signatures to GitHub Release\n        env:\n          GITHUB_TOKEN: ${{ github.token }}\n        # Upload to GitHub Release using the `gh` CLI.\n        # `dist/` contains the built packages, and the\n        # sigstore-produced signatures and certificates.\n        run: &gt;-\n          gh release upload\n          \"$GITHUB_REF_NAME\" dist/**\n          --repo \"$GITHUB_REPOSITORY\"\nWhat happens in the workflow? Once a tag is pushed:\n\nBuild job: GitHub Actions checks out your repo, installs build, and creates both the wheel (.whl) and the source distribution (.tar.gz).\nPublish job: Those artifacts are uploaded directly to PyPI using trusted publishing (no API tokens needed).\nGitHub Release job: The distributions are signed with Sigstore and attached to a GitHub Release, so users can download the same artifacts outside PyPI if they prefer.\n\n\n\n\n\n\n\nImportant\n\n\n\nFor the above script to work, you first need to add a publisher in PyPI, and this for each package you have.\n\n\nThe best way to use the GitHub Actions workflow above is to pair it with a small release script like this:\n#!/bin/bash\n\n# Usage: ./release.sh 1.2.3\n# Assumes version is set in pyproject.toml or setup.cfg\n\nset -e\n\nVERSION=$1\n\nif [[ -z \"$VERSION\" ]]; then\n  echo \"❌ Error: No version number supplied.\"\n  echo \"👉 Usage: ./release.sh 1.2.3\"\n  exit 1\nfi\n\nTAG=\"v$VERSION\"\n\n# Confirm version bump is in code\necho \"📦 Preparing release: $TAG\"\ngrep \"$VERSION\" pyproject.toml || {\n  echo \"❌ Version $VERSION not found in pyproject.toml. Did you forget to bump it?\"\n  exit 1\n}\n\n# Commit the version bump\ngit add -A\ngit commit -m \"Release $TAG\"\n\n# Create tag\ngit tag \"$TAG\"\n\n# Push commit and tag\ngit push origin main\ngit push origin \"$TAG\"\n\necho \"✅ Release $TAG pushed! GitHub Actions will handle the rest.\"\nSave this script as release.sh (for example), make it executable (chmod +x release.sh), and keep it at the root of your repository.\n\n\nHow to use it\n\nBump the version in pyproject.toml.\nRun:\n./release.sh 1.2.3\nThe script will:\n\ncheck the version string exists in pyproject.toml\ncommit the change\ntag it as v1.2.3\npush both the commit and the tag\n\n\nThis way:\n\nyou don’t need to manually run python -m build or twine upload\nyou don’t need to manage PyPI tokens or secrets\nreleases are reproducible and cryptographically signed\nthe release process becomes a single command:\n\n./release.sh 1.2.3",
+    "crumbs": [
+      "Workflow",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Publish to PyPI</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/miscellaneous.html",
+    "href": "blog/bonus/miscellaneous.html",
+    "title": "11  Miscellaneous",
     "section": "",
     "text": "How to name your package\nYes, creating a good Python package name is both an art and a bit of a science. There are constraints you should follow, and some best practices that can help your package stand out and be easy to use.",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Bonus</span>"
+      "Bonus",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Miscellaneous</span>"
     ]
   },
   {
-    "objectID": "blog/bonus/index.html#how-to-name-your-package",
-    "href": "blog/bonus/index.html#how-to-name-your-package",
-    "title": "11  Bonus",
+    "objectID": "blog/bonus/miscellaneous.html#how-to-name-your-package",
+    "href": "blog/bonus/miscellaneous.html#how-to-name-your-package",
+    "title": "11  Miscellaneous",
     "section": "",
     "text": "Constraints\n\nLowercase only: Package names should be all lowercase.\nNo special characters or spaces: Use only letters, numbers, and underscores or dashes (a-z, 0-9, _, -).\nCan’t conflict with standard library modules: Avoid names like json, os, email, etc.\nMust be unique on PyPI: Check if the name is available: https://pypi.org/\nMax length: There’s no strict limit, but practical limits (about 50 characters) make sense.\nUnderscores vs Dashes:\n\nUse dashes (-) in the distribution name (setup.py or pyproject.toml).\nUse underscores (_) or no separator at all in importable module names.\n\n\n\n\nBest Practices\n\nShort & memorable: Easier for users to type and remember.\nDescriptive but concise: Reflect what the package does.\n\nGood: requests, black, httpx\nBad: jdhfhc, my_cool_package, python_toolkit_2023_version_final\n\nAvoid generic terms unless paired cleverly: data, utils, tools, etc.\nAvoid abbreviations unless well-known.\nCheck for conflicts: Google the name and check on GitHub too, not just PyPI.\nConsider branding: If it becomes popular, the name matters.",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Bonus</span>"
+      "Bonus",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Miscellaneous</span>"
     ]
   },
   {
-    "objectID": "blog/bonus/index.html#how-to-name-files",
-    "href": "blog/bonus/index.html#how-to-name-files",
-    "title": "11  Bonus",
+    "objectID": "blog/bonus/miscellaneous.html#how-to-name-files",
+    "href": "blog/bonus/miscellaneous.html#how-to-name-files",
+    "title": "11  Miscellaneous",
     "section": "How to name files",
     "text": "How to name files\nHaving good filenames is mostly useful for having a clear and consistent project architecture. There are some best practices to follow:\n\nuse lowercase only\navoid spaces and odd characters\nkeep it short\nuse underscores “_”\n\n\nBad file namesGood file names\n\n\nmy file.py\nMyfile.py\nmyFile.py\nmy@file.py\nmy-file.py\nthis-file-does-this-and-that.py\n\n\nmy_file.py\nmyfile.py",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Bonus</span>"
+      "Bonus",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Miscellaneous</span>"
     ]
   },
   {
-    "objectID": "blog/bonus/index.html#what-is-the-__all__-variable",
-    "href": "blog/bonus/index.html#what-is-the-__all__-variable",
-    "title": "11  Bonus",
+    "objectID": "blog/bonus/miscellaneous.html#what-is-the-__all__-variable",
+    "href": "blog/bonus/miscellaneous.html#what-is-the-__all__-variable",
+    "title": "11  Miscellaneous",
     "section": "What is the __all__ variable",
     "text": "What is the __all__ variable\nThe __all__ variable in Python lives in the __init__.py file and is used to control what gets imported when someone uses from my_package import *. It should be defined at the module level as a list of strings, where each string is the name of a symbol—like a function, class, or variable—that you want to make publicly available.\nIf __all__ is present, only those names listed will be imported during wildcard imports. If it’s not defined, Python will import all names that don’t start with an underscore by default.\nFor example, consider a file called my_module.py:\n\n\nmy_package/my_module.py\n\ndef cool_function():\n    return \"This is public\"\n\nclass CoolClass:\n    pass\n\nAnd our __init__.py file:\n\n\nmy_package/__init__.py\n\nfrom .my_module import cool_function, CoolClass\n\n__all__ = [\"cool_function\"]\n\nNow if a user does from my_package import *, only cool_function will be available. Attempting to use CoolClass will raise a NameError.\nIt’s also important to have in mind that, most of the time, it’s highly discouraged to use from my_package import * as it does not explicit what is actually imported. Interestingly, it’s even not allowed in marimo notebooks.",
     "crumbs": [
-      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Bonus</span>"
+      "Bonus",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>Miscellaneous</span>"
     ]
   },
   {

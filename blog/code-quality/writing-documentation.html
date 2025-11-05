@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -74,10 +74,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-d58359eb3ecc31d3bec1ed479c2cbb3a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-0dd2bd5de344125cf763a379ddc3eb04.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -249,12 +249,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../../blog/bonus/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bonus</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../blog/bonus/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bonus</span></span></a>
+  <a href="../../blog/bonus/miscellaneous.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Miscellaneous</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../blog/bonus/makefile.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Makefile</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../python-package-template.html" class="sidebar-item-text sidebar-link">
@@ -289,6 +306,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#docstrings" id="toc-docstrings" class="nav-link" data-scroll-target="#docstrings">Docstrings</a></li>
   <li><a href="#adding-reference-documentation-in-mkdocs-material" id="toc-adding-reference-documentation-in-mkdocs-material" class="nav-link" data-scroll-target="#adding-reference-documentation-in-mkdocs-material">Adding reference documentation in <code>mkdocs-material</code></a></li>
   </ul></li>
+  <li><a href="#advanced-configuration" id="toc-advanced-configuration" class="nav-link" data-scroll-target="#advanced-configuration">Advanced configuration</a></li>
   <li><a href="#advanced-customization" id="toc-advanced-customization" class="nav-link" data-scroll-target="#advanced-customization">Advanced customization</a></li>
   <li><a href="#how-to-deploy-the-website" id="toc-how-to-deploy-the-website" class="nav-link" data-scroll-target="#how-to-deploy-the-website">How to deploy the website</a></li>
   </ul>
@@ -490,8 +508,50 @@ Caution
 </div>
 </section>
 </section>
+<section id="advanced-configuration" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-configuration">Advanced configuration</h2>
+<p>For a large projects, our <code>mkdocs-material</code> configuration file could look like this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">site_name</span><span class="kw">:</span><span class="at"> Name of your package</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nav</span><span class="kw">:</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> index.md</span><span class="co">                                   # main page of your website</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> contributing.md</span><span class="co">                            # contributing guide</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">Tutorials</span><span class="kw">:</span><span class="co">                                 # tutorials</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tutorials/get_started.md</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> tutorials/more_complex_usage.md</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">Guides</span><span class="kw">:</span><span class="co">                                    # guides blog post</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> guide/first_guide.md</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> guide/second_guide.md</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">Reference</span><span class="kw">:</span><span class="co">                                 # reference documentation</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> reference/some_function.md</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="kw">-</span><span class="at"> reference/another_function.md</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">plugins</span><span class="kw">:</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> mkdocstrings</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Our package would then have the following structure:</p>
+<pre><code>my_package/
+├── my_package/
+│   ├── __init__.py
+│   ├── my_module.py
+│   └── other_module.py
+├── docs/
+│   ├── index.md
+│   ├── contributing.md
+│   ├── reference/
+│   ├── guides/
+│   └── tutorials/
+├── .git/
+├── .venv/
+├── mkdocs.yaml
+├── .gitignore
+├── README.md
+├── LICENSE
+└── pyproject.toml</code></pre>
+<p>This is of course just a very simple example and can be very different.</p>
+</section>
 <section id="advanced-customization" class="level2">
 <h2 class="anchored" data-anchor-id="advanced-customization">Advanced customization</h2>
+<p>So far, we’ve written some simple Markdown code, but you can change many other things: set a different theme, use pretty user interface elements, add code snippets, and so on.</p>
 <p><code>mkdocs-material</code> has a ton of super cool customization options, that you can often configure with just one line in your <code>mkdocs.yaml</code> file. It is recommended to browse the <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank">official website</a> for this purpose.</p>
 <p>If you are interested in a pre made configuration template, check out the <a href="../../python-package-template.html">Python package template</a>.</p>
 </section>
