@@ -4,3 +4,4 @@ _book/
 /.quarto/
 docs/
 .venv/
+**/*.quarto_ipynb

@@ -193,7 +193,58 @@ We do not have to rewrite the name of the arguments and so on thanks to this. Th
 Reference documentation is a very important part of documentation, but it is not exhaustive. It is important that you also add tutorials, guides, and explanations, as suggested in the [Diátaxis framework](https://diataxis.fr/){target="_blank"}. You can place them in their own directories to allow users to easily navigate your website.
 :::
 
+## Advanced configuration
+
+For a large projects, our `mkdocs-material` configuration file could look like this:
+
+```yaml
+site_name: Name of your package
+
+nav:
+  - index.md                                   # main page of your website
+  - contributing.md                            # contributing guide
+  - Tutorials:                                 # tutorials
+      - tutorials/get_started.md
+      - tutorials/more_complex_usage.md
+  - Guides:                                    # guides blog post
+      - guide/first_guide.md
+      - guide/second_guide.md
+  - Reference:                                 # reference documentation
+      - reference/some_function.md
+      - reference/another_function.md
+
+plugins:
+  - mkdocstrings
+```
+
+Our package would then have the following structure:
+
+```
+my_package/
+├── my_package/
+│   ├── __init__.py
+│   ├── my_module.py
+│   └── other_module.py
+├── docs/
+│   ├── index.md
+│   ├── contributing.md
+│   ├── reference/
+│   ├── guides/
+│   └── tutorials/
+├── .git/
+├── .venv/
+├── mkdocs.yaml
+├── .gitignore
+├── README.md
+├── LICENSE
+└── pyproject.toml
+```
+
+This is of course just a very simple example and can be very different.
+
 ## Advanced customization
+
+So far, we've written some simple Markdown code, but you can change many other things: set a different theme, use pretty user interface elements, add code snippets, and so on.
 
 `mkdocs-material` has a ton of super cool customization options, that you can often configure with just one line in your `mkdocs.yaml` file. It is recommended to browse the [official website](https://squidfunk.github.io/mkdocs-material/){target="_blank"} for this purpose.
 

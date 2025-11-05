@@ -2,19 +2,6 @@
 title: "Publish to PyPI"
 ---
 
-This page is a work in progress. You can see the current state of the project [here](https://github.com/y-sunflower/python-packaging-essentials).
-
-
-<br>
-<br>
-<br>
-<br>
-<br>
-
-## note
-
-- pyproject.toml to specify dependencies, python req, etc
-
 ## PyPI (Python Package Index)
 
 [PyPI](https://pypi.org) is the default online repository for Python packages. This is where packages are stored so that others can find and install them.
@@ -25,25 +12,284 @@ When you run:
 pip install requests
 ```
 
-You’re downloading the `requests` package from PyPI. More specifically, you’re downloading the package's distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.
+You're downloading the `requests` package from PyPI. More specifically, you're downloading the package's distribution (which might be source code or precompiled binaries) to your local machine from PyPI servers.
 
 
-## pip (and friends)
+## You don't need PyPI
 
-`pip` is the tool used to install packages from PyPI. It’s simple and widely supported.
+If you're here to learn how to publish a Python package to PyPI, **you're in the right place**.
 
-Example:
+But it's important that you become aware of the following facts:
+
+- you don't need PyPI to allow anyone in the world to `pip install` your package
+- adding your package to PyPI takes a namespace name forever ([related and interesting blog post](https://koaning.io/posts/uvx-pattern-for-two-tiers-of-open-work/))
+- it's a bit complicated to upload your package the clean way
+
+### `pip install` without PyPI
+
+If you're package is on Github/Gitlab (it should) and is open source, then people can super easily install it with:
 
 ```bash
-pip install numpy
+pip install git+https://github.com/github_username/repository_name.git
 ```
 
-But when working with packages in Python, you need to take into account the package version. Maybe you need `numpy` `2.1.2` instead of `2.1.1` for your project.
+::: {.panel-tabset}
 
-You can read more about this in the [handling dependencies article](./handling-dependencies.html), but in summary, it's important to control the version of the packages you use/distribute, to ensure reproducible workflows and avoid unexpected things.
+### Pros
 
-Some newer tools are built around `pip` to offer additional features such as **dependency management** and **better performance**.
+- No extra work
+- Updates automatically when you push changes
 
-One of the most important things these tools do is called dependency resolution, which involves calculating which versions of each package are compatible with each other based on version constraints. For example, you might be using a version of numpy that is incompatible (for whatever reason) with matplotlib, and since matplotlib relies on numpy, there's a problem.
+### Cons
 
-Since 2024, the best tool available is called [uv](https://docs.astral.sh/uv/). It's super easy to use, super fast and does everything you need, in one place, with one tool. It's more of a Python project manager than a simple package installer.
+- Managing dependencies is harder (for users)
+- You don't have a clean `pip install package_name`
+
+:::
+
+The main reason behind using PyPI is that it simplifies a lot package versionning (installing a specific version of a package) and you're sure of what you're getting, while a Github repo might just disappear one day.
+
+If your project is just a toy project, with no clear versionning of and actual maintenance, you probably shouldn't put it on PyPI.
+
+## Before distributing
+
+Before putting your package on PyPI, we need to make sure it checks all the valid boxes.
+
+### Dependencies
+
+:::{.callout-note}
+If you haven't already, check out the [handling dependencies blog post](../create-a-package/handling-dependencies.html), which is an important pre-requisite.
+:::
+
+Everything that is inside your `pyproject.toml` defines what will be used for your package once on PyPI. Fields like `name` or `author` will be displayed on the PyPI page (example of the [PyPI page of scikit-learn](https://api.slack.com/apps/A09FFHZP4FL)).
+
+But more importantly, the dependencies and Python version required will be used from this file. If you don't know if things are missing/invalid from your `pyproject.toml`, check out [the official guide](https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#writing-pyproject-toml).
+
+### Security
+
+When distributing your package, security is critical. Since an installed package can execute arbitrary code, everything that we decide to put on PyPI should be clear.
+
+Rules to follow absolutely:
+
+- Keep source in sync: The code on PyPI should match the code on GitHub (or any other public repo). Users trust that what they download is the same as what's publicly visible. Avoid "hidden" changes that only exist in the PyPI release.
+- Strong authentication: Use a strong, unique password for your PyPI account and enable two-factor authentication (2FA). PyPI now requires 2FA for maintainers of critical projects, and it's a good habit for all packages. Avoid relying on "trusted publisher" features until you fully understand them.
+
+## Distributing to PyPI
+
+Distributing to PyPI means multiple things:
+
+- building your package
+- uploading that build to PyPI servers
+
+### Build
+
+When we talk about *building a package*, we mean taking your source code and metadata (from `pyproject.toml`, `README.md`, etc.) and transforming them into **distribution artifacts**.
+
+There are two main types of distributions:
+
+* **Source distribution (`sdist`)** → a tarball (`.tar.gz`) containing your source code.
+* **Built distribution (`wheel`)** → a pre-built archive (`.whl`) that can be installed faster because it doesn't require building on the user's machine.
+
+Having a proper build step matters because:
+
+* it ensures reproducibility (everyone installing your package gets the same artifact)
+* it avoids shipping incomplete or broken files
+* it decouples packaging from distribution (you can build once and upload anywhere)
+
+In practice, we don't want to build the package manually, and for this we'll use **trust publishing**.
+
+### Publishing
+
+Once you have your built artifacts, the next step is uploading them to PyPI. Historically (and probably still a lot today), this has been done with [twine](https://pypi.org/project/twine/):
+
+```bash
+twine upload dist/*
+```
+
+This is still valid, but it requires you to handle credentials (API tokens) locally.
+
+The modern, recommended approach is to use **trusted publishing** — where PyPI integrates directly with GitHub Actions, GitLab CI, or other CI/CD providers. This way, you don't store secrets at all, and only builds coming from your repository can publish under your package name.
+
+Here we'll use Github Actions (check out the [dedicated blog post](../workflow/github-actions.html)), and in particular the following script:
+
+```yaml
+# This is taken from
+# https://packaging.python.org/en/latest/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/#the-whole-ci-cd-workflow
+# but with the following differences
+# - removed the TestPyPI part
+# - instead of `on: push`, we have `tags` in there too
+
+name: Publish Python 🐍 distribution 📦 to PyPI
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+jobs:
+  build:
+    name: Build distribution 📦
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Install pypa/build
+        run: python3 -m pip install build --user
+      - name: Build a binary wheel and a source tarball
+        run: python3 -m build
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+
+  publish-to-pypi:
+    name: >-
+      Publish Python 🐍 distribution 📦 to PyPI
+    if: startsWith(github.ref, 'refs/tags/') # only publish to PyPI on tag pushes
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/pytest-cov
+    permissions:
+      id-token: write # IMPORTANT: mandatory for trusted publishing
+
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distribution 📦 to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+
+  github-release:
+    name: >-
+      Sign the Python 🐍 distribution 📦 with Sigstore
+      and upload them to GitHub Release
+    needs:
+      - publish-to-pypi
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # IMPORTANT: mandatory for making GitHub Releases
+      id-token: write # IMPORTANT: mandatory for sigstore
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Sign the dists with Sigstore
+        uses: sigstore/gh-action-sigstore-python@v3.0.0
+        with:
+          inputs: >-
+            ./dist/*.tar.gz
+            ./dist/*.whl
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create
+          "$GITHUB_REF_NAME"
+          --repo "$GITHUB_REPOSITORY"
+          --notes ""
+      - name: Upload artifact signatures to GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        # Upload to GitHub Release using the `gh` CLI.
+        # `dist/` contains the built packages, and the
+        # sigstore-produced signatures and certificates.
+        run: >-
+          gh release upload
+          "$GITHUB_REF_NAME" dist/**
+          --repo "$GITHUB_REPOSITORY"
+```
+
+What happens in the workflow? Once a [tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) is pushed:
+
+* **Build job**: GitHub Actions checks out your repo, installs `build`, and creates both the wheel (`.whl`) and the source distribution (`.tar.gz`).
+* **Publish job**: Those artifacts are uploaded directly to PyPI using trusted publishing (no API tokens needed).
+* **GitHub Release job**: The distributions are signed with [Sigstore](https://www.sigstore.dev/) and attached to a GitHub Release, so users can download the same artifacts outside PyPI if they prefer.
+
+:::{.callout-important}
+For the above script to work, you first need to [add a publisher in PyPI](https://docs.pypi.org/trusted-publishers/adding-a-publisher/), and this for each package you have.
+:::
+
+The best way to use the GitHub Actions workflow above is to pair it with a small release script like this:
+
+```bash
+#!/bin/bash
+
+# Usage: ./release.sh 1.2.3
+# Assumes version is set in pyproject.toml or setup.cfg
+
+set -e
+
+VERSION=$1
+
+if [[ -z "$VERSION" ]]; then
+  echo "❌ Error: No version number supplied."
+  echo "👉 Usage: ./release.sh 1.2.3"
+  exit 1
+fi
+
+TAG="v$VERSION"
+
+# Confirm version bump is in code
+echo "📦 Preparing release: $TAG"
+grep "$VERSION" pyproject.toml || {
+  echo "❌ Version $VERSION not found in pyproject.toml. Did you forget to bump it?"
+  exit 1
+}
+
+# Commit the version bump
+git add -A
+git commit -m "Release $TAG"
+
+# Create tag
+git tag "$TAG"
+
+# Push commit and tag
+git push origin main
+git push origin "$TAG"
+
+echo "✅ Release $TAG pushed! GitHub Actions will handle the rest."
+```
+
+Save this script as `release.sh` (for example), make it executable (`chmod +x release.sh`), and keep it at the root of your repository.
+
+### How to use it
+
+1. Bump the version in `pyproject.toml`.
+
+2. Run:
+
+   ```bash
+   ./release.sh 1.2.3
+   ```
+
+3. The script will:
+
+   * check the version string exists in `pyproject.toml`
+   * commit the change
+   * tag it as `v1.2.3`
+   * push both the commit and the tag
+
+This way:
+
+* you don’t need to manually run `python -m build` or `twine upload`
+* you don’t need to manage PyPI tokens or secrets
+* releases are reproducible and cryptographically signed
+* the release process becomes a single command:
+
+```bash
+./release.sh 1.2.3
+```
