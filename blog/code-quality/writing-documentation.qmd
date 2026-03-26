@@ -68,7 +68,7 @@ This is the homepage of my **super cool** package.
 Before deploying our website (making it actually visible to other people over the internet), we want to preview it. This just means serving a local server that shows how it will look on other people's browsers. For this, we run:
 
 ```bash
-uv run mkdocs preview
+uv run mkdocs serve
 ```
 
 Then, it should display something like this:
