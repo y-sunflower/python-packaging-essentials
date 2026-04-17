@@ -112,12 +112,16 @@ Here we define the main function of our package.
 ### `__init__.py`
 
 ```{.python filename="package_name/__init__.py"}
-from .my_module import say_hello
+from my_package.my_module import say_hello
 
 __all__ = ["say_hello"]
 ```
 
 Without the `__init__.py` file, we wouldn't be able to use `from my_package import say_hello` and would have to use `from my_package.my_module import say_hello`, which isn't the best syntax (but sometimes it can be!).
+:::
+
+::: {.callout-note}
+What is [`__all__` variable?](/blog/bonus/miscellaneous.html#what-is-the-__all__-variable)
 :::
 
 ## Use our package

@@ -27,31 +27,32 @@ But to give you some concrete and useful advice, here are a few key habits that 
 - Try to have a narrative: what is your key point? What concept are you trying to explain? Can't we make it simpler?
 - Don't focus too much on the "how" (the underlying workings of your package), but rather on the "why" (the concrete problem it solves).
 
-## Building a website with `mkdocs material`
+## Building a website with `zensical`
 
-The very first thing is, your package **needs** a website. Nobody on earth will browse the source code of your project to understand how to use it. Fortunately for us, you need almost zero web development skills to create a documentation website, thanks to tools like [mkdocs](https://www.mkdocs.org/){target="_blank"} or [sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}.
+The very first thing is, your package **needs** a website. Nobody on earth will browse the source code of your project to understand how to use it. Fortunately for us, you need almost zero web development skills to create a documentation website, thanks to tools like [zensical](https://www.zensical.org/){target="_blank"} or [sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}.
 
-Here we will use [mkdocs material](https://squidfunk.github.io/mkdocs-material/){target="_blank"}, which is a super charged version of [mkdocs](https://www.mkdocs.org/){target="_blank"}. It allows writing markdown and generating a super clean static[^1] website.
+Here we will use [zensical](https://www.zensical.org/){target="_blank"}, which is a rewrite of [mkdocs material](https://squidfunk.github.io/mkdocs-material/){target="_blank"}. It allows writing markdown and generating a super clean static[^1] website.
 
 :::{.callout-note}
-Please note that we **don't have to** use `mkdocs material` over another documentation framework. Other amazing options such as [sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}, [pdoc](https://pdoc.dev/){target="_blank"} or [quartodoc](https://github.com/machow/quartodoc){target="_blank"} (among others) exist.
+Please note that we **don't have to** use `zensical` over another documentation framework. Other amazing options such as [sphinx](https://www.sphinx-doc.org/en/master/){target="_blank"}, [pdoc](https://pdoc.dev/){target="_blank"} or [great-docs](https://github.com/posit-dev/great-docs){target="_blank"} (among others) exist.
 :::
 
-### Configuration of `mkdocs material`
+### Configuration of `zensical`
 
-- First, we install `mkdocs material` with:
+- First, we install `zensical` with:
 
 ```bash
-uv add --dev mkdocs-material
+uv add --dev zensical
 ```
 
 ::: {.callout-note}
 The `--dev` flag tells uv to add this dependency to the "dev" dependencies (only required for package developers, not users). For more information on this topic, see the blog post [on handling dependencies](../create-a-package/handling-dependencies.html).
 :::
 
-* Then, we create a `mkdocs.yaml` file at the root of the project. The most basic content of it should be:
+* Then, we create a `zensical.toml` file at the root of the project. The most basic content of it should be:
 
-```yaml
+```toml
+[project]
 site_name: Name of your package
 ```
 
@@ -65,43 +66,41 @@ This is the homepage of my **super cool** package.
 
 ## Preview our website
 
-Before deploying our website (making it actually visible to other people over the internet), we want to preview it. This just means serving a local server that shows how it will look on other people's browsers. For this, we run:
+Before deploying our website (making it actually visible to other people over the internet), we want to preview it to make sure it looks as expected. This just means serving a local server that shows how it will look on other people's browsers. For this, we run:
 
 ```bash
-uv run mkdocs serve
+uv run zensical serve
 ```
 
 Then, it should display something like this:
 
 ```
-INFO    -  Building documentation...
-INFO    -  Cleaning site directory
-INFO    -  Documentation built in 0.04 seconds
-INFO    -  [14:24:40] Watching paths for changes: 'docs', 'mkdocs.yml'
-INFO    -  [14:24:40] Serving on http://127.0.0.1:8000/
-INFO    -  [14:24:42] Browser connected: http://127.0.0.1:8000/
+Serving /Users/josephbarbier/l/my_package/docs on http://localhost:8000
+Build started
++ /
 ```
 
-Open the displayed url (here it is `http://127.0.0.1:8000/`) in your browser to preview the website.
+Open the displayed url (here it is `http://localhost:8000`) in your browser to preview the website.
 
 ## Multiple page website
 
 Right now, our website has a single main page. Even though we almost never need hundreds of pages, it makes sense to have many pages, especially to follow the [Diátaxis framework](https://diataxis.fr/){target="_blank"} mentioned before.
 
-For instance, let's configure our website to have 3 pages. We change our `mkdocs.yaml` file to this:
+For instance, let's configure our website to have 3 pages. We change our `zensical.toml` file to this:
 
-```yaml
+```toml
+[project]
 site_name: Name of your package
-
-nav:
-  - index.md
-  - examples.md
-  - about.md
+nav = [
+  { "Home" = "index.md" },
+  { "Examples" = "examples.md" },
+  { "About" = "about.md" },
+]
 ```
 
 We also need to add 2 new files (with any kind of markdown content inside): `docs/examples.md` and `docs/about.md`.
 
-`mkdocs-material` will automatically create a navigation bar that allows visitors to go to specific pages.
+`zensical` will automatically create a navigation bar that allows visitors to go to specific pages.
 
 ## Building reference documentation
 
@@ -109,7 +108,7 @@ For the moment, we saw how to make a website using plain markdown, but we have n
 
 Documentation is here to describe what source code does. But the code will inevitably **change over time**, and you want to make sure that documentation, especially "reference" documentation, is always up to date with that.
 
-Reference documentation is the documentation of all classes, functions, and arguments of your package. With `mkdocs-material` (and some plugins), we can **automatically** generate pages that will read our source code, collect all arguments, their types, and their docstrings (we will see what that is).
+Reference documentation is the documentation of all classes, functions, and arguments of your package. With `zensical` (and some plugins), we can **automatically** generate pages that will read our source code, collect all arguments, their types, and their docstrings (we will see what that is).
 
 That means every time we change our source code (Python files), our **documentation website changes accordingly**. This is amazing because we do not have to worry about updating this part of the documentation.
 
@@ -153,7 +152,7 @@ def count_sunflowers(s: str) -> int:
 
 Docstrings usually start with an overview of what the function does, and then with a description of the argument(s) and what it returns. It is also relevant to add example usages right after.
 
-### Adding reference documentation in `mkdocs-material`
+### Adding reference documentation in `zensical`
 
 In order to parse our source code, we need to install the `mkdocstrings-python` plugin with:
 
@@ -161,20 +160,20 @@ In order to parse our source code, we need to install the `mkdocstrings-python` 
 uv add --dev mkdocstrings-python
 ```
 
-Then, we create a `docs/reference/` directory and our `mkdocs.yaml` becomes:
+Then, we create a `docs/reference/` directory and our `zensical.toml` becomes:
 
-```yaml
+```toml
+[project]
 site_name: Name of your package
+nav = [
+  { "Home" = "index.md" },
+  { "Examples" = "examples.md" },
+  { "About" = "about.md" },
+  { "Reference" = ["reference/count_sunflowers.md"] },
+]
 
-nav:
-  - index.md
-  - example.md
-  - about.md
-  - Reference:
-      - reference/count_sunflowers.md
-
-plugins:
-  - mkdocstrings
+[project.plugins.mkdocstrings.handlers.python]
+inventories = ["https://docs.python.org/3/objects.inv"]
 ```
 
 Inside `docs/reference/count_sunflowers.md`, we put:
@@ -182,7 +181,7 @@ Inside `docs/reference/count_sunflowers.md`, we put:
 ```md
 ## Count sunflowers
 
-::: package_name.count_sunflowers
+::: my_package.count_sunflowers
 ```
 
 Then, when previewing our website, we can see that there is a reference section with the content of our previous docstring, super well formatted.
@@ -195,58 +194,100 @@ Reference documentation is a very important part of documentation, but it is not
 
 ## Advanced configuration
 
-For a large projects, our `mkdocs-material` configuration file could look like this:
+For a large projects, our `zensical` configuration file can be longer in order to add more features! For example the [`plotjs`]() doc configuration file:
 
 ```yaml
-site_name: Name of your package
+[project]
+site_name = "PlotJS"
+repo_url = "https://github.com/y-sunflower/plotjs"
+site_url = "https://y-sunflower.github.io/plotjs/"
+site_description = "Turn static matplotlib charts into interactive web visualizations"
+site_author = "Joseph Barbier"
+copyright = """
+Copyright &copy; 2026 Yellow Sunflower
+"""
+extra_css = ["stylesheets/style.css"]
+nav = [
+  { "Home" = "index.md" },
+  { "Gallery" = "gallery/index.md" },
+  { "Guides" = [
+    "guides/index.md",
+    "guides/css/index.md",
+    "guides/javascript/index.md",
+    "guides/embed-graphs/index.md",
+    "guides/troubleshooting/index.md",
+    "guides/advanced/index.md",
+  ] },
+  { "API Reference" = [
+    "reference/plotjs.md",
+    "reference/css.md",
+    "reference/javascript.md",
+    "reference/datasets.md",
+  ] },
+  { "For developers" = [
+    "developers/overview.md",
+    "developers/parsing-matplotlib-svg.md",
+    "developers/svg-parser-reference.md",
+    "developers/contributing.md",
+  ] },
+]
 
-nav:
-  - index.md                                   # main page of your website
-  - contributing.md                            # contributing guide
-  - Tutorials:                                 # tutorials
-      - tutorials/get_started.md
-      - tutorials/more_complex_usage.md
-  - Guides:                                    # guides blog post
-      - guide/first_guide.md
-      - guide/second_guide.md
-  - Reference:                                 # reference documentation
-      - reference/some_function.md
-      - reference/another_function.md
+[project.theme]
+language = "en"
+favicon = "images/favicon.png"
+custom_dir = "overrides"
+logo = "https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/plotjs/image.png?raw=true"
+features = [
+  "announce.dismiss",
+  "content.code.annotate",
+  "content.code.copy",
+  "content.code.select",
+  "content.footnote.tooltips",
+  "content.tooltips",
+  "navigation.footer",
+  "navigation.indexes",
+  "navigation.instant",
+  "navigation.instant.prefetch",
+  "navigation.path",
+  "navigation.tabs",
+  "navigation.sections",
+  "navigation.top",
+  "navigation.tracking",
+  "search.highlight",
+  "navigation.prune",
+]
 
-plugins:
-  - mkdocstrings
+[[project.theme.palette]]
+scheme = "default"
+toggle.icon = "lucide/sun"
+toggle.name = "Switch to dark mode"
+
+[[project.theme.palette]]
+scheme = "slate"
+toggle.icon = "lucide/moon"
+toggle.name = "Switch to light mode"
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+favicon = "https://github.com/JosephBARBIERDARNAL/static/blob/main/python-libs/plotjs/favicon.ico?raw=true"
+
+[project.plugins.mkdocstrings.handlers.python]
+inventories = ["https://docs.python.org/3/objects.inv"]
+paths = ["."]
+
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+inherited_members = true
+show_source = false
 ```
 
-Our package would then have the following structure:
-
-```
-my_package/
-├── my_package/
-│   ├── __init__.py
-│   ├── my_module.py
-│   └── other_module.py
-├── docs/
-│   ├── index.md
-│   ├── contributing.md
-│   ├── reference/
-│   ├── guides/
-│   └── tutorials/
-├── .git/
-├── .venv/
-├── mkdocs.yaml
-├── .gitignore
-├── README.md
-├── LICENSE
-└── pyproject.toml
-```
-
-This is of course just a very simple example and can be very different.
+You can learn more about Zensical features [here](https://zensical.org/docs/get-started/).
 
 ## Advanced customization
 
 So far, we've written some simple Markdown code, but you can change many other things: set a different theme, use pretty user interface elements, add code snippets, and so on.
 
-`mkdocs-material` has a ton of super cool customization options, that you can often configure with just one line in your `mkdocs.yaml` file. It is recommended to browse the [official website](https://squidfunk.github.io/mkdocs-material/){target="_blank"} for this purpose.
+`zensical` has a ton of super cool customization options, that you can often configure with just one line in your `zensical.toml` file. It is recommended to browse the [official website](https://squidfunk.github.io/zensical/){target="_blank"} for this purpose.
 
 If you are interested in a pre made configuration template, check out the [Python package template](../../python-package-template.html).
 
