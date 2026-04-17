@@ -1,0 +1,148 @@
+---
+title: "Type hinting"
+---
+
+This blog post explains what type hinting is in the context of Python package development, what it changes in practice, and how tools like [ty](https://docs.astral.sh/ty/){target="_blank"} help you and your users catch issues before runtime.
+
+## What is Python type hinting
+
+Type hinting means annotating function arguments, return values, and variables with expected types.
+
+```{.python filename="sunflower/my_module.py"}
+def count_sunflowers(text: str) -> int:
+    return text.lower().split().count("sunflower")
+```
+
+In this example:
+
+- `text: str` says the function expects a string for the `text` argument.
+- `-> int` says the function returns an integer.
+
+Type hints make your API easier to understand and document, especially when your package grows and other people contribute.
+
+## What type hints do in practice
+
+Type hints are mostly metadata unless you use external tools.
+
+According to the Python docs, runtime Python does not enforce annotations by default. That means:
+
+- Python will not automatically reject wrong argument types just because you added annotations.
+
+```python
+a: int = "a" # This does not raise an error
+```
+
+- Adding annotations does not make your code faster.
+- Type checking happens with **separate tools** called type checkers, not with the interpreter itself.
+
+So the value of type hints comes from static analysis, better editor support, and clearer package APIs.
+
+## What type checkers are
+
+A type checker reads your code and verifies that values flow through your program in ways that match the annotations.
+
+A modern option is [ty](https://docs.astral.sh/ty/){target="_blank"}, from Astral (the team behind `uv` and `ruff`).
+
+### Minimal usage
+
+From a project directory:
+
+```bash
+uvx ty check
+```
+
+Or if `ty` is installed in your environment:
+
+```bash
+ty check
+```
+
+Useful day-to-day commands:
+
+```bash
+ty check --watch
+```
+
+`ty` can also be configured in `pyproject.toml` under `[tool.ty]`.
+
+```{.toml filename="pyproject.toml"}
+[tool.ty.rules]
+all = "warn"
+possibly-unresolved-reference = "error"
+
+[tool.ty.terminal]
+error-on-warning = true
+```
+
+In package development, this usually becomes part of your quality workflow, just like tests and linters.
+
+When developing a package, you'll likely want to add it inside your code editor (VS Code, Vim, etc). This will make your life easier and catch type issues as soon as they arrive.
+
+## How to create custom types
+
+Custom types are useful when your package has domain concepts that should be explicit.
+
+### Type aliases (`type`)
+
+Great for readability when a shape is used repeatedly.
+
+```{.python}
+type UserRecord = dict[str, str | int]
+
+def format_user(user: UserRecord) -> str:
+    return f"{user['name']} ({user['id']})"
+```
+
+### `NewType`
+
+Useful when two values share the same runtime type but represent different concepts.
+
+```{.python}
+from typing import NewType
+
+UserId = NewType("UserId", int)
+OrderId = NewType("OrderId", int)
+
+def get_user(user_id: UserId) -> str:
+    return f"user-{user_id}"
+```
+
+A type checker can catch passing an `OrderId` where a `UserId` is expected.
+
+### `TypedDict`
+
+Useful when your package accepts structured dictionaries.
+
+```{.python}
+from typing import TypedDict
+
+class PackageMeta(TypedDict):
+    name: str
+    version: str
+
+
+def describe(meta: PackageMeta) -> str:
+    return f"{meta['name']}=={meta['version']}"
+```
+
+This documents required keys and helps catch missing or invalid fields.
+
+## Impact for users of your package
+
+Type hints improve the experience of users who run a type checker (`ty`, mypy, pyright, etc.) in their own projects.
+
+When your package is typed well:
+
+- users get earlier feedback in their editor/CI before runtime,
+- function signatures are clearer,
+- integration mistakes are caught sooner,
+- refactoring is safer on both your side and the user side.
+
+For package maintainers, this means fewer avoidable bug reports caused by obvious misuse, and better API contracts over time.
+
+<br><br>
+
+If you want to go deeper, the best references are:
+
+- Python typing docs: [typing — Support for type hints](https://docs.python.org/3/library/typing.html){target="_blank"}
+- Astral `ty` docs: [docs.astral.sh/ty](https://docs.astral.sh/ty/){target="_blank"}

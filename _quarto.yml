@@ -35,6 +35,7 @@ book:
       chapters:
         - blog/bonus/miscellaneous.qmd
         - blog/bonus/justfile.qmd
+        - blog/bonus/type-hinting.qmd
     - python-package-template.qmd
     - contributing.qmd
 
