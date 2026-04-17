@@ -83,6 +83,10 @@ Always ask yourself those questions before adding a new package to your dependen
 - does this dependency has lots of dependencies too? This might be a red flag 🚩
 - can't you just code what it does yourself? If you only need a single function, go check their source code on Github and see if it's easy to do on your side (and ensure their License allow you to copy the code too).
 
+::: {.callout-tip}
+You can quickly check what are the dependencies of a package with the [Python Dependency Explorer](https://y-sunflower.github.io/python-dependency-explorer/){target="_blank"}
+:::
+
 ## Controlling the versions
 
 What's the difference between `numpy` `2.1.0` and `numpy` `2.0.0`? Well, many things, but for example, in `numpy` `2.0.0`, the `np.unstack()` function doesn't exist as it's a new one from `numpy` `2.1.0`.
