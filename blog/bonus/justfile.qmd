@@ -1,0 +1,73 @@
+---
+title: "Just and justfile"
+---
+
+`just` is a command runner. A `justfile` is where you define reusable commands (called recipes) for your project.
+
+The main goal is simple: avoid remembering long terminal commands, and keep common development tasks in one place.
+
+## What problem it solves
+
+When working on a package, we run the same things again and again:
+
+- preview documentation
+- run tests
+- run test coverage
+- run scripts
+
+Without a command runner, everyone on the project may run slightly different commands. Over time, this creates friction and mistakes.
+
+A `justfile` gives a shared set of commands with clear names like `just docs` or `just test`.
+
+## `make` vs `just`
+
+`make` has been used for this for a long time, and it still works very well.
+
+`just` changes the developer experience:
+
+- syntax is simpler for task running
+- command names are easier to read
+- less boilerplate for common workflows
+- designed for command recipes (not only build dependency graphs)
+
+So for Python projects where we mostly want clean task shortcuts, `just` often feels more direct.
+
+## Simple example
+
+Install `just` from the [official website](https://just.systems/){target="_blank"}, then create a `justfile` at the root of your project:
+
+```bash
+# Preview docs locally
+docs:
+    uv run zensical serve
+
+# Run tests
+test:
+    uv run pytest
+
+# Run tests with coverage
+coverage:
+    uv run pytest --cov=my_package --cov-report=term-missing
+
+# Run one Python script
+script:
+    uv run python scripts/example.py
+```
+
+Then you can run:
+
+```bash
+just docs
+just test
+just coverage
+just script
+```
+
+## Why this helps in practice
+
+A small `justfile` gives your project a single command entrypoint. New contributors do not need to guess how to run things, and CI/local commands are easier to keep aligned.
+
+If you want details on the tasks themselves, see:
+
+- [Writing documentation](../code-quality/writing-documentation.html)
+- [Unit tests](../code-quality/unit-tests.html)

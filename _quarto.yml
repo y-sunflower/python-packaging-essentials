@@ -34,7 +34,7 @@ book:
     - part: blog/bonus/index.qmd
       chapters:
         - blog/bonus/miscellaneous.qmd
-        - blog/bonus/makefile.qmd
+        - blog/bonus/justfile.qmd
     - python-package-template.qmd
     - contributing.qmd
 
