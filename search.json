@@ -688,6 +688,72 @@
     ]
   },
   {
+    "objectID": "blog/bonus/type-hinting.html",
+    "href": "blog/bonus/type-hinting.html",
+    "title": "13  Type hinting",
+    "section": "",
+    "text": "What is Python type hinting\nThis blog post explains what type hinting is in the context of Python package development, what it changes in practice, and how tools like ty help you and your users catch issues before runtime.\nType hinting means annotating function arguments, return values, and variables with expected types.\nIn this example:\nType hints make your API easier to understand and document, especially when your package grows and other people contribute.",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Type hinting</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/type-hinting.html#what-is-python-type-hinting",
+    "href": "blog/bonus/type-hinting.html#what-is-python-type-hinting",
+    "title": "13  Type hinting",
+    "section": "",
+    "text": "sunflower/my_module.py\n\ndef count_sunflowers(text: str) -&gt; int:\n    return text.lower().split().count(\"sunflower\")\n\n\n\ntext: str says the function expects a string for the text argument.\n-&gt; int says the function returns an integer.",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Type hinting</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/type-hinting.html#what-type-hints-do-in-practice",
+    "href": "blog/bonus/type-hinting.html#what-type-hints-do-in-practice",
+    "title": "13  Type hinting",
+    "section": "What type hints do in practice",
+    "text": "What type hints do in practice\nType hints are mostly metadata unless you use external tools.\nAccording to the Python docs, runtime Python does not enforce annotations by default. That means:\n\nPython will not automatically reject wrong argument types just because you added annotations.\n\na: int = \"a\" # This does not raise an error\n\nAdding annotations does not make your code faster.\nType checking happens with separate tools called type checkers, not with the interpreter itself.\n\nSo the value of type hints comes from static analysis, better editor support, and clearer package APIs.",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Type hinting</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/type-hinting.html#what-type-checkers-are",
+    "href": "blog/bonus/type-hinting.html#what-type-checkers-are",
+    "title": "13  Type hinting",
+    "section": "What type checkers are",
+    "text": "What type checkers are\nA type checker reads your code and verifies that values flow through your program in ways that match the annotations.\nA modern option is ty, from Astral (the team behind uv and ruff).\n\nMinimal usage\nFrom a project directory:\nuvx ty check\nOr if ty is installed in your environment:\nty check\nUseful day-to-day commands:\nty check --watch\nty can also be configured in pyproject.toml under [tool.ty].\n\n\npyproject.toml\n\n[tool.ty.rules]\nall = \"warn\"\npossibly-unresolved-reference = \"error\"\n\n[tool.ty.terminal]\nerror-on-warning = true\n\nIn package development, this usually becomes part of your quality workflow, just like tests and linters.\nWhen developing a package, you’ll likely want to add it inside your code editor (VS Code, Vim, etc). This will make your life easier and catch type issues as soon as they arrive.",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Type hinting</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/type-hinting.html#how-to-create-custom-types",
+    "href": "blog/bonus/type-hinting.html#how-to-create-custom-types",
+    "title": "13  Type hinting",
+    "section": "How to create custom types",
+    "text": "How to create custom types\nCustom types are useful when your package has domain concepts that should be explicit.\n\nType aliases (type)\nGreat for readability when a shape is used repeatedly.\ntype UserRecord = dict[str, str | int]\n\ndef format_user(user: UserRecord) -&gt; str:\n    return f\"{user['name']} ({user['id']})\"\n\n\nNewType\nUseful when two values share the same runtime type but represent different concepts.\nfrom typing import NewType\n\nUserId = NewType(\"UserId\", int)\nOrderId = NewType(\"OrderId\", int)\n\ndef get_user(user_id: UserId) -&gt; str:\n    return f\"user-{user_id}\"\nA type checker can catch passing an OrderId where a UserId is expected.\n\n\nTypedDict\nUseful when your package accepts structured dictionaries.\nfrom typing import TypedDict\n\nclass PackageMeta(TypedDict):\n    name: str\n    version: str\n\n\ndef describe(meta: PackageMeta) -&gt; str:\n    return f\"{meta['name']}=={meta['version']}\"\nThis documents required keys and helps catch missing or invalid fields.",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Type hinting</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/type-hinting.html#impact-for-users-of-your-package",
+    "href": "blog/bonus/type-hinting.html#impact-for-users-of-your-package",
+    "title": "13  Type hinting",
+    "section": "Impact for users of your package",
+    "text": "Impact for users of your package\nType hints improve the experience of users who run a type checker (ty, mypy, pyright, etc.) in their own projects.\nWhen your package is typed well:\n\nusers get earlier feedback in their editor/CI before runtime,\nfunction signatures are clearer,\nintegration mistakes are caught sooner,\nrefactoring is safer on both your side and the user side.\n\nFor package maintainers, this means fewer avoidable bug reports caused by obvious misuse, and better API contracts over time.\n\nIf you want to go deeper, the best references are:\n\nPython typing docs: typing — Support for type hints\nAstral ty docs: docs.astral.sh/ty",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Type hinting</span>"
+    ]
+  },
+  {
     "objectID": "python-package-template.html",
     "href": "python-package-template.html",
     "title": "Python package template",

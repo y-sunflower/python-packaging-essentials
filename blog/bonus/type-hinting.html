@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>4&nbsp; Unit tests – Python Packaging Essentials</title>
+<title>13&nbsp; Type hinting – Python Packaging Essentials</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -68,8 +68,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../blog/code-quality/writing-documentation.html" rel="next">
-<link href="../../blog/code-quality/index.html" rel="prev">
+<link href="../../python-package-template.html" rel="next">
+<link href="../../blog/bonus/justfile.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -121,7 +121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../blog/code-quality/index.html">Code quality</a></li><li class="breadcrumb-item"><a href="../../blog/code-quality/unit-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Unit tests</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../blog/bonus/index.html">Bonus</a></li><li class="breadcrumb-item"><a href="../../blog/bonus/type-hinting.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Type hinting</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -196,7 +196,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../blog/code-quality/unit-tests.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../blog/code-quality/unit-tests.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Unit tests</span></span></a>
   </div>
 </li>
@@ -272,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../blog/bonus/type-hinting.html" class="sidebar-item-text sidebar-link">
+  <a href="../../blog/bonus/type-hinting.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Type hinting</span></span></a>
   </div>
 </li>
@@ -300,31 +300,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-unit-testing" id="toc-what-is-unit-testing" class="nav-link active" data-scroll-target="#what-is-unit-testing">What is unit testing</a>
+  <li><a href="#what-is-python-type-hinting" id="toc-what-is-python-type-hinting" class="nav-link active" data-scroll-target="#what-is-python-type-hinting">What is Python type hinting</a></li>
+  <li><a href="#what-type-hints-do-in-practice" id="toc-what-type-hints-do-in-practice" class="nav-link" data-scroll-target="#what-type-hints-do-in-practice">What type hints do in practice</a></li>
+  <li><a href="#what-type-checkers-are" id="toc-what-type-checkers-are" class="nav-link" data-scroll-target="#what-type-checkers-are">What type checkers are</a>
   <ul class="collapse">
-  <li><a href="#quick-definition" id="toc-quick-definition" class="nav-link" data-scroll-target="#quick-definition">Quick definition</a></li>
-  <li><a href="#pytest" id="toc-pytest" class="nav-link" data-scroll-target="#pytest">Pytest</a></li>
+  <li><a href="#minimal-usage" id="toc-minimal-usage" class="nav-link" data-scroll-target="#minimal-usage">Minimal usage</a></li>
   </ul></li>
-  <li><a href="#example-with-a-simple-function" id="toc-example-with-a-simple-function" class="nav-link" data-scroll-target="#example-with-a-simple-function">Example with a simple function</a>
+  <li><a href="#how-to-create-custom-types" id="toc-how-to-create-custom-types" class="nav-link" data-scroll-target="#how-to-create-custom-types">How to create custom types</a>
   <ul class="collapse">
-  <li><a href="#simple-function" id="toc-simple-function" class="nav-link" data-scroll-target="#simple-function">Simple function</a></li>
-  <li><a href="#simple-test-example-and-to-run-it" id="toc-simple-test-example-and-to-run-it" class="nav-link" data-scroll-target="#simple-test-example-and-to-run-it">Simple test example and to run it</a></li>
+  <li><a href="#type-aliases-type" id="toc-type-aliases-type" class="nav-link" data-scroll-target="#type-aliases-type">Type aliases (<code>type</code>)</a></li>
+  <li><a href="#newtype" id="toc-newtype" class="nav-link" data-scroll-target="#newtype"><code>NewType</code></a></li>
+  <li><a href="#typeddict" id="toc-typeddict" class="nav-link" data-scroll-target="#typeddict"><code>TypedDict</code></a></li>
   </ul></li>
-  <li><a href="#in-real-projects" id="toc-in-real-projects" class="nav-link" data-scroll-target="#in-real-projects">In real projects</a>
-  <ul class="collapse">
-  <li><a href="#backward-compatibility" id="toc-backward-compatibility" class="nav-link" data-scroll-target="#backward-compatibility">Backward compatibility</a></li>
-  <li><a href="#ci" id="toc-ci" class="nav-link" data-scroll-target="#ci">CI</a></li>
-  <li><a href="#collaborative-work-and-external-contributions" id="toc-collaborative-work-and-external-contributions" class="nav-link" data-scroll-target="#collaborative-work-and-external-contributions">Collaborative work and external contributions</a></li>
-  </ul></li>
+  <li><a href="#impact-for-users-of-your-package" id="toc-impact-for-users-of-your-package" class="nav-link" data-scroll-target="#impact-for-users-of-your-package">Impact for users of your package</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/code-quality/unit-tests.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/code-quality/unit-tests.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/bonus/type-hinting.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/bonus/type-hinting.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../blog/code-quality/index.html">Code quality</a></li><li class="breadcrumb-item"><a href="../../blog/code-quality/unit-tests.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Unit tests</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../blog/bonus/index.html">Bonus</a></li><li class="breadcrumb-item"><a href="../../blog/bonus/type-hinting.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Type hinting</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Unit tests</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Type hinting</span></h1>
 </div>
 
 
@@ -341,98 +338,123 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This blog post explains the interest of unit testing when developing a Python package. It’s <strong>not</strong> meant as an in-depth tutorial about how to do unit tests, but rather an overview of what problem it solves and how it is relevant to Python packaging.</p>
-<p>If you want to learn how to do unit testing, the best place to start is the <a href="https://docs.pytest.org/en/stable/" target="_blank">official documentation</a>.</p>
-<section id="what-is-unit-testing" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-unit-testing">What is unit testing</h2>
-<p>Unit testing is the practice of writing small, focused tests to verify that individual parts (units) of your code behave as expected. In the context of a Python package, unit tests help ensure that your functions, classes, and modules continue to work correctly as your code evolves.</p>
-<section id="quick-definition" class="level3">
-<h3 class="anchored" data-anchor-id="quick-definition">Quick definition</h3>
-<p>A <em>unit</em> is the smallest testable part of your application, typically a <strong>single function</strong>. A <em>unit test</em> checks if that function produces the correct output for a given input. These tests are automated and are typically run frequently during development.</p>
-</section>
-<section id="pytest" class="level3">
-<h3 class="anchored" data-anchor-id="pytest">Pytest</h3>
-<p><a href="https://pytest.org">Pytest</a> is a popular testing framework in the Python ecosystem. It’s known for its clean syntax, powerful features (like fixtures and parameterization), and ease of use. Pytest works with simple <code>assert</code> statements, so <strong>you don’t need to learn a special API to start testing</strong>.</p>
-</section>
-</section>
-<section id="example-with-a-simple-function" class="level2">
-<h2 class="anchored" data-anchor-id="example-with-a-simple-function">Example with a simple function</h2>
-<p>Let’s look at how unit tests work using a basic example. We assume that we have a package named <code>sunflower</code>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>│   └── __init__.py</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<section id="simple-function" class="level3">
-<h3 class="anchored" data-anchor-id="simple-function">Simple function</h3>
-<p>Suppose you have a function that counts how many times the word “sunflower” appears in a string:</p>
+<p>This blog post explains what type hinting is in the context of Python package development, what it changes in practice, and how tools like <a href="https://docs.astral.sh/ty/" target="_blank">ty</a> help you and your users catch issues before runtime.</p>
+<section id="what-is-python-type-hinting" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-python-type-hinting">What is Python type hinting</h2>
+<p>Type hinting means annotating function arguments, return values, and variables with expected types.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>sunflower/count_sunflower_module.py</strong></pre>
+<pre><strong>sunflower/my_module.py</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="sunflower/count_sunflower_module.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_sunflowers(s):</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> re.sub(<span class="vs">r"</span><span class="pp">[^a-zA-Z</span><span class="dv">\s</span><span class="pp">]</span><span class="vs">"</span>, <span class="st">""</span>, s)  <span class="co"># Remove non-text characters</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>   s <span class="op">=</span> s.lower()                      <span class="co"># Convert to lowercase</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>   n_sunflower <span class="op">=</span> s.split().count(<span class="st">"sunflower"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>   n_sunflowers <span class="op">=</span> s.split().count(<span class="st">"sunflowers"</span>)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> n_sunflower <span class="op">+</span> n_sunflowers</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="sunflower/my_module.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_sunflowers(text: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">int</span>:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> text.lower().split().count(<span class="st">"sunflower"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="simple-test-example-and-to-run-it" class="level3">
-<h3 class="anchored" data-anchor-id="simple-test-example-and-to-run-it">Simple test example and to run it</h3>
-<p>A test is actually a function (or a class) that calls the function we want to test. This new function must</p>
+<p>In this example:</p>
 <ul>
-<li>start with <code>test_</code></li>
-<li>be in a file in the <code>tests/</code> directory in a file that starts with <code>test</code></li>
+<li><code>text: str</code> says the function expects a string for the <code>text</code> argument.</li>
+<li><code>-&gt; int</code> says the function returns an integer.</li>
 </ul>
-<p>For instance, our project could be organized as follows:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sunflower/</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>├── sunflower/</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>│   ├── __init__.py</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>│   └── count_sunflower_module.py</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>├── tests/</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>│   └── test_count_sunflower.py</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>└── pyproject.toml</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Our test function will verify if our original function <strong>behaves as expected</strong>. For example, we can test <code>count_sunflowers()</code> with the following test:</p>
+<p>Type hints make your API easier to understand and document, especially when your package grows and other people contribute.</p>
+</section>
+<section id="what-type-hints-do-in-practice" class="level2">
+<h2 class="anchored" data-anchor-id="what-type-hints-do-in-practice">What type hints do in practice</h2>
+<p>Type hints are mostly metadata unless you use external tools.</p>
+<p>According to the Python docs, runtime Python does not enforce annotations by default. That means:</p>
+<ul>
+<li>Python will not automatically reject wrong argument types just because you added annotations.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>a: <span class="bu">int</span> <span class="op">=</span> <span class="st">"a"</span> <span class="co"># This does not raise an error</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>Adding annotations does not make your code faster.</li>
+<li>Type checking happens with <strong>separate tools</strong> called type checkers, not with the interpreter itself.</li>
+</ul>
+<p>So the value of type hints comes from static analysis, better editor support, and clearer package APIs.</p>
+</section>
+<section id="what-type-checkers-are" class="level2">
+<h2 class="anchored" data-anchor-id="what-type-checkers-are">What type checkers are</h2>
+<p>A type checker reads your code and verifies that values flow through your program in ways that match the annotations.</p>
+<p>A modern option is <a href="https://docs.astral.sh/ty/" target="_blank">ty</a>, from Astral (the team behind <code>uv</code> and <code>ruff</code>).</p>
+<section id="minimal-usage" class="level3">
+<h3 class="anchored" data-anchor-id="minimal-usage">Minimal usage</h3>
+<p>From a project directory:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uvx</span> ty check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or if <code>ty</code> is installed in your environment:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ty</span> check</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Useful day-to-day commands:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">ty</span> check <span class="at">--watch</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>ty</code> can also be configured in <code>pyproject.toml</code> under <code>[tool.ty]</code>.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
-<pre><strong>tests/test_count_sunflower.py</strong></pre>
+<pre><strong>pyproject.toml</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="tests/test_count_sunflower.py"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytest</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sunflower <span class="im">import</span> count_sunflowers</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_count_sunflowers():</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> count_sunflowers(<span class="st">"sunflower sunflower cake"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    expected <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> output <span class="op">==</span> expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" data-filename="pyproject.toml"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[tool.ty.rules]</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">all</span> <span class="op">=</span> <span class="st">"warn"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">possibly-unresolved-reference</span> <span class="op">=</span> <span class="st">"error"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">[tool.ty.terminal]</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="dt">error-on-warning</span> <span class="op">=</span> <span class="cn">true</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>To run the test, simply use the <code>pytest</code> command in the terminal:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pytest</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>If the result of <code>assert output == expected</code> is <code>True</code>, then pytest will tell us that everything’s fine, otherwise an error message with details on where the error comes from for debugging.</p>
+<p>In package development, this usually becomes part of your quality workflow, just like tests and linters.</p>
+<p>When developing a package, you’ll likely want to add it inside your code editor (VS Code, Vim, etc). This will make your life easier and catch type issues as soon as they arrive.</p>
 </section>
 </section>
-<section id="in-real-projects" class="level2">
-<h2 class="anchored" data-anchor-id="in-real-projects">In real projects</h2>
-<p>Unit testing becomes even more valuable as your project grows and others start using or contributing to it.</p>
-<section id="backward-compatibility" class="level3">
-<h3 class="anchored" data-anchor-id="backward-compatibility">Backward compatibility</h3>
-<p>Tests protect against accidental changes that could break existing behavior. If you modify a function, running your tests will quickly show if the new version still satisfies the old expectations.</p>
-<p>For example, let’s say we modify our <code>count_sunflowers()</code> function in order to make it 2x faster. <strong>This change should not make anything different</strong> from the user point of view, it should just be faster.</p>
+<section id="how-to-create-custom-types" class="level2">
+<h2 class="anchored" data-anchor-id="how-to-create-custom-types">How to create custom types</h2>
+<p>Custom types are useful when your package has domain concepts that should be explicit.</p>
+<section id="type-aliases-type" class="level3">
+<h3 class="anchored" data-anchor-id="type-aliases-type">Type aliases (<code>type</code>)</h3>
+<p>Great for readability when a shape is used repeatedly.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span> UserRecord <span class="op">=</span> <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">str</span> <span class="op">|</span> <span class="bu">int</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> format_user(user: UserRecord) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>user[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span>user[<span class="st">'id'</span>]<span class="sc">}</span><span class="ss">)"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
-<section id="ci" class="level3">
-<h3 class="anchored" data-anchor-id="ci">CI</h3>
-<p>Unit tests are often run automatically using Continuous Integration (CI) tools like GitHub Actions. Whenever someone pushes a commit or opens a pull request, the CI system runs the test suite to make sure nothing is broken. This reinforces trust in the codebase and speeds up development.</p>
-<p>There is a <a href="./../workflow/github-actions">dedicated blog post</a> that covers GitHub Actions in more detail.</p>
+<section id="newtype" class="level3">
+<h3 class="anchored" data-anchor-id="newtype"><code>NewType</code></h3>
+<p>Useful when two values share the same runtime type but represent different concepts.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> NewType</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>UserId <span class="op">=</span> NewType(<span class="st">"UserId"</span>, <span class="bu">int</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>OrderId <span class="op">=</span> NewType(<span class="st">"OrderId"</span>, <span class="bu">int</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_user(user_id: UserId) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"user-</span><span class="sc">{</span>user_id<span class="sc">}</span><span class="ss">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A type checker can catch passing an <code>OrderId</code> where a <code>UserId</code> is expected.</p>
 </section>
-<section id="collaborative-work-and-external-contributions" class="level3">
-<h3 class="anchored" data-anchor-id="collaborative-work-and-external-contributions">Collaborative work and external contributions</h3>
-<p>Having a robust test suite helps contributors understand what your code is supposed to do. It also encourages better code quality and smoother collaboration, since developers <strong>can make changes confidently</strong> and verify them with tests.</p>
+<section id="typeddict" class="level3">
+<h3 class="anchored" data-anchor-id="typeddict"><code>TypedDict</code></h3>
+<p>Useful when your package accepts structured dictionaries.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> typing <span class="im">import</span> TypedDict</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PackageMeta(TypedDict):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    name: <span class="bu">str</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    version: <span class="bu">str</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> describe(meta: PackageMeta) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"</span><span class="sc">{</span>meta[<span class="st">'name'</span>]<span class="sc">}</span><span class="ss">==</span><span class="sc">{</span>meta[<span class="st">'version'</span>]<span class="sc">}</span><span class="ss">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This documents required keys and helps catch missing or invalid fields.</p>
+</section>
+</section>
+<section id="impact-for-users-of-your-package" class="level2">
+<h2 class="anchored" data-anchor-id="impact-for-users-of-your-package">Impact for users of your package</h2>
+<p>Type hints improve the experience of users who run a type checker (<code>ty</code>, mypy, pyright, etc.) in their own projects.</p>
+<p>When your package is typed well:</p>
+<ul>
+<li>users get earlier feedback in their editor/CI before runtime,</li>
+<li>function signatures are clearer,</li>
+<li>integration mistakes are caught sooner,</li>
+<li>refactoring is safer on both your side and the user side.</li>
+</ul>
+<p>For package maintainers, this means fewer avoidable bug reports caused by obvious misuse, and better API contracts over time.</p>
 <p><br><br></p>
-<p>To learn more about how and why to write unit tests, check out the <a href="https://docs.pytest.org/en/stable/" target="_blank">official documentation</a>.</p>
+<p>If you want to go deeper, the best references are:</p>
+<ul>
+<li>Python typing docs: <a href="https://docs.python.org/3/library/typing.html" target="_blank">typing — Support for type hints</a></li>
+<li>Astral <code>ty</code> docs: <a href="https://docs.astral.sh/ty/" target="_blank">docs.astral.sh/ty</a></li>
+</ul>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -838,13 +860,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../blog/code-quality/index.html" class="pagination-link" aria-label="Code quality">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Code quality</span>
+      <a href="../../blog/bonus/justfile.html" class="pagination-link" aria-label="Just and justfile">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Just and justfile</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../blog/code-quality/writing-documentation.html" class="pagination-link" aria-label="Writing documentation">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Writing documentation</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../python-package-template.html" class="pagination-link" aria-label="Python package template">
+        <span class="nav-page-text">Python package template</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -853,4 +875,4 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/code-quality/unit-tests.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/code-quality/unit-tests.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/y-sunflower/python-packaging-essentials/blob/main/blog/bonus/type-hinting.qmd" class="toc-action"><i class="bi bi-github"></i>View source</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/edit/main/blog/bonus/type-hinting.qmd" class="toc-action"><i class="bi empty"></i>Edit this page</a></li><li><a href="https://github.com/y-sunflower/python-packaging-essentials/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
