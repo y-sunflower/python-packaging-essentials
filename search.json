@@ -633,6 +633,61 @@
     ]
   },
   {
+    "objectID": "blog/bonus/justfile.html",
+    "href": "blog/bonus/justfile.html",
+    "title": "12  Just and justfile",
+    "section": "",
+    "text": "What problem it solves\njust is a command runner. A justfile is where you define reusable commands (called recipes) for your project.\nThe main goal is simple: avoid remembering long terminal commands, and keep common development tasks in one place.\nWhen working on a package, we run the same things again and again:\nWithout a command runner, everyone on the project may run slightly different commands. Over time, this creates friction and mistakes.\nA justfile gives a shared set of commands with clear names like just docs or just test.",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Just and justfile</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/justfile.html#what-problem-it-solves",
+    "href": "blog/bonus/justfile.html#what-problem-it-solves",
+    "title": "12  Just and justfile",
+    "section": "",
+    "text": "preview documentation\nrun tests\nrun test coverage\nrun scripts",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Just and justfile</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/justfile.html#make-vs-just",
+    "href": "blog/bonus/justfile.html#make-vs-just",
+    "title": "12  Just and justfile",
+    "section": "make vs just",
+    "text": "make vs just\nmake has been used for this for a long time, and it still works very well.\njust changes the developer experience:\n\nsyntax is simpler for task running\ncommand names are easier to read\nless boilerplate for common workflows\ndesigned for command recipes (not only build dependency graphs)\n\nSo for Python projects where we mostly want clean task shortcuts, just often feels more direct.",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Just and justfile</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/justfile.html#simple-example",
+    "href": "blog/bonus/justfile.html#simple-example",
+    "title": "12  Just and justfile",
+    "section": "Simple example",
+    "text": "Simple example\nInstall just from the official website, then create a justfile at the root of your project:\n# Preview docs locally\ndocs:\n    uv run zensical serve\n\n# Run tests\ntest:\n    uv run pytest\n\n# Run tests with coverage\ncoverage:\n    uv run pytest --cov=my_package --cov-report=term-missing\n\n# Run one Python script\nscript:\n    uv run python scripts/example.py\nThen you can run:\njust docs\njust test\njust coverage\njust script",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Just and justfile</span>"
+    ]
+  },
+  {
+    "objectID": "blog/bonus/justfile.html#why-this-helps-in-practice",
+    "href": "blog/bonus/justfile.html#why-this-helps-in-practice",
+    "title": "12  Just and justfile",
+    "section": "Why this helps in practice",
+    "text": "Why this helps in practice\nA small justfile gives your project a single command entrypoint. New contributors do not need to guess how to run things, and CI/local commands are easier to keep aligned.\nIf you want details on the tasks themselves, see:\n\nWriting documentation\nUnit tests",
+    "crumbs": [
+      "Bonus",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>Just and justfile</span>"
+    ]
+  },
+  {
     "objectID": "python-package-template.html",
     "href": "python-package-template.html",
     "title": "Python package template",
